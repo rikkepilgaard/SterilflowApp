@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Bufferzones>
+    <Bufferzone>
+        <Name>Bufferområde 202</Name>
+        <gln>urn:epc:id:sgln:57980101.8705.0</gln>
+        <Latitude>56.191935800971</Latitude>
+        <Longitude>10.1694486931553</Longitude>
+        <ContainedIn></ContainedIn>
+    </Bufferzone>
+    <Bufferzone>
+        <Name>Ren Buffer Sterilcentral</Name>
+        <gln>urn:epc:id:sgln:57980101.7856.0</gln>
+        <Latitude>56.1909111982989</Latitude>
+        <Longitude>10.1764235430641</Longitude>
+        <ContainedIn></ContainedIn>
+    </Bufferzone>
+    <Bufferzone>
+        <Name>Bufferområde 109</Name>
+        <gln>urn:epc:id:sgln:57980102.6407.0</gln>
+        <Latitude>56.1884659745971</Latitude>
+        <Longitude>10.1710639055043</Longitude>
+        <ContainedIn></ContainedIn>
+    </Bufferzone>
+    <Bufferzone>
+        <Name>Bufferområde 120</Name>
+        <gln>urn:epc:id:sgln:57980102.6410.0</gln>
+        <Latitude></Latitude>
+        <Longitude></Longitude>
+        <ContainedIn></ContainedIn>
+    </Bufferzone>
+    <Bufferzone>
+        <Name></Name>
+        <gln></gln>
+        <Latitude></Latitude>
+        <Longitude></Longitude>
+        <ContainedIn></ContainedIn>
+    </Bufferzone>
+
+</Bufferzones>
