@@ -22,18 +22,38 @@
         <ContainedIn></ContainedIn>
     </Bufferzone>
     <Bufferzone>
-        <Name>Bufferområde 120</Name>
-        <gln>urn:epc:id:sgln:57980102.6410.0</gln>
-        <Latitude></Latitude>
-        <Longitude></Longitude>
+        <Name>Bufferområde 109</Name>
+        <gln>urn:epc:id:sgln:57980102.6407.0</gln>
+        <Latitude>56.1884659745971</Latitude>
+        <Longitude>10.1710639055043</Longitude>
         <ContainedIn></ContainedIn>
     </Bufferzone>
     <Bufferzone>
-        <Name></Name>
-        <gln></gln>
-        <Latitude></Latitude>
-        <Longitude></Longitude>
+        <Name>Bufferområde 120</Name>
+        <gln>urn:epc:id:sgln:57980102.6410.0</gln>
+        <Latitude>56.1883109482659</Latitude>
+        <Longitude>10,1700603905993</Longitude>
         <ContainedIn></ContainedIn>
     </Bufferzone>
-
+    <Bufferzone>
+        <Name>Gang uden for Sterillager Nord J105</Name>
+        <gln>urn:epc:id:sgln:57980101.5946.0</gln><!-- gln-nummer ikke det rigtige!!-->
+        <Latitude>56.191440</Latitude><!-- lat ikke det rigtige!!-->
+        <Longitude>10.167557</Longitude><!-- long ikke det rigtige!!-->
+        <ContainedIn></ContainedIn>
+    </Bufferzone>
+    <Bufferzone>
+        <Name>Bufferområde 232-P1</Name>
+        <gln>urn:epc:id:sgln:57980101.3660.0</gln><!-- gln-nummer ikke det rigtige!!-->
+        <Latitude>56.191202369085</Latitude>
+        <Longitude>10.167302808033</Longitude>
+        <ContainedIn></ContainedIn>
+    </Bufferzone>
+    <Bufferzone>
+        <Name>Bufferområde 236-P1</Name>
+        <gln>urn:epc:id:sgln:57980102.8548.0</gln>
+        <Latitude>56.191068</Latitude><!-- lat ikke det rigtige!!-->
+        <Longitude>10.167047</Longitude><!-- long ikke det rigtige!!-->
+        <ContainedIn></ContainedIn>
+    </Bufferzone>
 </Bufferzones>
