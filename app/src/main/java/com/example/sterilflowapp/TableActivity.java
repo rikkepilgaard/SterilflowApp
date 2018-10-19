@@ -1,8 +1,9 @@
 package com.example.sterilflowapp;
 
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -14,19 +15,38 @@ import java.util.ArrayList;
 
 public class TableActivity extends AppCompatActivity {
 
-    TextView txt;
+    TabLayout tabLayout;
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
 
-        txt = findViewById(R.id.textView);
+        tabLayout = findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.viewPager);
+
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_icon_a_24);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_icon_b_24);
+
 
         parseXML();
     }
 
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        String firstText = getResources().getString(R.string.tab_a_label);
+        String secondText = getResources().getString(R.string.tab_b_label);
+        viewPagerAdapter.addFragment(new FragmentOne(),firstText);
+        viewPagerAdapter.addFragment(new FragmentTwo(),secondText);
+        viewPager.setAdapter(viewPagerAdapter);
+    }
+
     private void parseXML() {
+        //https://www.youtube.com/watch?v=-deKKeEdpbw
         XmlPullParserFactory parserFactory;
         try {
             parserFactory = XmlPullParserFactory.newInstance();
@@ -45,6 +65,7 @@ public class TableActivity extends AppCompatActivity {
     }
 
     private void processParsing(XmlPullParser parser) throws IOException,XmlPullParserException {
+        //https://www.youtube.com/watch?v=-deKKeEdpbw
         ArrayList<BufferZone> bufferZones = new ArrayList<>();
         int eventType = parser.getEventType();
         BufferZone currentBuffer = null;
@@ -61,13 +82,13 @@ public class TableActivity extends AppCompatActivity {
                         bufferZones.add(currentBuffer);
                     } else if (currentBuffer != null){
                         if ("Name".equals(zone)){
-                            currentBuffer.name = parser.nextText();
+                            currentBuffer.setName(parser.nextText());
                         } else if("gln".equals(zone)){
-                            currentBuffer.gln = parser.nextText();
+                            currentBuffer.setGln(parser.nextText());
                         } else if ("Latitude".equals(zone)){
-                            currentBuffer.latitude = parser.nextText();
+                            currentBuffer.setLatitude(parser.nextText());
                         } else if ("Longitude".equals(zone)){
-                            currentBuffer.longitude = parser.nextText();
+                            currentBuffer.setLongitude(parser.nextText());
                         }
 
                     }
@@ -77,21 +98,24 @@ public class TableActivity extends AppCompatActivity {
             eventType = parser.next();
         }
 
-        printBuffers(bufferZones);
+        //printBuffers(bufferZones);
     }
 
+    /*
     private void printBuffers(ArrayList<BufferZone> bufferZones) {
-        StringBuilder builder = new StringBuilder();
+
 
         for(BufferZone buffer : bufferZones){
-            builder.append(buffer.name).append("\n")
-                    .append(buffer.gln).append("\n")
-                    .append(buffer.latitude).append("\n")
-                    .append(buffer.longitude).append("\n\n");
+            TableRow row = new TableRow(this);
+
+            TextView tv = new TextView(this);
+            tv.setText(buffer.getName());
+
+            row.addView(tv);
+            tableLayout.addView(row);
         }
 
-        txt.setText(builder.toString());
 
     }
-
+*/
 }
