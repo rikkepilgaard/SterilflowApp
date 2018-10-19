@@ -1,6 +1,8 @@
 package com.example.sterilflowapp;
 
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,15 +15,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class TableActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
+
+    private FragmentOne fragmentOne;
+    private FragmentTwo fragmentTwo;
 
     TabLayout tabLayout;
     ViewPager viewPager;
+    private ArrayList<BufferZone> bufferZones;
+    private ArrayList<TrackEvent> trackEventArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_table);
+        setContentView(R.layout.activity_main);
+
+        fragmentOne = new FragmentOne();
+        fragmentTwo = new FragmentTwo();
+
+        trackEventArrayList = new ArrayList<>();
+
+        trackEventArrayList.add(new TrackEvent("dasda","dadas","fafaf","ggrgr","desad","fafa","fefa","fesfs","faafef","dada","daadwa"));
 
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.viewPager);
@@ -34,6 +48,14 @@ public class TableActivity extends AppCompatActivity {
 
 
         parseXML();
+    }
+
+    public ArrayList<BufferZone> getBufferZoneList(){
+        return bufferZones;
+    }
+
+    public ArrayList<TrackEvent> getTrackEventArrayList(){
+        return trackEventArrayList;
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -66,7 +88,7 @@ public class TableActivity extends AppCompatActivity {
 
     private void processParsing(XmlPullParser parser) throws IOException,XmlPullParserException {
         //https://www.youtube.com/watch?v=-deKKeEdpbw
-        ArrayList<BufferZone> bufferZones = new ArrayList<>();
+        bufferZones = new ArrayList<>();
         int eventType = parser.getEventType();
         BufferZone currentBuffer = null;
 
