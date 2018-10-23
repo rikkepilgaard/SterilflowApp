@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,9 +30,9 @@ public class FragmentOne extends Fragment {
     TableLayout tableLayout;
     MainActivity activity;
 
-    ArrayList<BufferZone> bufferZones;
+    private ArrayList<BufferZone> bufferZones;
 
-    ArrayList<TrackEvent> trackEvents;
+    private ArrayList<TrackEvent> trackEvents;
 
     private boolean isOpen = false;
 
@@ -73,26 +74,28 @@ public class FragmentOne extends Fragment {
 
         TableRow row = new TableRow(getActivity().getApplicationContext());
 
+        row.setBackgroundColor(getResources().getColor(R.color.columnColor));
+
         TextView tv2 = new TextView(getActivity().getApplicationContext());
-        tv2.setText("Bufferområde");
+        tv2.setText(R.string.bufferomrade);
         tv2.setGravity(Gravity.CENTER);
         tv2.setPadding(5, 30, 5, 30);
         tv2.setTypeface(null, Typeface.BOLD);
-        tv2.setBackgroundColor(Color.parseColor("#bdbdbd"));
+        //tv2.setBackgroundColor(getResources().getColor(R.color.columnColor));
 
         TextView tv3 = new TextView(getActivity().getApplicationContext());
-        tv3.setText("Antal vogne");
+        tv3.setText(R.string.number_of_wagons);
         tv3.setPadding(5, 30, 5, 30);
         tv3.setTypeface(null, Typeface.BOLD);
         tv3.setGravity(Gravity.CENTER);
-        tv3.setBackgroundColor(Color.parseColor("#bdbdbd"));
+        //tv3.setBackgroundColor(Color.parseColor("#bdbdbd"));
 
 
         TextView tv4 = new TextView(getActivity().getApplicationContext());
         tv4.setText("");
         tv4.setTypeface(null, Typeface.BOLD);
         tv4.setPadding(5, 30, 5, 30);
-        tv4.setBackgroundColor(Color.parseColor("#bdbdbd"));
+        //tv4.setBackgroundColor(Color.parseColor("#bdbdbd"));
         //tv4.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 //getResources().getDimension(R.dimen.bigger_textsize));
 
@@ -173,21 +176,23 @@ public class FragmentOne extends Fragment {
         String currentValue = "";
         ArrayList<TrackEvent> newList = new ArrayList<>();
 
-        for (int i = trackList.size()-1; i >= 0; i--){
-            TrackEvent event = trackList.get(i);
+        if(trackList != null) {
+            for (int i = trackList.size() - 1; i >= 0; i--) {
+                TrackEvent event = trackList.get(i);
 
-            if(event.getObjectkey() !=null){
-                currentValue = event.getObjectkey();
-            }
-            if(!currentValue.equals(lastValue)){
-                newList.add(event);
-                lastValue = currentValue;
+                if (event.getObjectkey() != null) {
+                    currentValue = event.getObjectkey();
+                }
+                if (!currentValue.equals(lastValue)) {
+                    newList.add(event);
+                    lastValue = currentValue;
+                }
             }
         }
         return newList;
     }
 
-    public void wagonInBufferzones(){
+    private void wagonInBufferzones(){
 
         ArrayList<TrackEvent> arrayList = newestEvents(trackEvents);
 
@@ -207,7 +212,7 @@ public class FragmentOne extends Fragment {
                             if (event.getEventTime().equals(trackEvent.getEventTime())) {
                                 if (event.getLocationSgln().equals(trackEvent.getLocationSgln())) {
                                     TrackEvent event1 = trackEvents.get(h-1);
-                                    if (event1.getLocationSgln().equals(bufferZones.get(j).getFormerLocation())) {
+                                    if (event1.getLocationSgln().equals(bufferZones.get(j).getFormerGln())) {
                                         list.add(trackEvent);
                                         bufferZones.get(j).setVogneList(list);
                                     }
@@ -220,9 +225,9 @@ public class FragmentOne extends Fragment {
         }
     }
 
-    void addRows(View v, BufferZone bz, int index){
+    private void addRows(View v, BufferZone bz, int index){
 
-        if(isOpen == false) {
+        if(!isOpen) {
 
             v.setBackgroundColor(Color.parseColor("#e0e0e0"));
 
@@ -231,7 +236,7 @@ public class FragmentOne extends Fragment {
 
             String id1 = "Vogn ID";
             String placedAtTime1 = "Har stået siden";
-            String beenThereSince1 = "Har stået i \n [hh:mm]";
+            String beenThereSince1 = "Har stået i";
 
             TextView tv11 = new TextView(getActivity().getApplicationContext());
             tv11.setText(id1);
@@ -285,7 +290,7 @@ public class FragmentOne extends Fragment {
                 tv3.setPadding(5, 30, 5, 30); */
 
                     TextView tv4 = new TextView(getActivity().getApplicationContext());
-                    timeCounter("17-10-2018 08:30", tv4);
+                    timeCounter(wagon.getEventTime(), tv4);
                     tv4.setPadding(5, 30, 5, 30);
                     tv4.setGravity(Gravity.CENTER);
 
@@ -354,11 +359,13 @@ public class FragmentOne extends Fragment {
                                 String diffHoursText = (diffHours < 10 ? "0" : "") + diffHours;
                                 String diffDaysText = (diffDays < 10 ? "0" : "") + diffDays;
 
+                                String text = diffHoursText + "<b>t </b>" + diffMinutesText + "<b>m </b>";
+
                                 if(diffDays != 0)
                                 {
                                     textView.setText(diffDaysText + ":" + diffHoursText + ":" + diffMinutesText);
                                 }
-                                else textView.setText(diffHoursText + ":" + diffMinutesText);
+                                else textView.setText(Html.fromHtml(text));
 
                                 //textView.setText(String.valueOf(DateUtils.formatElapsedTime(diffSeconds)));
                             }

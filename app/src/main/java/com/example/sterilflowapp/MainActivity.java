@@ -1,11 +1,17 @@
 package com.example.sterilflowapp;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -17,25 +23,31 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FragmentOne fragmentOne;
-    private FragmentTwo fragmentTwo;
+    private static final String TAG = "MainActivity";
+    //private FragmentOne fragmentOne;
+    //private FragmentTwo fragmentTwo;
 
     TabLayout tabLayout;
     ViewPager viewPager;
     private ArrayList<BufferZone> bufferZones;
     private ArrayList<TrackEvent> trackEventArrayList;
 
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fragmentOne = new FragmentOne();
-        fragmentTwo = new FragmentTwo();
+        // Kun nødvendigt når fragment 1 skal opdateres med info fra fragment 2.
+        //fragmentOne = new FragmentOne();
+        //fragmentTwo = new FragmentTwo();
 
-        trackEventArrayList = new ArrayList<>();
 
-        trackEventArrayList.add(new TrackEvent("dasda","dadas","fafaf","ggrgr","desad","fafa","fefa","fesfs","faafef","dada","daadwa"));
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference().child("TrackEvents");
+
 
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.viewPager);
@@ -46,9 +58,48 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_icon_a_24);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_icon_b_24);
 
+        reference.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+
+                trackEventArrayList = new ArrayList<>();
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    for (DataSnapshot ds1 : ds.getChildren()) {
+                        for (DataSnapshot ds2 : ds1.getChildren()) {
+                            TrackEvent trackEvent = ds2.getValue(TrackEvent.class);
+                            trackEventArrayList.add(trackEvent);
+                        }
+                    }
+                }
+
+                /*
+                Iterable<DataSnapshot> snapshots = dataSnapshot.getChildren();
+                while (snapshots.iterator().hasNext())
+                {
+                    trackEventsList.add(snapshots.iterator().next().getValue(TrackEvent.class));
+                }
+                */
+
+                //createSamples(trackEventsList);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
 
         parseXML();
+
+        //bufferZones.get(0).setFormerGln("hej123"); //TEST FOR AT SE OM METODER I FRAGMENTONE VIRKER.
     }
+
 
     public ArrayList<BufferZone> getBufferZoneList(){
         return bufferZones;
@@ -99,18 +150,22 @@ public class MainActivity extends AppCompatActivity {
                 case XmlPullParser.START_TAG:
                     zone = parser.getName();
 
-                    if("Bufferzone".equals(zone)){
+                    if("bufferzone".equals(zone)){
                         currentBuffer = new BufferZone();
                         bufferZones.add(currentBuffer);
                     } else if (currentBuffer != null){
-                        if ("Name".equals(zone)){
+                        if ("name".equals(zone)){
                             currentBuffer.setName(parser.nextText());
                         } else if("gln".equals(zone)){
                             currentBuffer.setGln(parser.nextText());
-                        } else if ("Latitude".equals(zone)){
+                        } else if("formerGln".equals(zone)) {
+                            currentBuffer.setFormerGln(zone);
+                        } else if ("latitude".equals(zone)){
                             currentBuffer.setLatitude(parser.nextText());
-                        } else if ("Longitude".equals(zone)){
+                        } else if ("longitude".equals(zone)){
                             currentBuffer.setLongitude(parser.nextText());
+                        } else if("location".equals(zone)){
+                            currentBuffer.setLocationName(parser.nextText());
                         }
 
                     }
@@ -120,24 +175,6 @@ public class MainActivity extends AppCompatActivity {
             eventType = parser.next();
         }
 
-        //printBuffers(bufferZones);
     }
 
-    /*
-    private void printBuffers(ArrayList<BufferZone> bufferZones) {
-
-
-        for(BufferZone buffer : bufferZones){
-            TableRow row = new TableRow(this);
-
-            TextView tv = new TextView(this);
-            tv.setText(buffer.getName());
-
-            row.addView(tv);
-            tableLayout.addView(row);
-        }
-
-
-    }
-*/
 }

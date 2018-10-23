@@ -1,52 +1,66 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Bufferzones>
-    <Bufferzone>
-        <Name>Bufferområde 202</Name>
+<bufferzones>
+    <bufferzone>
+        <name>Bufferområde 202</name>
         <gln>urn:epc:id:sgln:57980101.8705.0</gln>
-        <Latitude>56.191935800971</Latitude>
-        <Longitude>10.1694486931553</Longitude>
-        <ContainedIn></ContainedIn>
-    </Bufferzone>
-    <Bufferzone>
-        <Name>Ren Buffer Sterilcentral</Name>
+        <formerGln></formerGln>
+        <latitude>56.191935800971</latitude>
+        <longitude>10.1694486931553</longitude>
+        <location></location>
+        <containedIn></containedIn>
+    </bufferzone>
+    <bufferzone>
+        <name>Ren Buffer Sterilcentral</name>
         <gln>urn:epc:id:sgln:57980101.7856.0</gln>
-        <Latitude>56.1909111982989</Latitude>
-        <Longitude>10.1764235430641</Longitude>
-        <ContainedIn></ContainedIn>
-    </Bufferzone>
-    <Bufferzone>
-        <Name>Bufferområde 109</Name>
+        <formerGln></formerGln>
+        <latitude>56.1909111982989</latitude>
+        <longitude>10.1764235430641</longitude>
+        <location></location>
+        <containedIn></containedIn>
+    </bufferzone>
+    <bufferzone>
+        <name>Bufferområde 109</name>
         <gln>urn:epc:id:sgln:57980102.6407.0</gln>
-        <Latitude>56.1884659745971</Latitude>
-        <Longitude>10.1710639055043</Longitude>
-        <ContainedIn></ContainedIn>
-    </Bufferzone>
-    <Bufferzone>
-        <Name>Bufferområde 120</Name>
+        <formerGln></formerGln>
+        <latitude>56.1884659745971</latitude>
+        <longitude>10.1710639055043</longitude>
+        <location></location>
+        <containedIn></containedIn>
+    </bufferzone>
+    <bufferzone>
+        <name>Bufferområde 120</name>
         <gln>urn:epc:id:sgln:57980102.6410.0</gln>
-        <Latitude>56.1883109482659</Latitude>
-        <Longitude>10,1700603905993</Longitude>
-        <ContainedIn></ContainedIn>
-    </Bufferzone>
-    <Bufferzone>
-        <Name>Sterillager Nord J105</Name>
+        <formerGln></formerGln>
+        <latitude>56.1883109482659</latitude>
+        <longitude>10,1700603905993</longitude>
+        <location></location>
+        <containedIn></containedIn>
+    </bufferzone>
+    <bufferzone>
+        <name>Sterillager Nord J105</name>
         <gln>urn:epc:id:sgln:57980101.5946.0</gln><!-- gln-nummer ikke det rigtige!!-->
-        <Latitude>56.191440</Latitude><!-- lat ikke det rigtige!!-->
-        <Longitude>10.167557</Longitude><!-- long ikke det rigtige!!-->
-        <ContainedIn></ContainedIn>
-    </Bufferzone>
-    <Bufferzone>
-        <Name>Bufferområde 232-P1</Name>
+        <formerGln></formerGln>
+        <latitude>56.191440</latitude><!-- lat ikke det rigtige!!-->
+        <longitude>10.167557</longitude><!-- long ikke det rigtige!!-->
+        <location></location>
+        <containedIn></containedIn>
+    </bufferzone>
+    <bufferzone>
+        <name>Bufferområde 232-P1</name>
         <gln>urn:epc:id:sgln:57980101.3660.0</gln><!-- gln-nummer ikke det rigtige!!-->
-        <Latitude>56.191202369085</Latitude>
-        <Longitude>10.167302808033</Longitude>
-        <ContainedIn></ContainedIn>
-    </Bufferzone>
-    <Bufferzone>
-        <Name>Bufferområde 236-P1</Name>
+        <formerGln></formerGln>
+        <latitude>56.191202369085</latitude>
+        <longitude>10.167302808033</longitude>
+        <location></location>
+        <containedIn></containedIn>
+    </bufferzone>
+    <bufferzone>
+        <name>Bufferområde 236-P1</name>
         <gln>urn:epc:id:sgln:57980102.8548.0</gln>
-        <Latitude>56.191068</Latitude><!-- lat ikke det rigtige!!-->
-        <Longitude>10.167047</Longitude><!-- long ikke det rigtige!!-->
-        <ContainedIn></ContainedIn>
-    </Bufferzone>
-</Bufferzones>
+        <formerGln></formerGln>
+        <latitude>56.191068</latitude><!-- lat ikke det rigtige!!-->
+        <longitude>10.167047</longitude><!-- long ikke det rigtige!!-->
+        <location></location>
+        <containedIn></containedIn>
+    </bufferzone>
+</bufferzones>

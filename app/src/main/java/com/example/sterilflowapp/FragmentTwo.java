@@ -28,7 +28,7 @@ public class FragmentTwo extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_two, container, false);
 
-        textView = getActivity().findViewById(R.id.textview1);
+
 
         // Inflate the layout for this fragment
         return view;

@@ -5,4 +5,5 @@
     <color name="colorAccent">#D84315</color>
     <color name="white">#FFFFFF</color>
     <color name="another_color">#979797</color>
+    <color name="columnColor">#bdbdbd</color>
 </resources>

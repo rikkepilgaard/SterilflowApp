@@ -3,19 +3,20 @@ package com.example.sterilflowapp;
 import java.util.ArrayList;
 
 class BufferZone {
-    private String name, gln, latitude, longitude, formerLocation;
+    private String name, gln, latitude, longitude, formerGln, locationName;
     private ArrayList<String> containedIn;
     private ArrayList<TrackEvent> vogneList;
 
 
-    public BufferZone(String name, String gln, String latitude, String longitude, String formerLocation, ArrayList<String> containedIn, ArrayList<TrackEvent> vogneList) {
+    public BufferZone(String name, String gln, String latitude, String longitude, String formerGln, String locationName, ArrayList<String> containedIn, ArrayList<TrackEvent> vogneList) {
         this.name = name;
         this.gln = gln;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.formerLocation = formerLocation;
+        this.formerGln = formerGln;
         this.containedIn = containedIn;
         this.vogneList = vogneList;
+        this.locationName = locationName;
     }
 
     public BufferZone() {
@@ -53,12 +54,20 @@ class BufferZone {
         this.longitude = longitude;
     }
 
-    public String getFormerLocation() {
-        return formerLocation;
+    public String getFormerGln() {
+        return formerGln;
     }
 
-    public void setFormerLocation(String formerLocation) {
-        this.formerLocation = formerLocation;
+    public void setFormerGln(String formerGln) {
+        this.formerGln = formerGln;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 
     public ArrayList<String> getContainedIn() {
