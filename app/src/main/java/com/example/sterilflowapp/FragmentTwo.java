@@ -1,7 +1,6 @@
 package com.example.sterilflowapp;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,8 @@ import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
+
+import androidx.fragment.app.Fragment;
 
 
 public class FragmentTwo extends Fragment {
