@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     //private FragmentTwo fragmentTwo;
 
     TabLayout tabLayout;
-    ViewPager viewPager;
+    CustumViewPager viewPager;
     private ArrayList<BufferZone> bufferZones;
     private ArrayList<TrackEvent> trackEventArrayList;
 
@@ -57,14 +57,8 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
 
-        viewPager.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                return true;
-            }
-        });
+
+        viewPager.setPagingEnabled(false);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_icon_a_24);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_icon_b_24);
