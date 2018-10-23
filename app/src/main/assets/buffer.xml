@@ -6,7 +6,7 @@
         <formerGln></formerGln>
         <latitude>56.191935800971</latitude>
         <longitude>10.1694486931553</longitude>
-        <location></location>
+        <location>I401</location>
         <containedIn></containedIn>
     </bufferzone>
     <bufferzone>
@@ -15,7 +15,7 @@
         <formerGln></formerGln>
         <latitude>56.1909111982989</latitude>
         <longitude>10.1764235430641</longitude>
-        <location></location>
+        <location>Q101</location>
         <containedIn></containedIn>
     </bufferzone>
     <bufferzone>
@@ -24,7 +24,7 @@
         <formerGln></formerGln>
         <latitude>56.1884659745971</latitude>
         <longitude>10.1710639055043</longitude>
-        <location></location>
+        <location>C406</location>
         <containedIn></containedIn>
     </bufferzone>
     <bufferzone>
@@ -32,8 +32,8 @@
         <gln>urn:epc:id:sgln:57980102.6410.0</gln>
         <formerGln></formerGln>
         <latitude>56.1883109482659</latitude>
-        <longitude>10,1700603905993</longitude>
-        <location></location>
+        <longitude>10.1700603905993</longitude>
+        <location>B401</location>
         <containedIn></containedIn>
     </bufferzone>
     <bufferzone>

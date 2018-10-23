@@ -22,6 +22,7 @@ public class CustomInfoWindow extends MarkerInfoWindow {
         TextView txtDescription = (TextView) mView.findViewById(R.id.bubble_description);
         TextView txtSubdescription = (TextView) mView.findViewById(R.id.bubble_subdescription);
         mView.findViewById(R.id.bubble_moreinfo).setVisibility(View.VISIBLE);
+        btn.setBackgroundResource(R.drawable.moreinfo);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
