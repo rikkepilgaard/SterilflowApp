@@ -42,7 +42,7 @@
         <formerGln></formerGln>
         <latitude>56.191440</latitude><!-- lat ikke det rigtige!!-->
         <longitude>10.167557</longitude><!-- long ikke det rigtige!!-->
-        <location></location>
+        <location>J105</location>
         <containedIn></containedIn>
     </bufferzone>
     <bufferzone>
@@ -51,7 +51,7 @@
         <formerGln></formerGln>
         <latitude>56.191202369085</latitude>
         <longitude>10.167302808033</longitude>
-        <location></location>
+        <location>J119</location>
         <containedIn></containedIn>
     </bufferzone>
     <bufferzone>
@@ -60,7 +60,7 @@
         <formerGln></formerGln>
         <latitude>56.191068</latitude><!-- lat ikke det rigtige!!-->
         <longitude>10.167047</longitude><!-- long ikke det rigtige!!-->
-        <location></location>
+        <location>J120</location>
         <containedIn></containedIn>
     </bufferzone>
 </bufferzones>
