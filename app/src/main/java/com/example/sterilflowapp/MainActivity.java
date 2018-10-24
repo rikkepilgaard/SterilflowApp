@@ -7,13 +7,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -26,11 +23,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    //private FragmentOne fragmentOne;
+    private FragmentOne fragmentOne;
     //private FragmentTwo fragmentTwo;
 
-    TabLayout tabLayout;
-    CustumViewPager viewPager;
+    private TabLayout tabLayout;
+    private CustomViewPager viewPager;
     private ArrayList<BufferZone> bufferZones;
     private ArrayList<TrackEvent> trackEventArrayList;
 
@@ -43,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Kun nødvendigt når fragment 1 skal opdateres med info fra fragment 2.
-        //fragmentOne = new FragmentOne();
+        fragmentOne = new FragmentOne();
         //fragmentTwo = new FragmentTwo();
 
 
@@ -103,6 +100,31 @@ public class MainActivity extends AppCompatActivity {
         parseXML();
 
         //bufferZones.get(0).setFormerGln("hej123"); //TEST FOR AT SE OM METODER I FRAGMENTONE VIRKER.
+    }
+
+    public void firstEvent(){
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                trackEventArrayList = new ArrayList<>();
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    for (DataSnapshot ds1 : ds.getChildren()) {
+                        for (DataSnapshot ds2 : ds1.getChildren()) {
+                            TrackEvent trackEvent = ds2.getValue(TrackEvent.class);
+                            trackEventArrayList.add(trackEvent);
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

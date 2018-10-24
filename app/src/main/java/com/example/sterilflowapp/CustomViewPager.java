@@ -8,12 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
-public class CustumViewPager extends ViewPager {
+public class CustomViewPager extends ViewPager {
 
     private boolean swipePageChangeEnabled;
 
     //https://stackoverflow.com/questions/9650265/how-do-disable-paging-by-swiping-with-finger-in-viewpager-but-still-be-able-to-s
-    public CustumViewPager(Context context, AttributeSet attrs) {
+    public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.swipePageChangeEnabled = true;
     }
