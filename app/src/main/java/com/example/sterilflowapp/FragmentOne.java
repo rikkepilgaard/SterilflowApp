@@ -58,6 +58,8 @@ public class FragmentOne extends Fragment {
 
         activity = (MainActivity) getActivity();
 
+        activity.firstEvent();
+
         bufferZones = activity.getBufferZoneList();
         trackEvents = activity.getTrackEventArrayList();
 
@@ -68,6 +70,7 @@ public class FragmentOne extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+
 
 
     private void addColumns() {
@@ -107,7 +110,7 @@ public class FragmentOne extends Fragment {
         tableLayout.addView(row);
     }
 
-    private void addDataToTable() {
+    public void addDataToTable() {
 
         //TableRow row = new TableRow(this);
 
@@ -192,7 +195,7 @@ public class FragmentOne extends Fragment {
         return newList;
     }
 
-    private void wagonInBufferzones(){
+    public void wagonInBufferzones(){
 
         ArrayList<TrackEvent> arrayList = newestEvents(trackEvents);
 
