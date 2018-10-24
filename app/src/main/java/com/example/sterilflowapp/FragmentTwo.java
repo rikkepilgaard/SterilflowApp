@@ -75,9 +75,9 @@ public class FragmentTwo extends Fragment {
             marker = new Marker(osm);
             //Resize icon and set number of wagons inside icon
             if(i.getVogneList() != null) {
-                marker.setIcon(resizeMapIcons("bluemarker", i.getVogneList().size()));
+                marker.setIcon(createMarkerIcon(i.getVogneList().size()));
             }
-            else{marker.setIcon(resizeMapIcons("bluemarker", 0));}
+            else{marker.setIcon(createMarkerIcon(0));}
 
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             marker.setPosition(new GeoPoint(Double.parseDouble(i.getLatitude()),Double.parseDouble(i.getLongitude())));
@@ -93,9 +93,16 @@ public class FragmentTwo extends Fragment {
     }
 
 
-    public Drawable resizeMapIcons(String iconName, int numberWagons){
-        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getActivity().getPackageName()));
+    public Drawable createMarkerIcon(int numberWagons){
+        Bitmap imageBitmap;
+
+        //Dette skal bruges til tidsgrænserne!!
+        if(numberWagons<10){
+        imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("redmarker", "drawable", getActivity().getPackageName()));}
+        else{imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("bluemarker", "drawable", getActivity().getPackageName()));}
+
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, 80, 80, false);
+
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
