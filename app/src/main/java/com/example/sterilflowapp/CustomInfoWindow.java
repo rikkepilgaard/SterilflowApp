@@ -1,5 +1,10 @@
 package com.example.sterilflowapp;
 
+import android.app.Activity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -8,10 +13,16 @@ import android.widget.Toast;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.infowindow.MarkerInfoWindow;
 
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 //https://code.google.com/archive/p/osmbonuspack/wikis/Tutorial_2.wiki
 public class CustomInfoWindow extends MarkerInfoWindow {
-    public CustomInfoWindow(MapView mapView){
+    Activity activity;
+
+    public CustomInfoWindow(MapView mapView,Activity activity){
         super(R.layout.bubble_layout,mapView);
+        this.activity=activity;
     }
 
     @Override
@@ -27,10 +38,13 @@ public class CustomInfoWindow extends MarkerInfoWindow {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mView.getContext(), "Button Clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
 
-    }
+                ViewPager viewPager = (ViewPager) activity.findViewById(R.id.viewPager);
+                viewPager.setCurrentItem(0);
 
+        };
+
+    });
+
+}
 }

@@ -69,10 +69,7 @@ public class FragmentTwo extends Fragment {
     }
     public void addMarker(){
         activity = (MainActivity) getActivity();
-
         bufferZones = activity.getBufferZoneList();
-
-
 
         for (final BufferZone i: bufferZones){
             marker = new Marker(osm);
@@ -86,7 +83,7 @@ public class FragmentTwo extends Fragment {
             marker.setPosition(new GeoPoint(Double.parseDouble(i.getLatitude()),Double.parseDouble(i.getLongitude())));
 
             //Set infowindow with button
-            marker.setInfoWindow(new CustomInfoWindow(osm));
+            marker.setInfoWindow(new CustomInfoWindow(osm,activity));
             marker.setTitle(i.getName());
             marker.setSnippet(i.getLocationName());
             marker.setSubDescription("Se vogne");
