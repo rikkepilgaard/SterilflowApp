@@ -68,6 +68,7 @@ public class FragmentTwo extends Fragment {
         return view;
     }
     public void addMarker(){
+        osm.getOverlays().clear();
         activity = (MainActivity) getActivity();
         bufferZones = activity.getBufferZoneList();
 
@@ -98,7 +99,7 @@ public class FragmentTwo extends Fragment {
         Bitmap imageBitmap;
 
         //Dette skal bruges til tidsgrænserne!!
-        if(numberWagons<10){
+        if(numberWagons>=2){
         imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("redmarker", "drawable", getActivity().getPackageName()));}
         else{imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("bluemarker", "drawable", getActivity().getPackageName()));}
 
