@@ -71,15 +71,19 @@ public class MainActivity extends AppCompatActivity {
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     for (DataSnapshot ds1 : ds.getChildren()) {
-                        for (DataSnapshot ds2 : ds1.getChildren()) {
-                            TrackEvent trackEvent = ds2.getValue(TrackEvent.class);
-                            trackEventArrayList.add(trackEvent);
-                        }
+                        TrackEvent trackEvent = ds1.getValue(TrackEvent.class);
+                        trackEventArrayList.add(trackEvent);
+
+                        //for (DataSnapshot ds2 : ds1.getChildren()) {
+                        //}
                     }
                 }
 
+                wagonInBufferzones();
+
                 if(fragmentOne!=null){
                     fragmentOne.updateList();
+                    fragmentTwo.addMarker();
                 }
 
                 /*
@@ -106,6 +110,61 @@ public class MainActivity extends AppCompatActivity {
         //bufferZones.get(0).setFormerGln("hej123"); //TEST FOR AT SE OM METODER I FRAGMENTONE VIRKER.
     }
 
+    private ArrayList<TrackEvent> newestEvents(ArrayList<TrackEvent> trackList){
+        String lastValue = "";
+        String currentValue = "";
+        ArrayList<TrackEvent> newList = new ArrayList<>();
+
+        if(trackList != null) {
+            for (int i = trackList.size() - 1; i >= 0; i--) {
+                TrackEvent event = trackList.get(i);
+
+                if (event.getObjectkey() != null) {
+                    currentValue = event.getObjectkey();
+                }
+                if (!currentValue.equals(lastValue)) {
+                    newList.add(event);
+                    lastValue = currentValue;
+                }
+            }
+        }
+        return newList;
+    }
+
+    public void wagonInBufferzones(){
+
+        ArrayList<TrackEvent> arrayList = newestEvents(trackEventArrayList);
+
+
+        for (int j = 0; j < bufferZones.size(); j++){
+            bufferZones.get(j).setVogneList(null);
+            ArrayList<TrackEvent> list = new ArrayList<>();
+
+
+            for (int i = 0; i < arrayList.size() ; i++){
+                TrackEvent trackEvent = arrayList.get(i);
+
+                if (bufferZones.get(j).getGln().equals(trackEvent.getLocationSgln())) {
+                    for (int h = 0; h < trackEventArrayList.size(); h++) {
+                        TrackEvent event = trackEventArrayList.get(h);
+                        if (event.getObjectkey().equals(trackEvent.getObjectkey())) {
+                            if (event.getEventTime().equals(trackEvent.getEventTime())) {
+                                if (event.getLocationSgln().equals(trackEvent.getLocationSgln())) {
+                                    TrackEvent event1 = trackEventArrayList.get(h-1);
+                                    for (String formerGln: bufferZones.get(j).getFormerGln() ) {
+                                        if(event1.getLocationSgln().equals(formerGln)){
+                                            list.add(trackEvent);
+                                            bufferZones.get(j).setVogneList(list);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public ArrayList<BufferZone> getBufferZoneList(){
         return bufferZones;
@@ -120,9 +179,10 @@ public class MainActivity extends AppCompatActivity {
         String firstText = getResources().getString(R.string.tab_a_label);
         String secondText = getResources().getString(R.string.tab_b_label);
         fragmentOne = new FragmentOne();
+        fragmentTwo = new FragmentTwo();
 
         viewPagerAdapter.addFragment(fragmentOne,firstText);
-        viewPagerAdapter.addFragment(new FragmentTwo(),secondText);
+        viewPagerAdapter.addFragment(fragmentTwo,secondText);
         viewPager.setAdapter(viewPagerAdapter);
     }
 

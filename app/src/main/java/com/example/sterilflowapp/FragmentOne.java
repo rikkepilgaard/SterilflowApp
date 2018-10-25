@@ -70,7 +70,7 @@ public class FragmentOne extends Fragment {
         bufferZones = activity.getBufferZoneList();
         trackEvents = activity.getTrackEventArrayList();
 
-        wagonInBufferzones();
+      //  wagonInBufferzones();
         addDataToTable();
     }
 
@@ -177,59 +177,7 @@ public class FragmentOne extends Fragment {
 
 
 
-    private ArrayList<TrackEvent> newestEvents(ArrayList<TrackEvent> trackList){
-        String lastValue = "";
-        String currentValue = "";
-        ArrayList<TrackEvent> newList = new ArrayList<>();
 
-        if(trackList != null) {
-            for (int i = trackList.size() - 1; i >= 0; i--) {
-                TrackEvent event = trackList.get(i);
-
-                if (event.getObjectkey() != null) {
-                    currentValue = event.getObjectkey();
-                }
-                if (!currentValue.equals(lastValue)) {
-                    newList.add(event);
-                    lastValue = currentValue;
-                }
-            }
-        }
-        return newList;
-    }
-
-    public void wagonInBufferzones(){
-
-        ArrayList<TrackEvent> arrayList = newestEvents(trackEvents);
-
-
-        for (int j = 0; j < bufferZones.size(); j++){
-            bufferZones.get(j).setVogneList(null);
-            ArrayList<TrackEvent> list = new ArrayList<>();
-
-
-            for (int i = 0; i < arrayList.size() ; i++){
-                TrackEvent trackEvent = arrayList.get(i);
-
-                if (bufferZones.get(j).getGln().equals(trackEvent.getLocationSgln())) {
-                    for (int h = 0; h < trackEvents.size(); h++) {
-                        TrackEvent event = trackEvents.get(h);
-                        if (event.getObjectkey().equals(trackEvent.getObjectkey())) {
-                            if (event.getEventTime().equals(trackEvent.getEventTime())) {
-                                if (event.getLocationSgln().equals(trackEvent.getLocationSgln())) {
-                                    TrackEvent event1 = trackEvents.get(h-1);
-                                    if (event1.getLocationSgln().equals(bufferZones.get(j).getFormerGln())) {
-                                        list.add(trackEvent);
-                                        bufferZones.get(j).setVogneList(list);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     private void addRows(View v, BufferZone bz, int index){
 
@@ -344,7 +292,7 @@ public class FragmentOne extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
                                 //https://www.mkyong.com/java/how-to-calculate-date-time-difference-in-java/
 
@@ -394,7 +342,7 @@ public class FragmentOne extends Fragment {
             return null;
         } else {
             //ParsePosition pos = new ParsePosition(0);
-            SimpleDateFormat simpledateformat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+            SimpleDateFormat simpledateformat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
             Date dateDate = null;
             try {
                 dateDate = simpledateformat.parse(stringDate);
