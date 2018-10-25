@@ -58,17 +58,20 @@ public class FragmentOne extends Fragment {
 
         activity = (MainActivity) getActivity();
 
-        activity.firstEvent();
 
+        updateList();
+
+
+        // Inflate the layout for this fragment
+        return view;
+    }
+
+    public void updateList(){
         bufferZones = activity.getBufferZoneList();
         trackEvents = activity.getTrackEventArrayList();
 
         wagonInBufferzones();
         addDataToTable();
-
-
-        // Inflate the layout for this fragment
-        return view;
     }
 
 

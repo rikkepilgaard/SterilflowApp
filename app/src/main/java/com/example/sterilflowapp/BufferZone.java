@@ -3,12 +3,13 @@ package com.example.sterilflowapp;
 import java.util.ArrayList;
 
 class BufferZone {
-    private String name, gln, latitude, longitude, formerGln, locationName;
+    private String name, gln, latitude, longitude, locationName;
     private ArrayList<String> containedIn;
+    private ArrayList<String> formerGln;
     private ArrayList<TrackEvent> vogneList;
 
 
-    public BufferZone(String name, String gln, String latitude, String longitude, String formerGln, String locationName, ArrayList<String> containedIn, ArrayList<TrackEvent> vogneList) {
+    public BufferZone(String name, String gln, String latitude, String longitude, ArrayList<String> formerGln, String locationName, ArrayList<String> containedIn, ArrayList<TrackEvent> vogneList) {
         this.name = name;
         this.gln = gln;
         this.latitude = latitude;
@@ -54,11 +55,11 @@ class BufferZone {
         this.longitude = longitude;
     }
 
-    public String getFormerGln() {
+    public ArrayList<String> getFormerGln() {
         return formerGln;
     }
 
-    public void setFormerGln(String formerGln) {
+    public void setFormerGln(ArrayList<String> formerGln) {
         this.formerGln = formerGln;
     }
 

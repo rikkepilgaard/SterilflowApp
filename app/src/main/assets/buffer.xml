@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <bufferzones>
+    <!-- Alle formerGln er forkerte-->
     <bufferzone>
         <name>Bufferområde 202</name>
         <gln>urn:epc:id:sgln:57980101.8705.0</gln>
-        <formerGln></formerGln>
+        <formerGlns>
+            <formerGln>urn:epc:id:sgln:57980102.2859.0</formerGln> <!-- dagkir plan 3 -->
+            <formerGln>urn:epc:id:sgln:57980101.6106.0</formerGln> <!-- dagkir plan 1 -->
+            <formerGln>urn:epc:id:sgln:57980102.2853.0</formerGln> <!-- dagkir plan 2 -->
+        </formerGlns>
         <latitude>56.191935800971</latitude>
         <longitude>10.1694486931553</longitude>
         <location>I401</location>
@@ -12,7 +17,6 @@
     <bufferzone>
         <name>Ren Buffer Sterilcentral</name>
         <gln>urn:epc:id:sgln:57980101.7856.0</gln>
-        <formerGln></formerGln>
         <latitude>56.1909111982989</latitude>
         <longitude>10.1764235430641</longitude>
         <location>Q101</location>
@@ -21,7 +25,6 @@
     <bufferzone>
         <name>Bufferområde 109</name>
         <gln>urn:epc:id:sgln:57980102.6407.0</gln>
-        <formerGln></formerGln>
         <latitude>56.1884659745971</latitude>
         <longitude>10.1710639055043</longitude>
         <location>C406</location>
@@ -30,7 +33,6 @@
     <bufferzone>
         <name>Bufferområde 120</name>
         <gln>urn:epc:id:sgln:57980102.6410.0</gln>
-        <formerGln></formerGln>
         <latitude>56.1883109482659</latitude>
         <longitude>10.1700603905993</longitude>
         <location>B401</location>
@@ -39,7 +41,7 @@
     <bufferzone>
         <name>Sterillager Nord J105</name>
         <gln>urn:epc:id:sgln:57980101.5946.0</gln><!-- gln-nummer ikke det rigtige!!-->
-        <formerGln></formerGln>
+        <formerGln>urn:epc:id:sgln:57980102.1414.0</formerGln> <!-- sterillager nord -->
         <latitude>56.191440</latitude><!-- lat ikke det rigtige!!-->
         <longitude>10.167557</longitude><!-- long ikke det rigtige!!-->
         <location>J105</location>
@@ -48,7 +50,6 @@
     <bufferzone>
         <name>Bufferområde 232-P1</name>
         <gln>urn:epc:id:sgln:57980101.3660.0</gln><!-- gln-nummer ikke det rigtige!!-->
-        <formerGln></formerGln>
         <latitude>56.191202369085</latitude>
         <longitude>10.167302808033</longitude>
         <location>J119</location>
@@ -57,7 +58,6 @@
     <bufferzone>
         <name>Bufferområde 236-P1</name>
         <gln>urn:epc:id:sgln:57980102.8548.0</gln>
-        <formerGln></formerGln>
         <latitude>56.191068</latitude><!-- lat ikke det rigtige!!-->
         <longitude>10.167047</longitude><!-- long ikke det rigtige!!-->
         <location>J120</location>

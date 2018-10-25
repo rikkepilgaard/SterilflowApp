@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private FragmentOne fragmentOne;
-    //private FragmentTwo fragmentTwo;
+    private FragmentTwo fragmentTwo;
 
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Kun nødvendigt når fragment 1 skal opdateres med info fra fragment 2.
-        fragmentOne = new FragmentOne();
+        //fragmentOne = new FragmentOne();
         //fragmentTwo = new FragmentTwo();
 
 
@@ -78,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
+                if(fragmentOne!=null){
+                    fragmentOne.updateList();
+                }
+
                 /*
                 Iterable<DataSnapshot> snapshots = dataSnapshot.getChildren();
                 while (snapshots.iterator().hasNext())
@@ -102,31 +106,6 @@ public class MainActivity extends AppCompatActivity {
         //bufferZones.get(0).setFormerGln("hej123"); //TEST FOR AT SE OM METODER I FRAGMENTONE VIRKER.
     }
 
-    public void firstEvent(){
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                trackEventArrayList = new ArrayList<>();
-
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    for (DataSnapshot ds1 : ds.getChildren()) {
-                        for (DataSnapshot ds2 : ds1.getChildren()) {
-                            TrackEvent trackEvent = ds2.getValue(TrackEvent.class);
-                            trackEventArrayList.add(trackEvent);
-                        }
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
 
     public ArrayList<BufferZone> getBufferZoneList(){
         return bufferZones;
@@ -140,7 +119,9 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         String firstText = getResources().getString(R.string.tab_a_label);
         String secondText = getResources().getString(R.string.tab_b_label);
-        viewPagerAdapter.addFragment(new FragmentOne(),firstText);
+        fragmentOne = new FragmentOne();
+
+        viewPagerAdapter.addFragment(fragmentOne,firstText);
         viewPagerAdapter.addFragment(new FragmentTwo(),secondText);
         viewPager.setAdapter(viewPagerAdapter);
     }
@@ -169,24 +150,28 @@ public class MainActivity extends AppCompatActivity {
         bufferZones = new ArrayList<>();
         int eventType = parser.getEventType();
         BufferZone currentBuffer = null;
+        ArrayList<String> formerGln = new ArrayList<>();
 
         while (eventType!=XmlPullParser.END_DOCUMENT){
             String zone = null;
+            //ArrayList<String> formerGln;
 
             switch (eventType){
                 case XmlPullParser.START_TAG:
                     zone = parser.getName();
 
+
                     if("bufferzone".equals(zone)){
                         currentBuffer = new BufferZone();
                         bufferZones.add(currentBuffer);
+                        formerGln = new ArrayList<>();
                     } else if (currentBuffer != null){
                         if ("name".equals(zone)){
                             currentBuffer.setName(parser.nextText());
                         } else if("gln".equals(zone)){
                             currentBuffer.setGln(parser.nextText());
                         } else if("formerGln".equals(zone)) {
-                            currentBuffer.setFormerGln(zone);
+                            formerGln.add(parser.nextText());
                         } else if ("latitude".equals(zone)){
                             currentBuffer.setLatitude(parser.nextText());
                         } else if ("longitude".equals(zone)){
@@ -195,12 +180,15 @@ public class MainActivity extends AppCompatActivity {
                             currentBuffer.setLocationName(parser.nextText());
                         }
 
+                      currentBuffer.setFormerGln(formerGln);
                     }
                 break;
 
             }
             eventType = parser.next();
+
         }
+
 
     }
 
