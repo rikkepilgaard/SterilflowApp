@@ -83,8 +83,11 @@ public class MainActivity extends AppCompatActivity {
 
                 if(fragmentOne!=null){
                     fragmentOne.updateList();
+                }
+                if(fragmentTwo!= null){
                     fragmentTwo.addMarker();
                 }
+
 
                 /*
                 Iterable<DataSnapshot> snapshots = dataSnapshot.getChildren();

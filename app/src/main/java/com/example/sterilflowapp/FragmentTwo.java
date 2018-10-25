@@ -62,7 +62,7 @@ public class FragmentTwo extends Fragment {
         BoundingBox box = new BoundingBox(56.196023, 10.183009,56.185341, 10.161220);
         osm.setScrollableAreaLimitDouble(box);
         osm.setMapOrientation(21.05f);
-        addMarker();
+        //addMarker();
 
         // Inflate the layout for this fragment
         return view;
@@ -89,6 +89,7 @@ public class FragmentTwo extends Fragment {
             marker.setSubDescription("Se vogne");
             marker.setPanToView(false);
             osm.getOverlays().add(marker);
+            osm.invalidate();
         }
     }
 
