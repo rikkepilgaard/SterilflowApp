@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:weightSum="100"
+    android:background="#f0f0f0">
+
+
+
+    <TextView
+        android:id="@+id/lvHeaderBuffer"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="40"
+        android:paddingLeft="?android:attr/expandableListPreferredItemIndicatorLeft"/>
+
+    <!--android:paddingLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        -->
+
+    
+    <TextView
+        android:id="@+id/lvHeaderWagons"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:layout_weight="60"
+        />
+
+</LinearLayout>

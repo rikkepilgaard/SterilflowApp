@@ -79,11 +79,11 @@ class BufferZone {
         this.containedIn = containedIn;
     }
 
-    public ArrayList<TrackEvent> getVogneList() {
+    public ArrayList<TrackEvent> getWagonList() {
         return vogneList;
     }
 
-    public void setVogneList(ArrayList<TrackEvent> vogneList) {
+    public void setWagonList(ArrayList<TrackEvent> vogneList) {
         this.vogneList = vogneList;
     }
 }

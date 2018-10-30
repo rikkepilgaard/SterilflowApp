@@ -8,11 +8,12 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.text.Html;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -23,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 
 public class FragmentOne extends Fragment {
@@ -30,9 +32,8 @@ public class FragmentOne extends Fragment {
     TableLayout tableLayout;
     MainActivity activity;
 
-    private ArrayList<BufferZone> bufferZones;
-
-    private ArrayList<TrackEvent> trackEvents;
+    private ExpandableListView listView;
+    private ExpandableListAdapter adapter;
 
     private boolean isOpen = false;
 
@@ -40,6 +41,7 @@ public class FragmentOne extends Fragment {
     public FragmentOne() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,28 +54,21 @@ public class FragmentOne extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_one, container, false);
 
-        tableLayout = view.findViewById(R.id.tableLayoutOverview);
+        //tableLayout = view.findViewById(R.id.tableLayoutOverview);
 
-        addColumns();
-
-        activity = (MainActivity) getActivity();
-
-
-        updateList();
+        listView = view.findViewById(R.id.listViewExpandable);
 
 
         // Inflate the layout for this fragment
         return view;
     }
 
-    public void updateList(){
-        bufferZones = activity.getBufferZoneList();
-        trackEvents = activity.getTrackEventArrayList();
+    public void initData(ArrayList<BufferZone> bufferZones) {
 
-      //  wagonInBufferzones();
-        addDataToTable();
+        adapter = new ExpandableListAdaptor(getActivity(),bufferZones);
+        listView.setAdapter(adapter);
+
     }
-
 
 
     private void addColumns() {
@@ -113,7 +108,7 @@ public class FragmentOne extends Fragment {
         tableLayout.addView(row);
     }
 
-    public void addDataToTable() {
+    public void addDataToTable(ArrayList<BufferZone> bufferZones) {
 
         //TableRow row = new TableRow(this);
 
@@ -130,8 +125,8 @@ public class FragmentOne extends Fragment {
             String buffer = zone.getName();
             String antalVogne = "0";
 
-            if(zone.getVogneList()!= null) {
-                antalVogne = String.valueOf(zone.getVogneList().size());
+            if(zone.getWagonList()!= null) {
+                antalVogne = String.valueOf(zone.getWagonList().size());
             }
             TextView tv2 = new TextView(getActivity().getApplicationContext());
             tv2.setText(buffer);
@@ -219,8 +214,8 @@ public class FragmentOne extends Fragment {
 
             tableLayout.addView(row,index+1);
 
-            if(bz.getVogneList() != null) {
-                for (TrackEvent wagon : bz.getVogneList()) {
+            if(bz.getWagonList() != null) {
+                for (TrackEvent wagon : bz.getWagonList()) {
                     TableRow row1 = new TableRow(getActivity().getApplicationContext());
 
                     String objectKey = wagon.getObjectkey();
@@ -260,7 +255,7 @@ public class FragmentOne extends Fragment {
         } else {
             tableLayout.removeAllViews();
             addColumns();
-            addDataToTable();
+            //addDataToTable();
             isOpen = false;
         }
     }

@@ -49,7 +49,7 @@
     </bufferzone>
     <bufferzone>
         <name>Bufferområde 232-P1</name>
-        <gln>urn:epc:id:sgln:57980101.3660.0</gln><!-- gln-nummer ikke det rigtige!!-->
+        <gln>urn:epc:id:sgln:57980101.3660.0</gln><!-- gln-nummer ikke det rigtige!! HUSK OGSÅ AT ÆNDRE KODEN, HVIS DETTE ÆNDRES-->
         <latitude>56.191202369085</latitude>
         <longitude>10.167302808033</longitude>
         <location>J119</location>

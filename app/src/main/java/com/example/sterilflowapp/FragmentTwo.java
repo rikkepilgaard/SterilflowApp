@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.BoundingBox;
@@ -75,8 +74,8 @@ public class FragmentTwo extends Fragment {
         for (final BufferZone i: bufferZones){
             marker = new Marker(osm);
             //Resize icon and set number of wagons inside icon
-            if(i.getVogneList() != null) {
-                marker.setIcon(createMarkerIcon(i.getVogneList().size()));
+            if(i.getWagonList() != null) {
+                marker.setIcon(createMarkerIcon(i.getWagonList().size()));
             }
             else{marker.setIcon(createMarkerIcon(0));}
 

@@ -7,10 +7,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -18,7 +21,11 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,30 +81,19 @@ public class MainActivity extends AppCompatActivity {
                         TrackEvent trackEvent = ds1.getValue(TrackEvent.class);
                         trackEventArrayList.add(trackEvent);
 
-                        //for (DataSnapshot ds2 : ds1.getChildren()) {
-                        //}
                     }
                 }
 
                 wagonInBufferzones();
 
                 if(fragmentOne!=null){
-                    fragmentOne.updateList();
+                    fragmentOne.initData(bufferZones);
                 }
                 if(fragmentTwo!= null){
                     fragmentTwo.addMarker();
                 }
 
 
-                /*
-                Iterable<DataSnapshot> snapshots = dataSnapshot.getChildren();
-                while (snapshots.iterator().hasNext())
-                {
-                    trackEventsList.add(snapshots.iterator().next().getValue(TrackEvent.class));
-                }
-                */
-
-                //createSamples(trackEventsList);
 
             }
 
@@ -140,31 +136,52 @@ public class MainActivity extends AppCompatActivity {
 
 
         for (int j = 0; j < bufferZones.size(); j++){
-            bufferZones.get(j).setVogneList(null);
+            bufferZones.get(j).setWagonList(null);
             ArrayList<TrackEvent> list = new ArrayList<>();
 
+            switch (bufferZones.get(j).getGln()) {
+                case "urn:epc:id:sgln:57980101.8705.0": //buffer 202
+                case "urn:epc:id:sgln:57980101.5946.0": //buffer nordlager
 
-            for (int i = 0; i < arrayList.size() ; i++){
-                TrackEvent trackEvent = arrayList.get(i);
-
-                if (bufferZones.get(j).getGln().equals(trackEvent.getLocationSgln())) {
-                    for (int h = 0; h < trackEventArrayList.size(); h++) {
-                        TrackEvent event = trackEventArrayList.get(h);
-                        if (event.getObjectkey().equals(trackEvent.getObjectkey())) {
-                            if (event.getEventTime().equals(trackEvent.getEventTime())) {
-                                if (event.getLocationSgln().equals(trackEvent.getLocationSgln())) {
-                                    TrackEvent event1 = trackEventArrayList.get(h-1);
-                                    for (String formerGln: bufferZones.get(j).getFormerGln() ) {
-                                        if(event1.getLocationSgln().equals(formerGln)){
-                                            list.add(trackEvent);
-                                            bufferZones.get(j).setVogneList(list);
+                    for (int i = 0; i < arrayList.size() ; i++){
+                        TrackEvent trackEvent = arrayList.get(i);
+                        if (bufferZones.get(j).getGln().equals(trackEvent.getLocationSgln())) {
+                            for (int h = 0; h < trackEventArrayList.size(); h++) {
+                                TrackEvent event = trackEventArrayList.get(h);
+                                if (event.getObjectkey().equals(trackEvent.getObjectkey())) {
+                                    if (event.getEventTime().equals(trackEvent.getEventTime())) {
+                                        if (event.getLocationSgln().equals(trackEvent.getLocationSgln())) {
+                                            TrackEvent event1 = trackEventArrayList.get(h-1);
+                                            for (String formerGln: bufferZones.get(j).getFormerGln() ) {
+                                                if(event1.getLocationSgln().equals(formerGln)){
+                                                    list.add(trackEvent);
+                                                    bufferZones.get(j).setWagonList(list);
+                                                }
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                }
+
+                    break;
+
+                case "urn:epc:id:sgln:57980101.7856.0": //buffer ren steril
+                case "urn:epc:id:sgln:57980102.6407.0": //buffer 109
+                case "urn:epc:id:sgln:57980102.6410.0": //buffer 120
+                case "urn:epc:id:sgln:57980101.3660.0": //buffer 232
+                case "urn:epc:id:sgln:57980102.8548.0": //buffer 236
+
+                    for (int i = 0; i < arrayList.size() ; i++) {
+                        TrackEvent trackEvent = arrayList.get(i);
+                        if (bufferZones.get(j).getGln().equals(trackEvent.getLocationSgln())) {
+                            list.add(trackEvent);
+                            bufferZones.get(j).setWagonList(list);
+                        }
+                    }
+
+                    break;
             }
         }
     }
@@ -251,8 +268,86 @@ public class MainActivity extends AppCompatActivity {
             eventType = parser.next();
 
         }
+    }
+
+    public void timeCounter(final String date, final TextView textView){
+
+        final Thread t = new Thread() {
+
+            @Override
+            public void run() {
+
+                while (!isInterrupted()) {
+
+                    try {
+
+                        Thread.sleep(100);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+                                //https://www.mkyong.com/java/how-to-calculate-date-time-difference-in-java/
+
+                                Date currentDate = Calendar.getInstance().getTime();
+                                String format = simpleDateFormat.format(currentDate);
+                                currentDate = fromStringToDate(format);
+
+                                Date otherDate = fromStringToDate(date);
+
+                                long diff = currentDate.getTime() - otherDate.getTime();
+
+                                //long diffSeconds = diff / 1000;
+                                long diffMinutes = diff / (60 * 1000) % 60;
+                                long diffHours = diff / (60 * 60 * 1000) % 24;
+                                long diffDays = diff / (24 * 60 * 60 * 1000);
+
+                                String diffMinutesText = (diffMinutes < 10 ? "0" : "") + diffMinutes;
+                                String diffHoursText = (diffHours < 10 ? "0" : "") + diffHours;
+                                String diffDaysText = (diffDays < 10 ? "0" : "") + diffDays;
+
+                                String text = diffHoursText + "<b>t </b>" + diffMinutesText + "<b>m </b>";
+
+                                if(diffDays != 0)
+                                {
+                                    textView.setText(diffDaysText + ":" + diffHoursText + ":" + diffMinutesText);
+                                }
+                                else textView.setText(Html.fromHtml(text));
+
+//                                AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext());
+//                                alert.setTitle(R.string.alert_time_title);
+//                                alert.setMessage(R.string.alert_time_title);
+
+                                //textView.setText(String.valueOf(DateUtils.formatElapsedTime(diffSeconds)));
+                            }
+                        });
 
 
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+
+        t.start();
+    }
+
+    private Date fromStringToDate(String stringDate){
+        //Vær opmærksom på formatet af den String dato, der kommer med metoden.
+        if(stringDate==null) {
+            return null;
+        } else {
+            //ParsePosition pos = new ParsePosition(0);
+            SimpleDateFormat simpledateformat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+            Date dateDate = null;
+            try {
+                dateDate = simpledateformat.parse(stringDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return dateDate;
+        }
     }
 
 }
