@@ -29,7 +29,7 @@ public class CustomInfoWindow extends MarkerInfoWindow {
     public void onOpen(Object item){
         super.onOpen(item);
         Button btn = (Button)(mView.findViewById(R.id.bubble_moreinfo));
-        TextView txtTitle = (TextView) mView.findViewById(R.id.bubble_title);
+        final TextView txtTitle = (TextView) mView.findViewById(R.id.bubble_title);
         TextView txtDescription = (TextView) mView.findViewById(R.id.bubble_description);
         TextView txtSubdescription = (TextView) mView.findViewById(R.id.bubble_subdescription);
         mView.findViewById(R.id.bubble_moreinfo).setVisibility(View.VISIBLE);
@@ -38,6 +38,8 @@ public class CustomInfoWindow extends MarkerInfoWindow {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                String buffername = txtTitle.getText().toString();
+//                Toast.makeText(activity, buffername, Toast.LENGTH_SHORT).show();
 
                 ViewPager viewPager = (ViewPager) activity.findViewById(R.id.viewPager);
                 viewPager.setCurrentItem(0);
