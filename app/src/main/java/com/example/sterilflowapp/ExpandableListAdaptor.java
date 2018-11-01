@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class ExpandableListAdaptor extends BaseExpandableListAdapter {
@@ -18,18 +20,21 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     private Context context;
     private ArrayList<BufferZone> bufferZones;
     private HashMap<BufferZone, ArrayList<TrackEvent>> listHashMap;
-    private MainActivity activity = new MainActivity();
+    //private MainActivity activity = new MainActivity();
 
-    public ExpandableListAdaptor(Context context, ArrayList<BufferZone> bufferZones) {
+    public ExpandableListAdaptor(Context context, ArrayList<BufferZone> bufferZones, HashMap<BufferZone,ArrayList<TrackEvent>> hashMap) {
         this.context = context;
         this.bufferZones = bufferZones;
+        this.listHashMap = hashMap;
+    }
 
-        listHashMap = new HashMap<>();
-        for (BufferZone bufferZone : bufferZones){
-            ArrayList<TrackEvent> trackEvents = bufferZone.getWagonList();
-            listHashMap.put(bufferZone, trackEvents);
-        }
+    public void updateListView(ArrayList<BufferZone> bufferZonesNew, HashMap<BufferZone,ArrayList<TrackEvent>> hashmap)
+    {
 
+        this.listHashMap = hashmap;
+        this.bufferZones = bufferZonesNew;
+
+        notifyDataSetChanged();
     }
 
     @Override
@@ -39,8 +44,8 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        if(bufferZones.get(groupPosition).getWagonList() != null) {
-            return bufferZones.get(groupPosition).getWagonList().size() + 1;
+        if(listHashMap.get(bufferZones.get(groupPosition)) != null) {
+            return listHashMap.get(bufferZones.get(groupPosition)).size() + 1;
         } else return 0;
     }
 
@@ -51,7 +56,9 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
     @Override
     public TrackEvent getChild(int groupPosition, int childPosition) {
-        return listHashMap.get(bufferZones.get(groupPosition)).get(childPosition);
+        if (listHashMap.get(bufferZones.get(groupPosition))!= null) {
+            return listHashMap.get(bufferZones.get(groupPosition)).get(childPosition);
+        } else return null;
     }
 
     @Override
@@ -132,7 +139,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             TextView txtChildPlaced = (TextView) convertView.findViewById(R.id.lvItemPlaced);
             txtChildPlaced.setText(placedAt);
             TextView txtChildSince = (TextView) convertView.findViewById(R.id.lvItemSince);
-            activity.timeCounter(trackEvent.getEventTime(),txtChildSince);
+           // activity.timeCounter(trackEvent.getEventTime(),txtChildSince);
         }
 
         return convertView;
@@ -140,7 +147,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return true;
+        return false;
     }
 
 

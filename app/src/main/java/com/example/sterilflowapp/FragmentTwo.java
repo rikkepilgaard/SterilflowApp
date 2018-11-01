@@ -66,10 +66,10 @@ public class FragmentTwo extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
-    public void addMarker(){
+    public void addMarker(ArrayList<BufferZone> bufferZones){
         osm.getOverlays().clear();
         activity = (MainActivity) getActivity();
-        bufferZones = activity.getBufferZoneList();
+        //bufferZones = activity.getBufferZoneList();
 
         for (final BufferZone i: bufferZones){
             marker = new Marker(osm);
