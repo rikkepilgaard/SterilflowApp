@@ -99,8 +99,8 @@ public class FragmentTwo extends Fragment {
 
         //Dette skal bruges til tidsgrænserne!!
         if(numberWagons>=2){
-        imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("redmarker", "drawable", getActivity().getPackageName()));}
-        else{imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("bluemarker", "drawable", getActivity().getPackageName()));}
+        imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("bluemarker", "drawable", getActivity().getPackageName()));}
+        else{imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("redmarker", "drawable", getActivity().getPackageName()));}
 
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, 80, 80, false);
 
