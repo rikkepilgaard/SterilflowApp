@@ -15,14 +15,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private FragmentOne fragmentOne;
     private FragmentTwo fragmentTwo;
 
+    private SharedPreferences sharedPreferences;
+
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private ArrayList<BufferZone> bufferZones;
@@ -62,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.viewPager);
@@ -83,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter dataFilter = new IntentFilter();
         dataFilter.addAction("data");
         dataFilter.addAction("time");
+        dataFilter.addAction("time_wagon");
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,dataFilter);
     }
 
@@ -103,11 +111,50 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(TAG,"Broadcast received");
-            fragmentOne.initData(dataService.getBufferZoneList());
-            fragmentTwo.addMarker(dataService.getBufferZoneList());
+            Log.d(TAG,"Broadcast received: " + intent.getAction());
+
+            switch (intent.getAction()){
+                case "time":
+                    fragmentOne.initData(dataService.getBufferZoneList());
+
+                    break;
+                case "time_wagon":
+                    setAlert();
+                    break;
+
+                case "data":
+                    fragmentOne.initData(dataService.getBufferZoneList());
+                    fragmentTwo.addMarker(dataService.getBufferZoneList());
+
+            }
+
+
         }
     };
+
+    public void setAlert(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        String alertTitle = getString(R.string.alert_time_title);
+        alert.setTitle(alertTitle);
+        String alertMsg = "Vogn: " + sharedPreferences.getString(getString(R.string.wagon_time),"")
+                + "\nBufferområde: " + sharedPreferences.getString(getString(R.string.buffer_time),"");
+        alert.setMessage(alertMsg);
+
+        alert.setPositiveButton("Gå til vogn", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(),"Du har trykket på 'Gå til vogn'",Toast.LENGTH_LONG).show();
+            }
+        });
+        alert.setNegativeButton("Luk", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(),"Du har trykket på 'Luk'",Toast.LENGTH_LONG).show();
+            }
+        });
+        alert.create().show();
+
+    }
 
 
     private void startServices(){

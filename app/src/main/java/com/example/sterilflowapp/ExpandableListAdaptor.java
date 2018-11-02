@@ -1,7 +1,10 @@
 package com.example.sterilflowapp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,8 @@ import java.util.HashMap;
 public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     private static final String TAG = "ExpandableListAdaptor";
 
+    SharedPreferences sharedPreferences;
+
     private Context context;
     private ArrayList<BufferZone> bufferZones;
     private HashMap<BufferZone, ArrayList<TrackEvent>> listHashMap;
@@ -26,6 +31,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         this.context = context;
         this.bufferZones = bufferZones;
         this.listHashMap = hashMap;
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public void updateListView(ArrayList<BufferZone> bufferZonesNew, HashMap<BufferZone,ArrayList<TrackEvent>> hashmap)
@@ -134,12 +140,23 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             String sub2 = placedAt.substring(11,16);
             placedAt = sub1 + " " + sub2;
 
+            long timeDifference = sharedPreferences.getLong(trackEvent.getObjectkey(),0);
+            long diffMinutes = timeDifference / (60 * 1000) % 60;
+            long diffHours = timeDifference / (60 * 60 * 1000) % 24;
+            long diffDays = timeDifference / (24 * 60 * 60 * 1000);
+            String diffMinutesText = (diffMinutes < 10 ? "0" : "") + diffMinutes;
+            String diffHoursText = (diffHours < 10 ? "0" : "") + diffHours;
+            String diffDaysText = (diffDays < 10 ? "0" : "") + diffDays;
+            String text = diffHoursText + "<b>t </b>" + diffMinutesText + "<b>m </b>";
+
             TextView txtChildId = (TextView) convertView.findViewById(R.id.lvItemID);
             txtChildId.setText(id);
             TextView txtChildPlaced = (TextView) convertView.findViewById(R.id.lvItemPlaced);
             txtChildPlaced.setText(placedAt);
             TextView txtChildSince = (TextView) convertView.findViewById(R.id.lvItemSince);
-           // activity.timeCounter(trackEvent.getEventTime(),txtChildSince);
+            if(diffDays != 0) {
+                txtChildSince.setText(diffDaysText + ":" + diffHoursText + ":" + diffMinutesText);
+            } else txtChildSince.setText(Html.fromHtml(text));
         }
 
         return convertView;

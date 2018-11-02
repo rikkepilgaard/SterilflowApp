@@ -1,13 +1,16 @@
 package com.example.sterilflowapp;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 import android.widget.TextView;
@@ -31,11 +34,15 @@ public class TimeService extends Service {
 
     private boolean serviceBound = false;
     private ArrayList<BufferZone> bufferZones;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor preferenceEditor;
+    private boolean isRunning = false;
 
     private DataService dataService;
 
     public TimeService() {
     }
+
 
     public class TimeServiceBinder extends Binder {
         TimeService getService() {
@@ -51,9 +58,24 @@ public class TimeService extends Service {
         bindToService();
         Log.d(TAG,"DataService started");
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferenceEditor = sharedPreferences.edit();
+
+        isRunning = true;
+
+        TimePassedTask timePassedTask = new TimePassedTask();
+        timePassedTask.execute();
+
         return START_STICKY;
     }
 
+    @Override
+    public void onDestroy() {
+        Log.d(TAG,"Service destroyed");
+        isRunning = false;
+
+        super.onDestroy();
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -89,39 +111,51 @@ public class TimeService extends Service {
     };
 
 
-
-
-    private void timeMethod(String date) {
+    private void timeMethod() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
-        //https://www.mkyong.com/java/how-to-calculate-date-time-difference-in-java/
+        if(dataService!=null) {
+            bufferZones = dataService.getBufferZoneList();
+        }
 
-        Date currentDate = Calendar.getInstance().getTime();
-        String format = simpleDateFormat.format(currentDate);
-        currentDate = fromStringToDate(format);
+        if(bufferZones != null) {
+            for (BufferZone zone : bufferZones) {
+                if(zone.getWagonList()!=null) {
+                    for (TrackEvent event : zone.getWagonList()) {
 
-        Date otherDate = fromStringToDate(date);
+                        long lastDiff = sharedPreferences.getLong(event.getObjectkey(), 0);
+                        long lastMinutes = lastDiff / (60 * 1000) % 60;
+                        long lastHours = lastDiff / (60 * 60 * 1000) % 24;
 
-        long diff = currentDate.getTime() - otherDate.getTime();
+                        Date currentDate = Calendar.getInstance().getTime();
+                        String format = simpleDateFormat.format(currentDate);
+                        currentDate = fromStringToDate(format);
 
+                        Date otherDate = fromStringToDate(event.getEventTime());
 
+                        long diff = currentDate.getTime() - otherDate.getTime();
 
-        //long diffSeconds = diff / 1000;
-        long diffMinutes = diff / (60 * 1000) % 60;
-        long diffHours = diff / (60 * 60 * 1000) % 24;
-        long diffDays = diff / (24 * 60 * 60 * 1000);
+                        long diffMinutes = diff / (60 * 1000) % 60;
+                        long diffHours = diff / (60 * 60 * 1000) % 24;
+                        long diffDays = diff / (24 * 60 * 60 * 1000);
 
-        String diffMinutesText = (diffMinutes < 10 ? "0" : "") + diffMinutes;
-        String diffHoursText = (diffHours < 10 ? "0" : "") + diffHours;
-        String diffDaysText = (diffDays < 10 ? "0" : "") + diffDays;
+                        if (lastMinutes != diffMinutes) {
+                            preferenceEditor.putLong(event.getObjectkey(), diff);
+                            preferenceEditor.commit();
 
-        String text = diffHoursText + "<b>t </b>" + diffMinutesText + "<b>m </b>";
+                            sendBroadcast("time");
+                        }
 
-//        if(diffDays != 0)
-//        {
-//            textView.setText(diffDaysText + ":" + diffHoursText + ":" + diffMinutesText);
-//        }
-//        else textView.setText(Html.fromHtml(text));
+                        if (diffHours > 2 && lastHours!=diffHours) {
+                            preferenceEditor.putString(getResources().getString(R.string.wagon_time), event.getObjectkey());
+                            preferenceEditor.putString(getResources().getString(R.string.buffer_time),zone.getName());
+
+                            sendBroadcast("time_wagon");
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private Date fromStringToDate(String stringDate){
@@ -141,25 +175,34 @@ public class TimeService extends Service {
         }
     }
 
-    public class timePassedTask extends AsyncTask<String,String,String>{
+    public class TimePassedTask extends AsyncTask<String,String,String>{
 
         @Override
         protected String doInBackground(String... params) {
 
-            try {
-                timeMethod(params[0]);
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            while(isRunning) {
+                try {
+                    timeMethod();
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             return null;
         }
 
     }
 
-    public void sendBroadcast(){
+
+
+    public void sendBroadcast(String action){
         Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("time");
+        if(action.equals("time_wagon")) {
+            broadcastIntent.setAction("time_wagon");
+        }
+        if(action.equals("time")){
+            broadcastIntent.setAction("time");
+        }
         LocalBroadcastManager.getInstance(TimeService.this).sendBroadcast(broadcastIntent);
         Log.d(TAG,"Broadcast sent");
     }

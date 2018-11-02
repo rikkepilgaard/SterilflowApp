@@ -72,11 +72,15 @@ public class FragmentOne extends Fragment {
             hashMap.put(bufferZone, trackEvents);
         }
 
-        adapter = new ExpandableListAdaptor(getActivity(),bufferZones,hashMap);
-        listView.setAdapter(adapter);
-        ((ExpandableListAdaptor) adapter).updateListView(bufferZones,hashMap);
+        if(adapter == null) {
 
+            adapter = new ExpandableListAdaptor(getActivity(), bufferZones, hashMap);
+            listView.setAdapter(adapter);
+        }
+
+        ((ExpandableListAdaptor) adapter).updateListView(bufferZones,hashMap);
     }
+
 
 
     public Bitmap resizeImageBitmap(String iconName, int width, int height){
