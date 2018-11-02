@@ -241,7 +241,6 @@ public class DataService extends Service {
     public void sendBroadcast(){
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("data");
-        //broadcastIntent.setAction("time");
         LocalBroadcastManager.getInstance(DataService.this).sendBroadcast(broadcastIntent);
         Log.d(TAG,"Broadcast sent");
     }
