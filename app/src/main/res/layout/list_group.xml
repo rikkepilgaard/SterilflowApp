@@ -3,32 +3,31 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:weightSum="100"
-    android:background="#f0f0f0">
-
-
+    android:paddingLeft="50dp"
+    android:paddingStart="50dp"
+    android:paddingRight="15dp"
+    android:paddingEnd="15dp"
+    android:weightSum="100">
 
     <TextView
         android:id="@+id/lvHeaderBuffer"
-        android:textSize="18sp"
+        android:textSize="20sp"
+        android:textStyle="normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="40"
-        android:paddingLeft="?android:attr/expandableListPreferredItemIndicatorLeft"/>
+        android:minHeight="60dp"
+        android:layout_weight="40"/>
 
-    <!--android:paddingLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-        -->
 
-    
+
     <TextView
-        android:id="@+id/lvHeaderWagons"
-        android:textSize="18sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAlignment="center"
+        android:id="@+id/lvHeaderNumberOfWagons"
+        android:textSize="20sp"
         android:layout_weight="60"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center" />
+
+
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.sterilflowapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -87,6 +88,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         Log.d(TAG,"getGroupView method entered");
 
+
         BufferZone bufferZone = getGroup(groupPosition);
 
         String headerTitleBuffer = bufferZone.getName();
@@ -101,11 +103,13 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         }
 
         TextView lblListHeader = (TextView)convertView.findViewById(R.id.lvHeaderBuffer);
-        lblListHeader.setTypeface(null,Typeface.BOLD);
         lblListHeader.setText(headerTitleBuffer);
-        TextView lblListHeaderWagons = (TextView)convertView.findViewById(R.id.lvHeaderWagons);
-        lblListHeaderWagons.setTypeface(null,Typeface.BOLD);
+        TextView lblListHeaderWagons = (TextView)convertView.findViewById(R.id.lvHeaderNumberOfWagons);
         lblListHeaderWagons.setText(String.valueOf(headerTitleWagon));
+
+        if(bufferZone.getWagonList()!=null){
+            lblListHeaderWagons.setTypeface(null,Typeface.BOLD);
+        }
 
 
         return convertView;
@@ -141,23 +145,29 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             placedAt = sub1 + " " + sub2;
 
             long timeDifference = sharedPreferences.getLong(trackEvent.getObjectkey(),0);
-            long diffMinutes = timeDifference / (60 * 1000) % 60;
-            long diffHours = timeDifference / (60 * 60 * 1000) % 24;
-            long diffDays = timeDifference / (24 * 60 * 60 * 1000);
+            int diffMinutes = safeLongToInt(timeDifference / (60 * 1000) % 60);
+            int diffHours = safeLongToInt(timeDifference / (60 * 60 * 1000) % 24);
+            int diffDays = safeLongToInt(timeDifference / (24 * 60 * 60 * 1000));
             String diffMinutesText = (diffMinutes < 10 ? "0" : "") + diffMinutes;
             String diffHoursText = (diffHours < 10 ? "0" : "") + diffHours;
             String diffDaysText = (diffDays < 10 ? "0" : "") + diffDays;
             String text = diffHoursText + "<b>t </b>" + diffMinutesText + "<b>m </b>";
+
 
             TextView txtChildId = (TextView) convertView.findViewById(R.id.lvItemID);
             txtChildId.setText(id);
             TextView txtChildPlaced = (TextView) convertView.findViewById(R.id.lvItemPlaced);
             txtChildPlaced.setText(placedAt);
             TextView txtChildSince = (TextView) convertView.findViewById(R.id.lvItemSince);
-            if(diffDays != 0) {
+            if (diffDays != 0) {
                 txtChildSince.setText(diffDaysText + ":" + diffHoursText + ":" + diffMinutesText);
             } else txtChildSince.setText(Html.fromHtml(text));
+            if(diffHours>1){
+                convertView.setBackgroundColor(context.getResources().getColor(R.color.warningColor));
+            }
+
         }
+
 
         return convertView;
     }
@@ -165,6 +175,15 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
+    }
+
+    //https://stackoverflow.com/questions/1590831/safely-casting-long-to-int-in-java
+    public static int safeLongToInt(long l) {
+        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException
+                    (l + " cannot be cast to int without changing its value.");
+        }
+        return (int) l;
     }
 
 
