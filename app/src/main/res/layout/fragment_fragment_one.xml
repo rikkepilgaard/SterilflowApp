@@ -20,7 +20,7 @@
         android:paddingStart="60dp"
         android:paddingRight="30dp"
         android:paddingEnd="30dp"
-        android:background="@color/columnColor">
+        android:background="@color/colorAccent">
 
         <TextView
             android:layout_width="match_parent"
@@ -28,7 +28,8 @@
             android:layout_weight="40"
             android:gravity="start"
             android:text="Bufferområde"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -36,14 +37,16 @@
             android:layout_weight="60"
             android:text="Antal Vogne"
             android:gravity="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 
     <ExpandableListView
         android:id="@+id/listViewExpandable"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:childDivider="@color/colorPrimary" />
 
     <!-- layout_direction="rtl" kan sætte pilen i højre side-->
 

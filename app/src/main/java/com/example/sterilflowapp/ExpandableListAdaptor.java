@@ -2,6 +2,7 @@ package com.example.sterilflowapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.nio.Buffer;
@@ -22,10 +24,12 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     private static final String TAG = "ExpandableListAdaptor";
 
     SharedPreferences sharedPreferences;
+    int diffHours;
 
     private Context context;
     private ArrayList<BufferZone> bufferZones;
     private HashMap<BufferZone, ArrayList<TrackEvent>> listHashMap;
+
     //private MainActivity activity = new MainActivity();
 
     public ExpandableListAdaptor(Context context, ArrayList<BufferZone> bufferZones, HashMap<BufferZone,ArrayList<TrackEvent>> hashMap) {
@@ -89,7 +93,9 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         Log.d(TAG,"getGroupView method entered");
 
 
+
         BufferZone bufferZone = getGroup(groupPosition);
+
 
         String headerTitleBuffer = bufferZone.getName();
         int headerTitleWagon = 0;
@@ -102,6 +108,24 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.list_group, null);
         }
 
+        convertView.setBackgroundColor(context.getResources().getColor(R.color.columnColor));
+
+        ImageView timeImage = convertView.findViewById(R.id.lvImageTime);
+
+        if(bufferZone.getWagonList() != null) {
+            for (TrackEvent event : bufferZone.getWagonList()) {
+                long timeDifference = sharedPreferences.getLong(event.getObjectkey(), 0);
+                int diffHours = safeLongToInt(timeDifference / (60 * 60 * 1000) % 24);
+
+                if (diffHours > 2) {
+                    timeImage.setImageResource(R.drawable.time);
+                }
+                if(diffHours<2){
+                    timeImage.setImageResource(0);
+                }
+            }
+        }
+
         TextView lblListHeader = (TextView)convertView.findViewById(R.id.lvHeaderBuffer);
         lblListHeader.setText(headerTitleBuffer);
         TextView lblListHeaderWagons = (TextView)convertView.findViewById(R.id.lvHeaderNumberOfWagons);
@@ -109,6 +133,10 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
         if(bufferZone.getWagonList()!=null){
             lblListHeaderWagons.setTypeface(null,Typeface.BOLD);
+        }
+        if(bufferZone.getWagonList()==null){
+            lblListHeaderWagons.setTypeface(null,Typeface.NORMAL);
+            timeImage.setImageResource(0);
         }
 
 
@@ -162,8 +190,13 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             if (diffDays != 0) {
                 txtChildSince.setText(diffDaysText + ":" + diffHoursText + ":" + diffMinutesText);
             } else txtChildSince.setText(Html.fromHtml(text));
-            if(diffHours>1){
-                convertView.setBackgroundColor(context.getResources().getColor(R.color.warningColor));
+            ImageView imageChild = convertView.findViewById(R.id.lvChildImageTime);
+            if(diffHours>2){
+                imageChild.setImageResource(R.drawable.time);
+                txtChildId.setTextColor(context.getResources().getColor(R.color.red));
+                txtChildPlaced.setTextColor(context.getResources().getColor(R.color.red));
+                txtChildSince.setTextColor(context.getResources().getColor(R.color.red));
+                //convertView.setBackgroundColor(context.getResources().getColor(R.color.warningColor));
             }
 
         }
@@ -176,6 +209,8 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
     }
+
+
 
     //https://stackoverflow.com/questions/1590831/safely-casting-long-to-int-in-java
     public static int safeLongToInt(long l) {

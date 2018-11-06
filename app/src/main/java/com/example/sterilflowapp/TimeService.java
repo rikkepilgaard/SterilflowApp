@@ -137,7 +137,7 @@ public class TimeService extends Service {
 
                         long diffMinutes = diff / (60 * 1000) % 60;
                         long diffHours = diff / (60 * 60 * 1000) % 24;
-                        long diffDays = diff / (24 * 60 * 60 * 1000);
+                        //long diffDays = diff / (24 * 60 * 60 * 1000);
 
                         if (lastMinutes != diffMinutes) {
                             preferenceEditor.putLong(event.getObjectkey(), diff);
@@ -146,9 +146,10 @@ public class TimeService extends Service {
                             sendBroadcast("time");
                         }
 
-                        if (diffHours > 2 && lastHours!=diffHours) {
+                        if (diffHours == 3 && lastHours!=diffHours) {
                             preferenceEditor.putString(getResources().getString(R.string.wagon_time), event.getObjectkey());
                             preferenceEditor.putString(getResources().getString(R.string.buffer_time),zone.getName());
+                            preferenceEditor.commit();
 
                             sendBroadcast("time_wagon");
                         }

@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    android:orientation="horizontal"
+    android:paddingRight="25dp"
     android:weightSum="100">
+
     <TextView
         android:id="@+id/txtChildHeaderID"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:text="Header"
         android:layout_height="50dp"
-        android:layout_weight="33.33"/>
+        android:layout_weight="33.33"
+        android:gravity="center"
+        android:textSize="19sp" />
 
     <TextView
         android:id="@+id/txtChildHeaderPlaced"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:text="Header"
         android:layout_height="50dp"
-        android:layout_weight="33.33"/>
+        android:layout_weight="33.33"
+        android:gravity="center"
+        android:textSize="19sp" />
 
     <TextView
         android:id="@+id/txtChildHeaderSince"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:text="Header"
         android:layout_height="50dp"
-        android:layout_weight="33.33"/>
+        android:layout_weight="33.33"
+        android:gravity="center"
+        android:textSize="19sp" />
 
 </LinearLayout>

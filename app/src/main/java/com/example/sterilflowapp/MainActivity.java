@@ -136,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         String alertTitle = getString(R.string.alert_time_title);
         alert.setTitle(alertTitle);
-        String alertMsg = "Vogn: " + sharedPreferences.getString(getString(R.string.wagon_time),"")
-                + "\nBufferområde: " + sharedPreferences.getString(getString(R.string.buffer_time),"");
+        String alertMsg = getString(R.string.wagon_time) + " " + sharedPreferences.getString(getString(R.string.buffer_time),"'Not found'");
         alert.setMessage(alertMsg);
 
         alert.setPositiveButton("Gå til vogn", new DialogInterface.OnClickListener() {
@@ -152,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Du har trykket på 'Luk'",Toast.LENGTH_LONG).show();
             }
         });
-        alert.create().show();
+        alert.show();
 
     }
 
