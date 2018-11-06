@@ -2,13 +2,14 @@ package com.example.sterilflowapp;
 
 class TrackEvent {
     private String localitykey, objectkey, comments,distanceFloor,distanceMtr,durationSec,eventTime,floor,latitude, longitude,locationSgln;
+    private boolean expired;
 
     public TrackEvent() {
     }
 
-    public TrackEvent(String localityKey, String objectKey, String comments, String distanceFloor, String distanceMtr, String durationSec, String eventTime, String floor, String latitude, String longitude, String locationSgln) {
-        this.localitykey = localityKey;
-        this.objectkey = objectKey;
+    public TrackEvent(String localitykey, String objectkey, String comments, String distanceFloor, String distanceMtr, String durationSec, String eventTime, String floor, String latitude, String longitude, String locationSgln, boolean expired) {
+        this.localitykey = localitykey;
+        this.objectkey = objectkey;
         this.comments = comments;
         this.distanceFloor = distanceFloor;
         this.distanceMtr = distanceMtr;
@@ -18,7 +19,9 @@ class TrackEvent {
         this.latitude = latitude;
         this.longitude = longitude;
         this.locationSgln = locationSgln;
+        this.expired = expired;
     }
+
 
     public String getLocalitykey() {
         return localitykey;
@@ -106,6 +109,14 @@ class TrackEvent {
 
     public void setLocationSgln(String locationSgln) {
         this.locationSgln = locationSgln;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
     }
 }
 

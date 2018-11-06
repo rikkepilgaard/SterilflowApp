@@ -111,7 +111,7 @@ public class TimeService extends Service {
     };
 
 
-    private void timeMethod() {
+    public void timeMethod() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
         if(dataService!=null) {
@@ -146,8 +146,12 @@ public class TimeService extends Service {
                             sendBroadcast("time");
                         }
 
+                        if(diffHours>2){
+                            event.setExpired(true);
+                        }
+
                         if (diffHours == 3 && lastHours!=diffHours) {
-                            preferenceEditor.putString(getResources().getString(R.string.wagon_time), event.getObjectkey());
+
                             preferenceEditor.putString(getResources().getString(R.string.buffer_time),zone.getName());
                             preferenceEditor.commit();
 

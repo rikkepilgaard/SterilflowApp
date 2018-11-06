@@ -84,6 +84,10 @@ public class FragmentOne extends Fragment {
         for (int i = 0; i < bufferZones.size() ; i++){
             if(bufferZones.get(i).getName().equals(bufferName)){
                 listView.expandGroup(i);
+                listView.setSelectedGroup(i);
+            }
+            else {
+                listView.collapseGroup(i);
             }
         }
     }

@@ -46,7 +46,8 @@
         android:id="@+id/listViewExpandable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:childDivider="@color/colorPrimary" />
+        android:childDivider="@color/colorPrimary"
+        android:transcriptMode="disabled"/>
 
     <!-- layout_direction="rtl" kan sætte pilen i højre side-->
 

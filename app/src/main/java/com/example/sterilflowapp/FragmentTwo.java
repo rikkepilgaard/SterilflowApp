@@ -76,11 +76,18 @@ public class FragmentTwo extends Fragment {
 
         for (final BufferZone i: bufferZones){
             marker = new Marker(osm);
+            boolean expired = false;
             //Resize icon and set number of wagons inside icon
             if(i.getWagonList() != null) {
-                marker.setIcon(createMarkerIcon(i.getWagonList().size()));
+
+                for (TrackEvent event : i.getWagonList()){
+                    if(event.isExpired()){
+                        expired = true;
+                    }
+                }
+                marker.setIcon(createMarkerIcon(i.getWagonList().size(),expired));
             }
-            else{marker.setIcon(createMarkerIcon(0));}
+            else{marker.setIcon(createMarkerIcon(0,false));}
 
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             marker.setPosition(new GeoPoint(Double.parseDouble(i.getLatitude()),Double.parseDouble(i.getLongitude())));
@@ -115,11 +122,12 @@ public class FragmentTwo extends Fragment {
     }
 
 
-    public Drawable createMarkerIcon(int numberWagons){
+    public Drawable createMarkerIcon(int numberWagons, boolean isExpired){
         Bitmap imageBitmap;
 
         //Dette skal bruges til tidsgrænserne!!
-        if(numberWagons>=2){
+        //if(numberWagons>=2){
+        if(!isExpired){
         imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("bluemarker", "drawable", getActivity().getPackageName()));}
         else{imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("redmarker", "drawable", getActivity().getPackageName()));}
 

@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
@@ -20,11 +22,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import androidx.core.content.ContextCompat;
+
 public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     private static final String TAG = "ExpandableListAdaptor";
 
     SharedPreferences sharedPreferences;
-    int diffHours;
 
     private Context context;
     private ArrayList<BufferZone> bufferZones;
@@ -112,15 +115,12 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         ImageView timeImage = convertView.findViewById(R.id.lvImageTime);
 
         if(bufferZone.getWagonList() != null) {
+            timeImage.setImageResource(0);
             for (TrackEvent event : bufferZone.getWagonList()) {
-                long timeDifference = sharedPreferences.getLong(event.getObjectkey(), 0);
-                int diffHours = safeLongToInt(timeDifference / (60 * 60 * 1000) % 24);
-
-                if (diffHours > 2) {
-                    timeImage.setImageResource(R.drawable.time);
-                }
-                if(diffHours<2){
-                    timeImage.setImageResource(0);
+                if (event.isExpired()) {
+                    Drawable timeDrawable = ContextCompat.getDrawable(context,R.drawable.time).mutate();
+                    timeDrawable.setColorFilter(Color.RED,PorterDuff.Mode.SRC_ATOP);
+                    timeImage.setImageDrawable(timeDrawable);
                 }
             }
         }
@@ -189,7 +189,9 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             if (diffDays != 0) {
                 txtChildSince.setText(diffDaysText + ":" + diffHoursText + ":" + diffMinutesText);
             } else txtChildSince.setText(Html.fromHtml(text));
+
             ImageView imageChild = convertView.findViewById(R.id.lvChildImageTime);
+
             if(diffHours>2){
                 imageChild.setImageResource(R.drawable.time);
                 txtChildId.setTextColor(context.getResources().getColor(R.color.red));

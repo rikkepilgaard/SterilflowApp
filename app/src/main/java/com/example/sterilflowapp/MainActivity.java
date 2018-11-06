@@ -125,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case "data":
+                    timeService.timeMethod();
+
                     fragmentOne.initData(dataService.getBufferZoneList());
                     fragmentTwo.addMarker(dataService.getBufferZoneList());
                     break;
