@@ -41,7 +41,6 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
     public void updateListView(ArrayList<BufferZone> bufferZonesNew, HashMap<BufferZone,ArrayList<TrackEvent>> hashmap)
     {
-
         this.listHashMap = hashmap;
         this.bufferZones = bufferZonesNew;
 

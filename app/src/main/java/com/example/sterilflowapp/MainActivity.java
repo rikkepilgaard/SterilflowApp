@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG,"Broadcast received: " + intent.getAction());
 
+
             switch (intent.getAction()){
                 case "time":
                     fragmentOne.initData(dataService.getBufferZoneList());
@@ -134,15 +135,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void setAlert(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        final String buffer = sharedPreferences.getString(getString(R.string.buffer_time),"'Not found'");
         String alertTitle = getString(R.string.alert_time_title);
         alert.setTitle(alertTitle);
-        String alertMsg = getString(R.string.wagon_time) + " " + sharedPreferences.getString(getString(R.string.buffer_time),"'Not found'");
+        String alertMsg = getString(R.string.wagon_time) + " " + buffer;
         alert.setMessage(alertMsg);
 
         alert.setPositiveButton("Gå til vogn", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(),"Du har trykket på 'Gå til vogn'",Toast.LENGTH_LONG).show();
+                fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),buffer);
             }
         });
         alert.setNegativeButton("Luk", new DialogInterface.OnClickListener() {

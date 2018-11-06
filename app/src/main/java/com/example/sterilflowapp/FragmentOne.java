@@ -58,7 +58,6 @@ public class FragmentOne extends Fragment {
 
         listView = view.findViewById(R.id.listViewExpandable);
 
-
         // Inflate the layout for this fragment
         return view;
     }
@@ -79,6 +78,14 @@ public class FragmentOne extends Fragment {
         }
 
         ((ExpandableListAdaptor) adapter).updateListView(bufferZones,hashMap);
+    }
+
+    public void expandSpecifiedGroup(ArrayList<BufferZone> bufferZones, String bufferName){
+        for (int i = 0; i < bufferZones.size() ; i++){
+            if(bufferZones.get(i).getName().equals(bufferName)){
+                listView.expandGroup(i);
+            }
+        }
     }
 
 
