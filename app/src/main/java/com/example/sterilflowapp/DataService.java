@@ -237,6 +237,9 @@ public class DataService extends Service {
 
         }
     }
+    //To test
+    public void setBufferZones(ArrayList<BufferZone>buffer){this.bufferZones=buffer;}
+    public void setTrackEventArrayList(ArrayList<TrackEvent>tracks){this.trackEventArrayList=tracks;}
 
     public void sendBroadcast(){
         Intent broadcastIntent = new Intent();

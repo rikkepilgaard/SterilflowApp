@@ -13,12 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.osmdroid.bonuspack.overlays.GroundOverlay;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.gridlines.LatLonGridlineOverlay2;
 
 import java.util.ArrayList;
 
@@ -32,6 +34,7 @@ public class FragmentTwo extends Fragment {
     MainActivity activity;
     private ArrayList<BufferZone> bufferZones;
     Marker marker;
+
     public FragmentTwo() {
         // Required empty public constructor
     }
@@ -50,7 +53,7 @@ public class FragmentTwo extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fragment_two, container, false);
         osm=(MapView) view.findViewById(R.id.mapview);
         osm.setTileSource(TileSourceFactory.MAPNIK);
-        osm.setBuiltInZoomControls(true);
+        //osm.setBuiltInZoomControls(true);
         osm.setMultiTouchControls(true);
         mc=(MapController) this.osm.getController();
         mc.setZoom(17);
@@ -62,6 +65,7 @@ public class FragmentTwo extends Fragment {
         osm.setScrollableAreaLimitDouble(box);
         osm.setMapOrientation(21.05f);
         //addMarker();
+
 
         // Inflate the layout for this fragment
         return view;
@@ -91,6 +95,24 @@ public class FragmentTwo extends Fragment {
             osm.getOverlays().add(marker);
             osm.invalidate();
         }
+        addBuildings();
+
+    }
+    public void addBuildings(){
+        LatLonGridlineOverlay2 overlay = new LatLonGridlineOverlay2();
+        Canvas c = new Canvas();
+        overlay.draw(c,osm,false);
+
+
+
+//        Marker m = new Marker(osm);
+//        m.setTitle("J17");
+//        m.setIcon(null);
+//        m.setPosition(new GeoPoint(56.19056038483299,10.167989367021));
+//        osm.getOverlays().add(marker);
+//        osm.invalidate();
+
+
     }
 
 

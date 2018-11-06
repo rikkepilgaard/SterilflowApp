@@ -42,8 +42,8 @@
         <name>Sterillager Nord J105</name>
         <gln>urn:epc:id:sgln:57980101.5946.0</gln><!-- gln-nummer ikke det rigtige!!-->
         <formerGln>urn:epc:id:sgln:57980102.1414.0</formerGln> <!-- sterillager nord -->
-        <latitude>56.191440</latitude><!-- lat ikke det rigtige!!-->
-        <longitude>10.167557</longitude><!-- long ikke det rigtige!!-->
+        <latitude>56.19143848341437</latitude><!-- lat ikke det rigtige!!-->
+        <longitude>10.167469666696974</longitude><!-- long ikke det rigtige!!-->
         <location>J105</location>
         <containedIn></containedIn>
     </bufferzone>
@@ -58,8 +58,8 @@
     <bufferzone>
         <name>Bufferområde 236-P1</name>
         <gln>urn:epc:id:sgln:57980102.8548.0</gln>
-        <latitude>56.191068</latitude><!-- lat ikke det rigtige!!-->
-        <longitude>10.167047</longitude><!-- long ikke det rigtige!!-->
+        <latitude>56.19112670791311</latitude>
+        <longitude>10.16694934659995</longitude>
         <location>J120</location>
         <containedIn></containedIn>
     </bufferzone>
