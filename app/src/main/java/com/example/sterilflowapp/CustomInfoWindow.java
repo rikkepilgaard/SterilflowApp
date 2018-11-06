@@ -1,28 +1,30 @@
 package com.example.sterilflowapp;
 
 import android.app.Activity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.infowindow.MarkerInfoWindow;
 
-import androidx.fragment.app.Fragment;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
 //https://code.google.com/archive/p/osmbonuspack/wikis/Tutorial_2.wiki
 public class CustomInfoWindow extends MarkerInfoWindow {
-    Activity activity;
-
-    public CustomInfoWindow(MapView mapView,Activity activity){
+    //Activity activity;
+Context context;
+    public CustomInfoWindow(MapView mapView, Context context){
         super(R.layout.bubble_layout,mapView);
-        this.activity=activity;
+        this.context=context;
+        //this.activity=activity;
     }
 
     @Override
@@ -38,11 +40,11 @@ public class CustomInfoWindow extends MarkerInfoWindow {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String buffername = txtTitle.getText().toString();
-//                Toast.makeText(activity, buffername, Toast.LENGTH_SHORT).show();
-
-                ViewPager viewPager = (ViewPager) activity.findViewById(R.id.viewPager);
-                viewPager.setCurrentItem(0);
+                String buffername = txtTitle.getText().toString();
+                Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction("changetab");
+                broadcastIntent.putExtra("buffername",buffername);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
 
         };
 

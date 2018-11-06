@@ -57,6 +57,7 @@ public class UnitTestDataService {
         ArrayList<TrackEvent> expectedList = new ArrayList<TrackEvent>();
         expectedList.add(trackEventRecent2);
 
+
         //Act
         dataService.setBufferZones(bufferZones);
         dataService.setTrackEventArrayList(trackEventArrayList);

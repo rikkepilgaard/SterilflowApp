@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         dataFilter.addAction("data");
         dataFilter.addAction("time");
         dataFilter.addAction("time_wagon");
+        dataFilter.addAction("changetab");
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,dataFilter);
     }
 
@@ -126,6 +127,11 @@ public class MainActivity extends AppCompatActivity {
                 case "data":
                     fragmentOne.initData(dataService.getBufferZoneList());
                     fragmentTwo.addMarker(dataService.getBufferZoneList());
+                    break;
+                case "changetab":
+                    viewPager.setCurrentItem(0);
+                    fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),intent.getStringExtra("buffername"));
+                    break;
 
             }
 
@@ -144,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         alert.setPositiveButton("Gå til vogn", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                viewPager.setCurrentItem(0);
                 fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),buffer);
             }
         });

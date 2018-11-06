@@ -119,6 +119,7 @@ public class DataService extends Service {
 
 
         for (int j = 0; j < bufferZones.size(); j++){
+            ArrayList<TrackEvent> oldWagonList=bufferZones.get(j).getWagonList();
             bufferZones.get(j).setWagonList(null);
             ArrayList<TrackEvent> list = new ArrayList<>();
 
@@ -138,7 +139,6 @@ public class DataService extends Service {
                                         if(event1.getLocationSgln().equals(formerGln)){
                                             list.add(trackEvent);
                                             bufferZones.get(j).setWagonList(list);
-                                            sendBroadcast();
                                         }
                                     }
                                 }
@@ -159,12 +159,17 @@ public class DataService extends Service {
                         if (bufferZones.get(j).getGln().equals(trackEvent.getLocationSgln())) {
                             list.add(trackEvent);
                             bufferZones.get(j).setWagonList(list);
-                            sendBroadcast();
                         }
                     }
 
                     break;
             }
+            if(bufferZones.get(j).getWagonList()!= null){
+                int size = 0;
+                if(oldWagonList != null){size=oldWagonList.size();}
+
+                if(bufferZones.get(j).getWagonList().size()!=size){
+                    sendBroadcast();}}
         }
     }
 

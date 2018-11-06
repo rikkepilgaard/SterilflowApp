@@ -65,15 +65,14 @@ public class FragmentTwo extends Fragment {
         osm.setScrollableAreaLimitDouble(box);
         osm.setMapOrientation(21.05f);
         //addMarker();
-
-
         // Inflate the layout for this fragment
         return view;
     }
+
+
     public void addMarker(ArrayList<BufferZone> bufferZones){
         osm.getOverlays().clear();
         activity = (MainActivity) getActivity();
-        //bufferZones = activity.getBufferZoneList();
 
         for (final BufferZone i: bufferZones){
             marker = new Marker(osm);
@@ -87,7 +86,7 @@ public class FragmentTwo extends Fragment {
             marker.setPosition(new GeoPoint(Double.parseDouble(i.getLatitude()),Double.parseDouble(i.getLongitude())));
 
             //Set infowindow with button
-            marker.setInfoWindow(new CustomInfoWindow(osm,activity));
+            marker.setInfoWindow(new CustomInfoWindow(osm,activity.getApplicationContext()));
             marker.setTitle(i.getName());
             marker.setSnippet(i.getLocationName());
             marker.setSubDescription("Se vogne");
