@@ -94,10 +94,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         Log.d(TAG,"getGroupView method entered");
 
-
-
         BufferZone bufferZone = getGroup(groupPosition);
-
 
         String headerTitleBuffer = bufferZone.getName();
         int headerTitleWagon = 0;
@@ -118,7 +115,9 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             timeImage.setImageResource(0);
             for (TrackEvent event : bufferZone.getWagonList()) {
                 if (event.isExpired()) {
-                    Drawable timeDrawable = ContextCompat.getDrawable(context,R.drawable.time).mutate();
+                    //Hvis den kun skal farve et enkelt billede
+                    //Drawable timeDrawable = ContextCompat.getDrawable(context,R.drawable.time).mutate();
+                    Drawable timeDrawable = ContextCompat.getDrawable(context,R.drawable.time);
                     timeDrawable.setColorFilter(Color.RED,PorterDuff.Mode.SRC_ATOP);
                     timeImage.setImageDrawable(timeDrawable);
                 }
@@ -173,7 +172,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
             long timeDifference = sharedPreferences.getLong(trackEvent.getObjectkey(),0);
             int diffMinutes = safeLongToInt(timeDifference / (60 * 1000) % 60);
-            int diffHours = safeLongToInt(timeDifference / (60 * 60 * 1000) % 24);
+            int diffHours = safeLongToInt(timeDifference / (60 * 60 * 1000) % 24 -1 ); //1 hour time difference
             int diffDays = safeLongToInt(timeDifference / (24 * 60 * 60 * 1000));
             String diffMinutesText = (diffMinutes < 10 ? "0" : "") + diffMinutes;
             String diffHoursText = (diffHours < 10 ? "0" : "") + diffHours;
