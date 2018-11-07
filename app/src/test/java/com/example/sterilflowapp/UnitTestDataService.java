@@ -18,6 +18,7 @@ public class UnitTestDataService {
     ArrayList<TrackEvent> wagonList;
 
 
+
     @Before
     public void setUp() throws Exception {
         trackEventArrayList=new ArrayList<TrackEvent>();
@@ -49,8 +50,8 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0");
-        TrackEvent trackEventRecent2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.8705.0");
+        TrackEvent trackEventRecent1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0",false);
+        TrackEvent trackEventRecent2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.8705.0",false);
         trackEventArrayList.add(trackEventRecent1);
         trackEventArrayList.add(trackEventRecent2);
 
@@ -88,8 +89,8 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2839.0");
-        TrackEvent trackEventRecent2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.8705.0");
+        TrackEvent trackEventRecent1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2839.0",false);
+        TrackEvent trackEventRecent2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.8705.0",false);
         trackEventArrayList.add(trackEventRecent1);
         trackEventArrayList.add(trackEventRecent2);
 
@@ -124,10 +125,10 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventS30track1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0");
-        TrackEvent trackEventS30track2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.8705.0");
-        TrackEvent trackEventS20track1= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0");
-        TrackEvent trackEventS20track2= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.8705.0");
+        TrackEvent trackEventS30track1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0",false);
+        TrackEvent trackEventS30track2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.8705.0",false);
+        TrackEvent trackEventS20track1= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0",false);
+        TrackEvent trackEventS20track2= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.8705.0",false);
         trackEventArrayList.add(trackEventS30track1);
         trackEventArrayList.add(trackEventS30track2);
         trackEventArrayList.add(trackEventS20track1);
@@ -168,7 +169,7 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.7856.0");
+        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.7856.0",false);
         trackEventArrayList.add(trackEventRecent);
 
 
@@ -200,10 +201,10 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventS30track1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0");
-        TrackEvent trackEventS30track2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.7856.0");
-        TrackEvent trackEventS20track1= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0");
-        TrackEvent trackEventS20track2= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.7856.0");
+        TrackEvent trackEventS30track1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0",false);
+        TrackEvent trackEventS30track2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.7856.0",false);
+        TrackEvent trackEventS20track1= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0",false);
+        TrackEvent trackEventS20track2= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.7856.0",false);
         trackEventArrayList.add(trackEventS30track1);
         trackEventArrayList.add(trackEventS30track2);
         trackEventArrayList.add(trackEventS20track1);
@@ -238,7 +239,7 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57900101.7856.0");
+        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57900101.7856.0",false);
         trackEventArrayList.add(trackEventRecent);
 
 
@@ -271,7 +272,7 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.6407.0");
+        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.6407.0",false);
         trackEventArrayList.add(trackEventRecent);
 
 
@@ -303,10 +304,10 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventS30track1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0");
-        TrackEvent trackEventS30track2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.6407.0");
-        TrackEvent trackEventS20track1= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0");
-        TrackEvent trackEventS20track2= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.6407.0");
+        TrackEvent trackEventS30track1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0",false);
+        TrackEvent trackEventS30track2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.6407.0",false);
+        TrackEvent trackEventS20track1= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0",false);
+        TrackEvent trackEventS20track2= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.6407.0",false);
         trackEventArrayList.add(trackEventS30track1);
         trackEventArrayList.add(trackEventS30track2);
         trackEventArrayList.add(trackEventS20track1);
@@ -341,7 +342,7 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57900101.7856.0");
+        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57900101.7856.0",false);
         trackEventArrayList.add(trackEventRecent);
 
 
@@ -375,7 +376,7 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.6410.0");
+        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.6410.0",false);
         trackEventArrayList.add(trackEventRecent);
 
 
@@ -410,7 +411,7 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980902.6410.0");
+        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980902.6410.0",false);
         trackEventArrayList.add(trackEventRecent);
 
 
@@ -447,8 +448,8 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.1414.0");
-        TrackEvent trackEventRecent2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.5946.0");
+        TrackEvent trackEventRecent1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.1414.0",false);
+        TrackEvent trackEventRecent2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.5946.0",false);
         trackEventArrayList.add(trackEventRecent1);
         trackEventArrayList.add(trackEventRecent2);
 
@@ -485,10 +486,10 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventS30track1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.1414.0");
-        TrackEvent trackEventS30track2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.5946.0");
-        TrackEvent trackEventS20track1= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.1414.0");
-        TrackEvent trackEventS20track2= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.5946.0");
+        TrackEvent trackEventS30track1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.1414.0",false);
+        TrackEvent trackEventS30track2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.5946.0",false);
+        TrackEvent trackEventS20track1= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.1414.0",false);
+        TrackEvent trackEventS20track2= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.5946.0",false);
         trackEventArrayList.add(trackEventS30track1);
         trackEventArrayList.add(trackEventS30track2);
         trackEventArrayList.add(trackEventS20track1);
@@ -525,8 +526,8 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2839.0");
-        TrackEvent trackEventRecent2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.5946.0");
+        TrackEvent trackEventRecent1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2839.0",false);
+        TrackEvent trackEventRecent2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.5946.0",false);
         trackEventArrayList.add(trackEventRecent1);
         trackEventArrayList.add(trackEventRecent2);
 
@@ -561,7 +562,7 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.3660.0");
+        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.3660.0",false);
         trackEventArrayList.add(trackEventRecent);
 
 
@@ -593,10 +594,10 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventS30track1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0");
-        TrackEvent trackEventS30track2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.3660.0");
-        TrackEvent trackEventS20track1= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0");
-        TrackEvent trackEventS20track2= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.3660.0");
+        TrackEvent trackEventS30track1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0",false);
+        TrackEvent trackEventS30track2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.3660.0",false);
+        TrackEvent trackEventS20track1= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0",false);
+        TrackEvent trackEventS20track2= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980101.3660.0",false);
         trackEventArrayList.add(trackEventS30track1);
         trackEventArrayList.add(trackEventS30track2);
         trackEventArrayList.add(trackEventS20track1);
@@ -631,7 +632,7 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57900101.0006.0");
+        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57900101.0006.0",false);
         trackEventArrayList.add(trackEventRecent);
 
 
@@ -665,7 +666,7 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.8548.0");
+        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.8548.0",false);
         trackEventArrayList.add(trackEventRecent);
 
 
@@ -697,10 +698,10 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventS30track1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0");
-        TrackEvent trackEventS30track2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.8548.0");
-        TrackEvent trackEventS20track1= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0");
-        TrackEvent trackEventS20track2= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.8548.0");
+        TrackEvent trackEventS30track1= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0",false);
+        TrackEvent trackEventS30track2= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.8548.0",false);
+        TrackEvent trackEventS20track1= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "06:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.2859.0",false);
+        TrackEvent trackEventS20track2= new TrackEvent("localityKey", "S20", "comments", "distanceFloor", "distanceMtr", "durationSec", "08:03",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57980102.8548.0",false);
         trackEventArrayList.add(trackEventS30track1);
         trackEventArrayList.add(trackEventS30track2);
         trackEventArrayList.add(trackEventS20track1);
@@ -735,7 +736,7 @@ public class UnitTestDataService {
 
 
         trackEventArrayList= new ArrayList<TrackEvent>();
-        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57900101.0006.0");
+        TrackEvent trackEventRecent= new TrackEvent("localityKey", "S30", "comments", "distanceFloor", "distanceMtr", "durationSec", "eventTime",  "floor",  "latitude",  "longitude",  "urn:epc:id:sgln:57900101.0006.0",false);
         trackEventArrayList.add(trackEventRecent);
 
 

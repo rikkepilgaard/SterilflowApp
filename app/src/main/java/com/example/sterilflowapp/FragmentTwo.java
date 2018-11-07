@@ -19,10 +19,15 @@ import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Overlay;
+import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.gridlines.LatLonGridlineOverlay2;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.fragment.app.Fragment;
 
@@ -32,7 +37,6 @@ public class FragmentTwo extends Fragment {
     private MapView osm;
     private MapController mc;
     MainActivity activity;
-    private ArrayList<BufferZone> bufferZones;
     Marker marker;
 
     public FragmentTwo() {
@@ -53,7 +57,7 @@ public class FragmentTwo extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fragment_two, container, false);
         osm=(MapView) view.findViewById(R.id.mapview);
         osm.setTileSource(TileSourceFactory.MAPNIK);
-        //osm.setBuiltInZoomControls(true);
+        osm.setBuiltInZoomControls(false);
         osm.setMultiTouchControls(true);
         mc=(MapController) this.osm.getController();
         mc.setZoom(17);
@@ -64,14 +68,19 @@ public class FragmentTwo extends Fragment {
         BoundingBox box = new BoundingBox(56.196023, 10.183009,56.185341, 10.161220);
         osm.setScrollableAreaLimitDouble(box);
         osm.setMapOrientation(21.05f);
-        //addMarker();
-        // Inflate the layout for this fragment
+
         return view;
     }
 
 
+
     public void addMarker(ArrayList<BufferZone> bufferZones){
+
+        //this.mMapView.getOverlays().remove(index);
         osm.getOverlays().clear();
+        CustomInfoWindow.closeAllInfoWindowsOn(osm);
+
+
         activity = (MainActivity) getActivity();
 
         for (final BufferZone i: bufferZones){
@@ -104,29 +113,35 @@ public class FragmentTwo extends Fragment {
         addBuildings();
 
     }
+
+    ItemizedIconOverlay currentLocationOverlay;
+
     public void addBuildings(){
-        LatLonGridlineOverlay2 overlay = new LatLonGridlineOverlay2();
-        Canvas c = new Canvas();
-        overlay.draw(c,osm,false);
+        Building b = new Building();
+        ArrayList<Building> bList = b.getBuildings(activity.getApplicationContext());
+
+        for (Building i: bList) {
+            OverlayItem myLocationOverlayItem = new OverlayItem("", "", new GeoPoint(i.getLatitude(),i.getLongitude()));
+        //Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.person);
+        //myLocationOverlayItem.setMarker(myCurrentLocationMarker);
+        myLocationOverlayItem.setMarker(createTextBitmap(i.getName()));
 
 
+        final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
+        items.add(myLocationOverlayItem);
 
-//        Marker m = new Marker(osm);
-//        m.setTitle("J17");
-//        m.setIcon(null);
-//        m.setPosition(new GeoPoint(56.19056038483299,10.167989367021));
-//        osm.getOverlays().add(marker);
-//        osm.invalidate();
+        currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(items,null,getContext());
 
-
+        osm.getOverlays().add(this.currentLocationOverlay);
+        osm.invalidate();
+        }
     }
 
 
     public Drawable createMarkerIcon(int numberWagons, boolean isExpired){
         Bitmap imageBitmap;
 
-        //Dette skal bruges til tidsgrænserne!!
-        //if(numberWagons>=2){
+
         if(!isExpired){
         imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("bluemarker", "drawable", getActivity().getPackageName()));}
         else{imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("redmarker", "drawable", getActivity().getPackageName()));}
@@ -147,4 +162,20 @@ public class FragmentTwo extends Fragment {
         Drawable marker = new BitmapDrawable(this.getResources(), resizedBitmap);
         return marker;
     }
+
+    public Drawable createTextBitmap(String text){
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setTextSize(12);
+            paint.setColor(Color.BLACK);
+            paint.setTextAlign(Paint.Align.LEFT);
+            float baseline = -paint.ascent(); // ascent() is negative
+            int width = (int) (paint.measureText(text) + 0.75f); // round
+            int height = (int) (baseline + paint.descent() + 0.5f);
+            Bitmap image = Bitmap.createBitmap(50, 12, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(image);
+            canvas.drawText(text, 0, baseline, paint);
+            Drawable textMarker = new BitmapDrawable(this.getResources(), image);
+            return textMarker;
+        }
+
 }
