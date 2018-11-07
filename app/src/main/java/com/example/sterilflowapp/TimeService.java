@@ -20,11 +20,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -136,7 +139,7 @@ public class TimeService extends Service {
                         long diff = currentDate.getTime() - otherDate.getTime();
 
                         long diffMinutes = diff / (60 * 1000) % 60;
-                        long diffHours = diff / (60 * 60 * 1000) % 24;
+                        long diffHours = diff / (60 * 60 * 1000) % 24 - 1; //1 times forskel på GMT
                         //long diffDays = diff / (24 * 60 * 60 * 1000);
 
                         if (lastMinutes != diffMinutes) {
@@ -188,7 +191,7 @@ public class TimeService extends Service {
             while(isRunning) {
                 try {
                     timeMethod();
-                    Thread.sleep(1000);
+                    Thread.sleep(30000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -199,15 +202,10 @@ public class TimeService extends Service {
     }
 
 
-
     public void sendBroadcast(String action){
         Intent broadcastIntent = new Intent();
-        if(action.equals("time_wagon")) {
-            broadcastIntent.setAction("time_wagon");
-        }
-        if(action.equals("time")){
-            broadcastIntent.setAction("time");
-        }
+        broadcastIntent.setAction(action);
+
         LocalBroadcastManager.getInstance(TimeService.this).sendBroadcast(broadcastIntent);
         Log.d(TAG,"Broadcast sent");
     }
