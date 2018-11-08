@@ -10,4 +10,8 @@
     <string name="alert_time_title">Advarsel! Vogn overskredet tidsperiode</string>
     <string name="wagon_time">En eller flere vogne udløber snart i bufferområde</string>
     <string name="buffer_time">Specifikt bufferområde</string>
+
+    <string name="wagon_id">Vogn ID</string>
+    <string name="placed_at">Placeringstidspunkt</string>
+    <string name="been_since">Holdetid</string>
 </resources>
