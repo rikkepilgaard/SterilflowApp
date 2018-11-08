@@ -78,7 +78,7 @@ public class FragmentTwo extends Fragment {
 
         //this.mMapView.getOverlays().remove(index);
         osm.getOverlays().clear();
-        CustomInfoWindow.closeAllInfoWindowsOn(osm);
+
 
 
         activity = (MainActivity) getActivity();
@@ -119,22 +119,20 @@ public class FragmentTwo extends Fragment {
     public void addBuildings(){
         Building b = new Building();
         ArrayList<Building> bList = b.getBuildings(activity.getApplicationContext());
+        final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
 
         for (Building i: bList) {
             OverlayItem myLocationOverlayItem = new OverlayItem("", "", new GeoPoint(i.getLatitude(),i.getLongitude()));
         //Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.person);
         //myLocationOverlayItem.setMarker(myCurrentLocationMarker);
         myLocationOverlayItem.setMarker(createTextBitmap(i.getName()));
-
-
-        final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
         items.add(myLocationOverlayItem);
 
-        currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(items,null,getContext());
 
+        }
+        currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(items,null,getContext());
         osm.getOverlays().add(this.currentLocationOverlay);
         osm.invalidate();
-        }
     }
 
 
@@ -165,7 +163,7 @@ public class FragmentTwo extends Fragment {
 
     public Drawable createTextBitmap(String text){
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            paint.setTextSize(12);
+            paint.setTextSize(16);
             paint.setColor(Color.BLACK);
             paint.setTextAlign(Paint.Align.LEFT);
             float baseline = -paint.ascent(); // ascent() is negative
@@ -176,6 +174,10 @@ public class FragmentTwo extends Fragment {
             canvas.drawText(text, 0, baseline, paint);
             Drawable textMarker = new BitmapDrawable(this.getResources(), image);
             return textMarker;
+        }
+
+        public void closeInfoWindows(){
+            CustomInfoWindow.closeAllInfoWindowsOn(osm);
         }
 
 }
