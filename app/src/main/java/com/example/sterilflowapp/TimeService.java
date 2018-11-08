@@ -128,7 +128,7 @@ public class TimeService extends Service {
 
                         long lastDiff = sharedPreferences.getLong(event.getObjectkey(), 0);
                         long lastMinutes = lastDiff / (60 * 1000) % 60;
-                        long lastHours = lastDiff / (60 * 60 * 1000) % 24;
+                        long lastHours = lastDiff / (60 * 60 * 1000) % 24 -1;
 
                         Date currentDate = Calendar.getInstance().getTime();
                         String format = simpleDateFormat.format(currentDate);
@@ -139,7 +139,7 @@ public class TimeService extends Service {
                         long diff = currentDate.getTime() - otherDate.getTime();
 
                         long diffMinutes = diff / (60 * 1000) % 60;
-                        long diffHours = diff / (60 * 60 * 1000) % 24 - 1; //1 times forskel på GMT
+                        long diffHours = diff / (60 * 60 * 1000) % 24 -1;
                         //long diffDays = diff / (24 * 60 * 60 * 1000);
 
                         if (lastMinutes != diffMinutes) {
