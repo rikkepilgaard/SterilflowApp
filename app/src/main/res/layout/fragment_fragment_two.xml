@@ -26,6 +26,16 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true" />
+
+        <ToggleButton
+            android:id="@+id/toggleBT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/mapview"
+            android:layout_alignLeft="@id/mapview"
+            android:textOn="Tekst fra"
+            android:textOff="Tekst til"
+            />
     </RelativeLayout>
 
 </LinearLayout>

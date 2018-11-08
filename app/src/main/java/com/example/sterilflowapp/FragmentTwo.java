@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 
 import org.osmdroid.bonuspack.overlays.GroundOverlay;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -38,6 +40,7 @@ public class FragmentTwo extends Fragment {
     private MapController mc;
     MainActivity activity;
     Marker marker;
+    ToggleButton toggle;
 
     public FragmentTwo() {
         // Required empty public constructor
@@ -68,6 +71,17 @@ public class FragmentTwo extends Fragment {
         BoundingBox box = new BoundingBox(56.196023, 10.183009,56.185341, 10.161220);
         osm.setScrollableAreaLimitDouble(box);
         osm.setMapOrientation(21.05f);
+
+        toggle=view.findViewById(R.id.toggleBT);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    addBuildings();
+                } else {
+                    osm.getOverlays().clear();
+                }
+            }
+        });
 
         return view;
     }
@@ -110,11 +124,10 @@ public class FragmentTwo extends Fragment {
             osm.getOverlays().add(marker);
             osm.invalidate();
         }
-        addBuildings();
 
     }
 
-    ItemizedIconOverlay currentLocationOverlay;
+    ItemizedIconOverlay BuildingOverlay;
 
     public void addBuildings(){
         Building b = new Building();
@@ -122,16 +135,17 @@ public class FragmentTwo extends Fragment {
         final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
 
         for (Building i: bList) {
-            OverlayItem myLocationOverlayItem = new OverlayItem("", "", new GeoPoint(i.getLatitude(),i.getLongitude()));
+            OverlayItem buildingOverlayItem = new OverlayItem("", "", new GeoPoint(i.getLatitude(),i.getLongitude()));
         //Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.person);
         //myLocationOverlayItem.setMarker(myCurrentLocationMarker);
-        myLocationOverlayItem.setMarker(createTextBitmap(i.getName()));
-        items.add(myLocationOverlayItem);
+        buildingOverlayItem.setMarker(createTextBitmap(i.getName()));
+        items.add(buildingOverlayItem);
+
 
 
         }
-        currentLocationOverlay = new ItemizedIconOverlay<OverlayItem>(items,null,getContext());
-        osm.getOverlays().add(this.currentLocationOverlay);
+        BuildingOverlay = new ItemizedIconOverlay<OverlayItem>(items,null,getContext());
+        osm.getOverlays().add(BuildingOverlay);
         osm.invalidate();
     }
 
@@ -163,13 +177,14 @@ public class FragmentTwo extends Fragment {
 
     public Drawable createTextBitmap(String text){
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            paint.setTextSize(16);
+            paint.setTextSize(18);
+            paint.setTypeface(Typeface.DEFAULT_BOLD);
             paint.setColor(Color.BLACK);
             paint.setTextAlign(Paint.Align.LEFT);
             float baseline = -paint.ascent(); // ascent() is negative
             int width = (int) (paint.measureText(text) + 0.75f); // round
             int height = (int) (baseline + paint.descent() + 0.5f);
-            Bitmap image = Bitmap.createBitmap(50, 12, Bitmap.Config.ARGB_8888);
+            Bitmap image = Bitmap.createBitmap(50, 18, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(image);
             canvas.drawText(text, 0, baseline, paint);
             Drawable textMarker = new BitmapDrawable(this.getResources(), image);
