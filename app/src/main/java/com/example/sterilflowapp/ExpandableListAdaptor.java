@@ -2,7 +2,6 @@ package com.example.sterilflowapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -17,9 +16,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.nio.Buffer;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import androidx.core.content.ContextCompat;
@@ -33,7 +30,6 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     private ArrayList<BufferZone> bufferZones;
     private HashMap<BufferZone, ArrayList<TrackEvent>> listHashMap;
 
-    //private MainActivity activity = new MainActivity();
 
     public ExpandableListAdaptor(Context context, ArrayList<BufferZone> bufferZones, HashMap<BufferZone,ArrayList<TrackEvent>> hashMap) {
         this.context = context;
@@ -149,11 +145,11 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         if(childPosition == 0){
             convertView = inflater.inflate(R.layout.child_header_layout,null);
             TextView txtHeaderID = convertView.findViewById(R.id.txtChildHeaderID);
-            txtHeaderID.setText("Vogn ID");
+            txtHeaderID.setText(context.getString(R.string.wagon_id));
             TextView txtHeaderPlaced = convertView.findViewById(R.id.txtChildHeaderPlaced);
-            txtHeaderPlaced.setText("Placeret kl.");
+            txtHeaderPlaced.setText(context.getString(R.string.placed_at));
             TextView txtHeaderSince = convertView.findViewById(R.id.txtChildHeaderSince);
-            txtHeaderSince.setText("Stået i");
+            txtHeaderSince.setText(context.getString(R.string.been_since));
         }
 
         if(childPosition>0){
