@@ -165,12 +165,14 @@ public class DataService extends Service {
 
                     break;
             }
-            if(bufferZones.get(j).getWagonList()!= null){
-                int size = 0;
-                if(oldWagonList != null){size=oldWagonList.size();}
+            int newSize=0;
+            if(bufferZones.get(j).getWagonList()!= null){newSize=bufferZones.get(j).getWagonList().size();}
 
-                if(bufferZones.get(j).getWagonList().size()!=size){
-                    sendBroadcast();}}
+            int oldSize = 0;
+            if(oldWagonList != null){oldSize=oldWagonList.size();}
+
+                if(newSize!=oldSize){
+                    sendBroadcast();}
         }
     }
 

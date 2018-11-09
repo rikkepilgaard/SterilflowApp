@@ -15,12 +15,14 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
+import org.osmdroid.bonuspack.clustering.RadiusMarkerClusterer;
 import org.osmdroid.bonuspack.overlays.GroundOverlay;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.FolderOverlay;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Overlay;
@@ -78,7 +80,10 @@ public class FragmentTwo extends Fragment {
                 if (isChecked) {
                     addBuildings();
                 } else {
-                    osm.getOverlays().clear();
+                    //BuildingOverlay.onDetach(osm);
+                    osm.getOverlays().remove(BuildingOverlay);
+                    //BuildingOverlay.removeAllItems();
+                    osm.invalidate();
                 }
             }
         });
@@ -86,12 +91,18 @@ public class FragmentTwo extends Fragment {
         return view;
     }
 
-
+    //FolderOverlay markerOverlay;
+    CustomCluster radi;
 
     public void addMarker(ArrayList<BufferZone> bufferZones){
 
-        //this.mMapView.getOverlays().remove(index);
         osm.getOverlays().clear();
+      //  markerOverlay = new FolderOverlay();
+        radi=new CustomCluster(getContext());
+        radi.setRadius(80);
+        radi.setBufferZoneList(bufferZones);
+
+        if(toggle.isChecked()){addBuildings();}
 
 
 
@@ -121,9 +132,18 @@ public class FragmentTwo extends Fragment {
             marker.setSnippet(i.getLocationName());
             marker.setSubDescription("Se vogne");
             marker.setPanToView(false);
-            osm.getOverlays().add(marker);
-            osm.invalidate();
+            radi.add(marker);
+
+            //markerOverlay.add(marker);
+
         }
+        //osm.getOverlays().add(markerOverlay);
+        osm.getOverlays().add(radi);
+
+
+
+        //radi.setIcon(createClusterIcon());
+        osm.invalidate();
 
     }
 
@@ -136,11 +156,8 @@ public class FragmentTwo extends Fragment {
 
         for (Building i: bList) {
             OverlayItem buildingOverlayItem = new OverlayItem("", "", new GeoPoint(i.getLatitude(),i.getLongitude()));
-        //Drawable myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.person);
-        //myLocationOverlayItem.setMarker(myCurrentLocationMarker);
         buildingOverlayItem.setMarker(createTextBitmap(i.getName()));
         items.add(buildingOverlayItem);
-
 
 
         }
@@ -194,5 +211,17 @@ public class FragmentTwo extends Fragment {
         public void closeInfoWindows(){
             CustomInfoWindow.closeAllInfoWindowsOn(osm);
         }
+
+        public Bitmap createClusterIcon(){
+            Drawable clusterIconD = getResources().getDrawable(R.drawable.marker_cluster);
+            Bitmap clusterIcon = ((BitmapDrawable)clusterIconD).getBitmap();
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(clusterIcon, 80, 80, false);
+
+
+
+
+            return resizedBitmap;
+        }
+
 
 }
