@@ -44,17 +44,12 @@ public class FragmentTwo extends Fragment {
     Marker marker;
     ToggleButton toggle;
 
-    public FragmentTwo() {
-        // Required empty public constructor
-    }
+    public FragmentTwo() {}
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
+        super.onCreate(savedInstanceState);}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,9 +75,7 @@ public class FragmentTwo extends Fragment {
                 if (isChecked) {
                     addBuildings();
                 } else {
-                    //BuildingOverlay.onDetach(osm);
                     osm.getOverlays().remove(BuildingOverlay);
-                    //BuildingOverlay.removeAllItems();
                     osm.invalidate();
                 }
             }
@@ -91,15 +84,12 @@ public class FragmentTwo extends Fragment {
         return view;
     }
 
-    //FolderOverlay markerOverlay;
     CustomCluster radi;
 
     public void addMarker(ArrayList<BufferZone> bufferZones){
 
         osm.getOverlays().clear();
-      //  markerOverlay = new FolderOverlay();
         radi=new CustomCluster(getContext());
-        radi.setRadius(80);
         radi.setBufferZoneList(bufferZones);
 
         if(toggle.isChecked()){addBuildings();}
@@ -134,15 +124,8 @@ public class FragmentTwo extends Fragment {
             marker.setPanToView(false);
             radi.add(marker);
 
-            //markerOverlay.add(marker);
-
         }
-        //osm.getOverlays().add(markerOverlay);
         osm.getOverlays().add(radi);
-
-
-
-        //radi.setIcon(createClusterIcon());
         osm.invalidate();
 
     }
@@ -212,16 +195,6 @@ public class FragmentTwo extends Fragment {
             CustomInfoWindow.closeAllInfoWindowsOn(osm);
         }
 
-        public Bitmap createClusterIcon(){
-            Drawable clusterIconD = getResources().getDrawable(R.drawable.marker_cluster);
-            Bitmap clusterIcon = ((BitmapDrawable)clusterIconD).getBitmap();
-            Bitmap resizedBitmap = Bitmap.createScaledBitmap(clusterIcon, 80, 80, false);
-
-
-
-
-            return resizedBitmap;
-        }
 
 
 }
