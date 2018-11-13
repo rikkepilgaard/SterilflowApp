@@ -1,26 +1,27 @@
 <resources>
     <string name="app_name">Sterilflow App</string>
-    <string name="tab_a_label">Tabel</string>
-    <string name="tab_b_label">Kort</string>
+    <string name="tab_a_label">Table</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="bufferomrade">Bufferområde</string>
-    <string name="number_of_wagons">Antal vogne:</string>
+    <string name="bufferomrade">Bufferzone</string>
 
-    <string name="alert_time_title">Advarsel! Vogn udløber snart</string>
-    <string name="wagon_time">En eller flere vogne udløber snart i bufferområde</string>
-    <string name="buffer_time">Specifikt bufferområde</string>
+    <string name="alert_time_title">"Warning! Timelimit is soon exceeded "</string>
+    <string name="wagon_time">One or several trolleys soon exceeds timelimit in bufferzone</string>
+    <string name="buffer_time">Specific bufferzone</string>
 
-    <string name="wagon_id">Vogn ID</string>
-    <string name="placed_at">Placerings-\ntidspunkt</string>
-    <string name="been_since">Holdetid</string>
-
-    <string name="title_location_permission">vil gerne bruge lokation</string>
-    <string name="text_location_permission">Giv denne app tilladelse til at bruge din lokation?</string>
+    <string name="title_location_permission">wants to use location</string>
+    <string name="text_location_permission">Give this app permission to use your location?</string>
     <string name="ok">OK</string>
-    <string name="permission_denied">Denne app kræver brug af lokation. Slå dette til før appen kan bruges.</string>
 
-    <string name="set_text_on">Tilføj bygningsnavne</string>
-    <string name="set_text_off">Fjern bygningsnavne</string>
+    <string name="set_text_on">Add buildingnames</string>
+
+    <string name="tab_b_label">Map</string>
+    <string name="number_of_wagons">Number of trolleys:</string>
+    <string name="wagon_id">Trolley ID</string>
+
+    <string name="been_since">Parking time</string>
+    <string name="permission_denied">This app needs to use locationsservices. Activate this in settings before the app can be used.</string>
+    <string name="set_text_off">Remove buildingnames</string>
+    <string name="infowindowCluster">Zoom ind for detaljer om specifikt bufferområde.</string>
+    <string name="placed_at">Time of placement</string>
 
 </resources>

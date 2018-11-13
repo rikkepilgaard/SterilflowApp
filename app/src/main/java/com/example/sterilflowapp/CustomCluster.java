@@ -136,7 +136,7 @@ public class CustomCluster extends MarkerClusterer {
         Marker m = new Marker(mapView);
         m.setPosition(cluster.getPosition());
         m.setInfoWindow(markerInfoWindow);
-        m.setTitle("Zoom ind for detaljer om specifikt bufferområde.");
+        m.setTitle(ctx.getString(R.string.infowindowCluster));
         m.setAnchor(mAnchorU, mAnchorV);
         m.setPanToView(false);
         int wagonNumber = 0;
@@ -170,7 +170,7 @@ public class CustomCluster extends MarkerClusterer {
             clusterIconD = ctx.getResources().getDrawable(R.drawable.bluemarker);}
 
         Bitmap clusterIcon = ((BitmapDrawable) clusterIconD).getBitmap();
-        Bitmap resizedBitmap = Bitmap.createScaledBitmap(clusterIcon, 100, 100, false);
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(clusterIcon, 90, 90, false);
 
 
 
