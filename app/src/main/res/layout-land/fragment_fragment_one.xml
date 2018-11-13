@@ -24,7 +24,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_weight="40"
             android:gravity="start"
             android:text="@string/bufferzone"
@@ -33,7 +33,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_weight="60"
             android:text="@string/number_of_wagons"
             android:gravity="center"

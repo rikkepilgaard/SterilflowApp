@@ -24,6 +24,15 @@ import java.util.ArrayList;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import static com.example.sterilflowapp.ConstantValues.BUFFER_105;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_109;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_120;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_202;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_232;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_236;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_NORDLAGER;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_STERILCENTRAL;
+
 public class DataService extends Service {
 
     private static final String TAG = "DataService";
@@ -125,8 +134,8 @@ public class DataService extends Service {
             ArrayList<TrackEvent> list = new ArrayList<>();
 
             switch (bufferZones.get(j).getGln()) {
-                case "urn:epc:id:sgln:57980101.8705.0": //buffer 202
-                case "urn:epc:id:sgln:57980101.5946.0": //buffer nordlager
+                case BUFFER_202:
+                case BUFFER_NORDLAGER:
 
                     for (int i = 0; i < arrayList.size() ; i++){
                         TrackEvent trackEvent = arrayList.get(i);
@@ -148,12 +157,31 @@ public class DataService extends Service {
                     }
 
                     break;
+                case BUFFER_105:
+                    for (int i = 0; i < arrayList.size() ; i++){
+                        TrackEvent trackEvent = arrayList.get(i);
+                        if (bufferZones.get(j).getGln().equals(trackEvent.getLocationSgln())) {
+                            for (int h = 0; h < trackEventArrayList.size(); h++) {
+                                TrackEvent event = trackEventArrayList.get(h);
+                                if (event.getObjectkey().equals(trackEvent.getObjectkey())
+                                        && event.getEventTime().equals(trackEvent.getEventTime())) {
+                                    TrackEvent event1 = trackEventArrayList.get(h-1);
+                                    if(Integer.valueOf(event1.getFloor())==3){
+                                        list.add(trackEvent);
+                                        bufferZones.get(j).setWagonList(list);
+                                    }
+                                }
+                            }
+                        }
+                    }
 
-                case "urn:epc:id:sgln:57980101.7856.0": //buffer ren steril
-                case "urn:epc:id:sgln:57980102.6407.0": //buffer 109
-                case "urn:epc:id:sgln:57980102.6410.0": //buffer 120
-                case "urn:epc:id:sgln:57980101.3660.0": //buffer 232
-                case "urn:epc:id:sgln:57980102.8548.0": //buffer 236
+                    break;
+
+                case BUFFER_STERILCENTRAL:
+                case BUFFER_109:
+                case BUFFER_120:
+                case BUFFER_232:
+                case BUFFER_236:
 
                     for (int i = 0; i < arrayList.size() ; i++) {
                         TrackEvent trackEvent = arrayList.get(i);
@@ -166,13 +194,18 @@ public class DataService extends Service {
                     break;
             }
             int newSize=0;
-            if(bufferZones.get(j).getWagonList()!= null){newSize=bufferZones.get(j).getWagonList().size();}
+            if(bufferZones.get(j).getWagonList()!= null){
+                newSize=bufferZones.get(j).getWagonList().size();
+            }
 
             int oldSize = 0;
-            if(oldWagonList != null){oldSize=oldWagonList.size();}
+            if(oldWagonList != null){
+                oldSize=oldWagonList.size();
+            }
 
-                if(newSize!=oldSize){
-                    sendBroadcast();}
+            //Check whether status is changed (trolley moved in or out of bufferzone)
+            if(newSize!=oldSize){
+                sendBroadcast();}
         }
     }
 
