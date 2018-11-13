@@ -8,15 +8,14 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.view.ViewDebug;
 
 import org.osmdroid.bonuspack.clustering.MarkerClusterer;
-import org.osmdroid.bonuspack.clustering.RadiusMarkerClusterer;
 import org.osmdroid.bonuspack.clustering.StaticCluster;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.infowindow.MarkerInfoWindow;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,8 +25,8 @@ import java.util.List;
 
 public class CustomCluster extends MarkerClusterer {
 
-    protected int mMaxClusteringZoomLevel = 17;
-    protected int mRadiusInPixels = 100;
+    protected int mMaxClusteringZoomLevel = 20;
+    protected int mRadiusInPixels = 90;
     protected double mRadiusInMeters;
     protected Paint mTextPaint;
     private ArrayList<Marker> mClonedMarkers;
@@ -48,10 +47,14 @@ public class CustomCluster extends MarkerClusterer {
         mTextPaint.setTextAlign(Paint.Align.CENTER);
         mTextPaint.setAntiAlias(true);
         this.ctx=ctx;
-        Drawable clusterIconD = ctx.getResources().getDrawable(R.drawable.marker_cluster);
+        Drawable clusterIconD = ctx.getResources().getDrawable(R.drawable.bluemarker);
         Bitmap clusterIcon = ((BitmapDrawable) clusterIconD).getBitmap();
-        setIcon(clusterIcon);
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(clusterIcon, 80, 80, false);
+        setIcon(resizedBitmap);
     }
+
+
+
 
     /** If you want to change the default text paint (color, size, font) */
     public Paint getTextPaint(){
@@ -85,11 +88,9 @@ public class CustomCluster extends MarkerClusterer {
         }
         return clusters;
     }
-    public ArrayList<String> buffernames;
+
     private StaticCluster createCluster(Marker m, MapView mapView) {
 
-        buffernames = new ArrayList<>();
-        buffernames.add(m.getTitle());
         GeoPoint clusterPosition = m.getPosition();
 
         StaticCluster cluster = new StaticCluster(clusterPosition);
@@ -99,6 +100,7 @@ public class CustomCluster extends MarkerClusterer {
 
         if (mapView.getZoomLevelDouble() > mMaxClusteringZoomLevel) {
             //above max level => block clustering:
+
             return cluster;
         }
 
@@ -107,7 +109,6 @@ public class CustomCluster extends MarkerClusterer {
             Marker neighbour = it.next();
             double distance = clusterPosition.distanceToAsDouble(neighbour.getPosition());
             if (distance <= mRadiusInMeters) {
-                buffernames.add(neighbour.getTitle());
                 cluster.add(neighbour);
                 it.remove();
             }
@@ -117,41 +118,74 @@ public class CustomCluster extends MarkerClusterer {
     }
 
     public void setBufferZoneList(ArrayList<BufferZone> buff){
-        bufferZones=buff;
-    }
+        bufferZones=buff; }
+
+    MarkerInfoWindow markerInfoWindow;
 
     @Override public Marker buildClusterMarker(StaticCluster cluster, MapView mapView) {
+
+        List<String> buffernames = new ArrayList<>();
+
+        for(int i=0;i<cluster.getSize();i++){
+            buffernames.add(cluster.getItem(i).getTitle());
+        }
+
+
+
+        markerInfoWindow= new MarkerInfoWindow(R.layout.cluster_layout,mapView);
         Marker m = new Marker(mapView);
         m.setPosition(cluster.getPosition());
-        m.setInfoWindow(null);
+        m.setInfoWindow(markerInfoWindow);
+        m.setTitle("Zoom ind for detaljer om specifikt bufferområde.");
         m.setAnchor(mAnchorU, mAnchorV);
-        int wagonNumer = 0;
+        m.setPanToView(false);
+        int wagonNumber = 0;
+        boolean expiredTrolley=false;
         for (String i: buffernames)
         {
             for (BufferZone j: bufferZones)
             {
                 if(i.equals(j.getName())){
                     if(j.getWagonList()!=null)
-                    wagonNumer=wagonNumer+j.getWagonList().size();
+                    wagonNumber=wagonNumber+j.getWagonList().size();
+                    if(j.getWagonList() != null) {
+
+                        for (TrackEvent event : j.getWagonList()){
+                            if(event.isExpired()){
+                                expiredTrolley = true;
+                            }
+                        }
+                    }
                 }
 
             }
 
         }
+        Drawable clusterIconD;
 
-        Bitmap finalIcon = Bitmap.createBitmap(mClusterIcon.getWidth(), mClusterIcon.getHeight(), mClusterIcon.getConfig());
-        Canvas iconCanvas = new Canvas(finalIcon);
-        iconCanvas.drawBitmap(mClusterIcon, 0, 0, null);
-        //String text = "" + cluster.getSize();
 
-        String text = Integer.toString(wagonNumer);
+        if(expiredTrolley){
+        clusterIconD = ctx.getResources().getDrawable(R.drawable.redmarker);}
+        else{
+            clusterIconD = ctx.getResources().getDrawable(R.drawable.bluemarker);}
+
+        Bitmap clusterIcon = ((BitmapDrawable) clusterIconD).getBitmap();
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(clusterIcon, 100, 100, false);
+
+
+
+        //Bitmap finalIcon = Bitmap.createBitmap(mClusterIcon.getWidth(), mClusterIcon.getHeight(), mClusterIcon.getConfig());
+        Canvas iconCanvas = new Canvas(resizedBitmap);
+        iconCanvas.drawBitmap(clusterIcon, 0, 0, null);
+
+
+        String text = Integer.toString(wagonNumber);
         int textHeight = (int) (mTextPaint.descent() + mTextPaint.ascent());
         iconCanvas.drawText(text,
-                mTextAnchorU * finalIcon.getWidth(),
-                mTextAnchorV * finalIcon.getHeight() - textHeight / 2,
+                mTextAnchorU * resizedBitmap.getWidth(),
+                mTextAnchorV * resizedBitmap.getHeight() - textHeight / 2,
                 mTextPaint);
-        m.setIcon(new BitmapDrawable(mapView.getContext().getResources(), finalIcon));
-
+        m.setIcon(new BitmapDrawable(mapView.getContext().getResources(), resizedBitmap));
         return m;
     }
 
