@@ -27,7 +27,7 @@
             android:layout_height="60dp"
             android:layout_weight="40"
             android:gravity="start"
-            android:text="Bufferområde"
+            android:text="@string/bufferzone"
             android:textSize="20sp"
             android:textColor="@color/white"/>
 
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_weight="60"
-            android:text="Antal Vogne"
+            android:text="@string/number_of_wagons"
             android:gravity="center"
             android:textSize="20sp"
             android:textColor="@color/white"/>

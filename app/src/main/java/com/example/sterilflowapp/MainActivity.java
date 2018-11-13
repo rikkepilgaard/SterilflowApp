@@ -4,6 +4,9 @@ import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +22,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -44,10 +48,9 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private ArrayList<BufferZone> bufferZones;
-    //private ArrayList<TrackEvent> trackEventArrayList;
 
-    //private FirebaseDatabase database;
-    //private DatabaseReference reference;
+    private FragmentManager fragmentManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,18 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        fragmentManager = getSupportFragmentManager();
+
+        if(savedInstanceState!=null){
+            fragmentOne = (FragmentOne)fragmentManager
+                    .getFragment(savedInstanceState,"fragment_one");
+            fragmentTwo = (FragmentTwo)fragmentManager
+                    .getFragment(savedInstanceState,"fragment_two");
+        } else {
+            fragmentOne = new FragmentOne();
+            fragmentTwo = new FragmentTwo();
+        }
+
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.viewPager);
 
@@ -88,7 +103,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                fragmentTwo.closeInfoWindows();
+                if(fragmentTwo!=null) {
+                    fragmentTwo.closeInfoWindows();
+                }
             }
 
             @Override
@@ -101,6 +118,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
 
 
     }
@@ -130,6 +154,15 @@ public class MainActivity extends AppCompatActivity {
         unbindServices();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        fragmentManager.putFragment(outState,"fragment_one",fragmentOne);
+        fragmentManager.putFragment(outState,"fragment_two",fragmentTwo);
+    }
+
+
     //https://stackoverflow.com/questions/34342816/android-6-0-multiple-permissions
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
@@ -153,8 +186,9 @@ public class MainActivity extends AppCompatActivity {
 
             switch (intent.getAction()){
                 case "time":
-                    fragmentOne.initData(dataService.getBufferZoneList());
-
+                    if(fragmentOne!=null) {
+                        fragmentOne.initData(dataService.getBufferZoneList());
+                    }
                     break;
                 case "time_wagon":
                     setAlert();
@@ -163,8 +197,12 @@ public class MainActivity extends AppCompatActivity {
                 case "data":
                     timeService.timeMethod();
 
-                    fragmentOne.initData(dataService.getBufferZoneList());
-                    fragmentTwo.addMarker(dataService.getBufferZoneList());
+                    if(fragmentOne!= null) {
+                        fragmentOne.initData(dataService.getBufferZoneList());
+                    }
+                    if(fragmentTwo!= null) {
+                        fragmentTwo.addMarker(dataService.getBufferZoneList());
+                    }
                     break;
                 case "changetab":
                     viewPager.setCurrentItem(0);
@@ -195,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         alert.setNegativeButton("Luk", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(),"Du har trykket på 'Luk'",Toast.LENGTH_LONG).show();
+
             }
         });
         alert.show();
@@ -248,7 +286,9 @@ public class MainActivity extends AppCompatActivity {
             dataService = dataBinder.getService();
             dataServiceBound = true;
             bufferZones = dataService.getBufferZoneList();
-            fragmentOne.initData(bufferZones);
+            if(fragmentOne!=null) {
+                fragmentOne.initData(bufferZones);
+            }
             Log.d(TAG,"Connected to DataService");
         }
 
@@ -261,14 +301,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        String firstText = getResources().getString(R.string.tab_a_label);
-        String secondText = getResources().getString(R.string.tab_b_label);
-
-        fragmentOne = new FragmentOne();
-        fragmentTwo = new FragmentTwo();
-
-        viewPagerAdapter.addFragment(fragmentOne,firstText);
-        viewPagerAdapter.addFragment(fragmentTwo,secondText);
+        viewPagerAdapter.addFragment(fragmentOne,getResources().getString(R.string.tab_a_label));
+        viewPagerAdapter.addFragment(fragmentTwo,getResources().getString(R.string.tab_b_label));
         viewPager.setAdapter(viewPagerAdapter);
     }
 }

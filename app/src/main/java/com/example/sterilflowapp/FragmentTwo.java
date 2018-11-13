@@ -26,6 +26,7 @@ import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 
@@ -33,7 +34,7 @@ public class FragmentTwo extends Fragment {
 
     private MapView osm;
     private MapController mc;
-    MainActivity activity;
+    //MainActivity activity;
     Marker marker;
     ToggleButton toggle;
 
@@ -48,6 +49,8 @@ public class FragmentTwo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_two, container, false);
+
+
         osm=(MapView) view.findViewById(R.id.mapview);
         osm.setTileSource(TileSourceFactory.MAPNIK);
         osm.setBuiltInZoomControls(false);
@@ -61,6 +64,13 @@ public class FragmentTwo extends Fragment {
         BoundingBox box = new BoundingBox(56.196023, 10.183009,56.185341, 10.161220);
         osm.setScrollableAreaLimitDouble(box);
         osm.setMapOrientation(21.05f);
+
+        if(savedInstanceState!=null){
+            if(savedInstanceState.getBoolean("ischecked")){
+                addBuildings();
+                osm.invalidate();
+            }
+        }
 
         toggle=view.findViewById(R.id.toggleBT);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -89,7 +99,7 @@ public class FragmentTwo extends Fragment {
 
 
 
-        activity = (MainActivity) getActivity();
+        //activity = (MainActivity) getActivity();
 
         for (final BufferZone i: bufferZones){
             marker = new Marker(osm);
@@ -110,7 +120,7 @@ public class FragmentTwo extends Fragment {
             marker.setPosition(new GeoPoint(Double.parseDouble(i.getLatitude()),Double.parseDouble(i.getLongitude())));
 
             //Set infowindow with button
-            marker.setInfoWindow(new CustomInfoWindow(osm,activity.getApplicationContext()));
+            marker.setInfoWindow(new CustomInfoWindow(osm,getActivity().getApplicationContext()));
             marker.setTitle(i.getName());
             marker.setSnippet(i.getLocationName());
             marker.setSubDescription("Se vogne");
@@ -127,7 +137,7 @@ public class FragmentTwo extends Fragment {
 
     public void addBuildings(){
         Building b = new Building();
-        ArrayList<Building> bList = b.getBuildings(activity.getApplicationContext());
+        ArrayList<Building> bList = b.getBuildings(getActivity().getApplicationContext());
         final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
 
         for (Building i: bList) {
@@ -190,6 +200,10 @@ public class FragmentTwo extends Fragment {
             CustomInfoWindow.closeAllInfoWindowsOn(osm);
         }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-
+        outState.putBoolean("ischecked", toggle.isChecked());
+    }
 }
