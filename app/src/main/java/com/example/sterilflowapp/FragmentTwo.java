@@ -184,6 +184,7 @@ public class FragmentTwo extends Fragment {
             float baseline = -paint.ascent(); // ascent() is negative
             int width = (int) (paint.measureText(text) + 0.75f); // round
             int height = (int) (baseline + paint.descent() + 0.5f);
+
             Bitmap image = Bitmap.createBitmap(50, 18, Bitmap.Config.ARGB_8888);
             Bitmap resizedBitmap = Bitmap.createScaledBitmap(image, 50, 18, false);
             Canvas canvas = new Canvas(resizedBitmap);
