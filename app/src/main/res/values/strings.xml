@@ -7,11 +7,20 @@
     <string name="bufferomrade">Bufferområde</string>
     <string name="number_of_wagons">Antal vogne:</string>
 
-    <string name="alert_time_title">Advarsel! Vogn overskredet tidsperiode</string>
+    <string name="alert_time_title">Advarsel! Vogn udløber snart</string>
     <string name="wagon_time">En eller flere vogne udløber snart i bufferområde</string>
     <string name="buffer_time">Specifikt bufferområde</string>
 
     <string name="wagon_id">Vogn ID</string>
-    <string name="placed_at">Placeringstidspunkt</string>
+    <string name="placed_at">Placerings-\ntidspunkt</string>
     <string name="been_since">Holdetid</string>
+
+    <string name="title_location_permission">vil gerne bruge lokation</string>
+    <string name="text_location_permission">Giv denne app tilladelse til at bruge din lokation?</string>
+    <string name="ok">OK</string>
+    <string name="permission_denied">Denne app kræver brug af lokation. Slå dette til før appen kan bruges.</string>
+
+    <string name="set_text_on">Tilføj bygningsnavne</string>
+    <string name="set_text_off">Fjern bygningsnavne</string>
+
 </resources>

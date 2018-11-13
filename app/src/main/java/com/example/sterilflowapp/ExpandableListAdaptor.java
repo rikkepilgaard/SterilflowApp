@@ -35,7 +35,6 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         this.context = context;
         this.bufferZones = bufferZones;
         this.listHashMap = hashMap;
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public void updateListView(ArrayList<BufferZone> bufferZonesNew, HashMap<BufferZone,ArrayList<TrackEvent>> hashmap)
@@ -166,6 +165,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             String sub2 = placedAt.substring(11,16);
             placedAt = sub1 + " " + sub2;
 
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             long timeDifference = sharedPreferences.getLong(trackEvent.getObjectkey(),0);
             int diffMinutes = safeLongToInt(timeDifference / (60 * 1000) % 60);
             int diffHours = safeLongToInt(timeDifference / (60 * 60 * 1000) % 24 -1 ); //1 hour time difference

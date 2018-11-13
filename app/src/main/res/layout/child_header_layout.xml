@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingRight="25dp"
-    android:weightSum="100">
+    android:paddingTop="10dp"
+    android:paddingBottom="2dp"
+    android:weightSum="100"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/txtChildHeaderID"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_weight="33.33"
         android:gravity="center"
         android:textSize="19sp" />
@@ -17,7 +20,7 @@
     <TextView
         android:id="@+id/txtChildHeaderPlaced"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_weight="33.33"
         android:gravity="center"
         android:textSize="19sp" />
@@ -25,7 +28,7 @@
     <TextView
         android:id="@+id/txtChildHeaderSince"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_weight="33.33"
         android:gravity="center"
         android:textSize="19sp" />

@@ -1,5 +1,7 @@
 package com.example.sterilflowapp;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -9,6 +11,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -29,6 +32,7 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class TimeService extends Service {
@@ -140,7 +144,6 @@ public class TimeService extends Service {
 
                         long diffMinutes = diff / (60 * 1000) % 60;
                         long diffHours = diff / (60 * 60 * 1000) % 24 -1;
-                        //long diffDays = diff / (24 * 60 * 60 * 1000);
 
                         if (lastMinutes != diffMinutes) {
                             preferenceEditor.putLong(event.getObjectkey(), diff);
@@ -150,6 +153,8 @@ public class TimeService extends Service {
                         }
 
                         if(diffHours>2){
+                            if(!zone.getGln().equals("urn:epc:id:sgln:57980101.7856.0") ||
+                                    !zone.getGln().equals("urn:epc:id:sgln:57980101.5946.0"))
                             event.setExpired(true);
                         }
 
@@ -158,6 +163,8 @@ public class TimeService extends Service {
                             preferenceEditor.putString(getResources().getString(R.string.buffer_time),zone.getName());
                             preferenceEditor.commit();
 
+                            showNotification(zone.getName());
+
                             sendBroadcast("time_wagon");
                         }
                     }
@@ -165,6 +172,7 @@ public class TimeService extends Service {
             }
         }
     }
+    
 
     private Date fromStringToDate(String stringDate){
         //Vær opmærksom på formatet af den String dato, der kommer med metoden.
@@ -201,6 +209,32 @@ public class TimeService extends Service {
 
     }
 
+    public void showNotification(String buffer){
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "channel_1";
+            CharSequence channelName = "My_Channel";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel channel = new NotificationChannel(channelId,channelName,importance);
+            channel.canShowBadge();
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,"channel_1")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(getString(R.string.alert_time_title))
+                .setContentText(getString(R.string.wagon_time) + "\n" + buffer);
+
+
+        if (notificationManager != null) {
+            notificationManager.notify(1,notificationBuilder.build());
+        }
+
+    }
 
     public void sendBroadcast(String action){
         Intent broadcastIntent = new Intent();

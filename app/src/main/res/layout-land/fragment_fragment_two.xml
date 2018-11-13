@@ -39,6 +39,7 @@
             android:textOff="@string/set_text_on"
             android:theme="@style/ToggleButton"
             />
+
     </RelativeLayout>
 
 </LinearLayout>

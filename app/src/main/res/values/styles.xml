@@ -9,5 +9,10 @@
         <item name="android:colorForeground">@color/white</item>
     </style>
 
+    <style name="ToggleButton" parent="Base.Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@android:color/white</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
 </resources>
