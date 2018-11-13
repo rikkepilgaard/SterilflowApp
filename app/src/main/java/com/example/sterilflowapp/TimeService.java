@@ -35,6 +35,9 @@ import java.util.concurrent.TimeUnit;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import static com.example.sterilflowapp.ConstantValues.BUFFER_NORDLAGER;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_STERILCENTRAL;
+
 public class TimeService extends Service {
 
     private static final String TAG = "TimeService";
@@ -155,16 +158,16 @@ public class TimeService extends Service {
                         //If trolley have been in bufferzone 3 hours or more, the trolley is "expired"
                         //Unless bufferzone contains only sterile trolleys.
                         if(diffHours>2){
-                            if(!zone.getGln().equals("urn:epc:id:sgln:57980101.7856.0"))
-                                if(!zone.getGln().equals("urn:epc:id:sgln:57980101.5946.0"))
+                            if(!zone.getGln().equals(BUFFER_NORDLAGER))
+                                if(!zone.getGln().equals(BUFFER_STERILCENTRAL))
                                     event.setExpired(true);
                         }
 
                         //When trolley have been in bufferzone for 3 hours, broadcast is sent to
                         //MainActivity and notification is given.
                         if (diffHours == 3 && lastHours!=diffHours) {
-                            if(!zone.getGln().equals("urn:epc:id:sgln:57980101.7856.0")) {
-                                if(!zone.getGln().equals("urn:epc:id:sgln:57980101.5946.0")) {
+                            if(!zone.getGln().equals(BUFFER_NORDLAGER)) {
+                                if(!zone.getGln().equals(BUFFER_STERILCENTRAL)) {
 
                                     preferenceEditor.putString(getResources().getString(R.string.buffer_time), zone.getName());
                                     preferenceEditor.commit();

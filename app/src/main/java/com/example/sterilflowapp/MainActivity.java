@@ -294,6 +294,9 @@ ProgressBar progressbar;
             if(fragmentOne!=null) {
                 fragmentOne.initData(bufferZones);
             }
+            if(fragmentTwo!=null){
+                fragmentTwo.addMarker(bufferZones);
+            }
             Log.d(TAG,"Connected to DataService");
         }
 
