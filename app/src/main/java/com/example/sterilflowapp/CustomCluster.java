@@ -8,16 +8,13 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.view.ViewDebug;
 
 import org.osmdroid.bonuspack.clustering.MarkerClusterer;
-import org.osmdroid.bonuspack.clustering.RadiusMarkerClusterer;
 import org.osmdroid.bonuspack.clustering.StaticCluster;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.infowindow.InfoWindow;
 import org.osmdroid.views.overlay.infowindow.MarkerInfoWindow;
 
 import java.util.ArrayList;
@@ -28,7 +25,7 @@ import java.util.List;
 
 public class CustomCluster extends MarkerClusterer {
 
-    protected int mMaxClusteringZoomLevel = 17;
+    protected int mMaxClusteringZoomLevel = 20;
     protected int mRadiusInPixels = 90;
     protected double mRadiusInMeters;
     protected Paint mTextPaint;
