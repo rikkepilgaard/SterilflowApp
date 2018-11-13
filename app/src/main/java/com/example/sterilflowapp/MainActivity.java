@@ -25,6 +25,8 @@ import android.os.IBinder;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.Manifest;
 
@@ -34,7 +36,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-
+ProgressBar progressbar;
     private DataService dataService;
     private TimeService timeService;
 
@@ -98,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_icon_a_24);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_icon_b_24);
 
+        progressbar=findViewById(R.id.progressbar);
+        progressbar.setVisibility(View.VISIBLE);
+        progressbar.bringToFront();
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -196,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
 
                 case "data":
                     timeService.timeMethod();
-
+                    progressbar.setVisibility(View.INVISIBLE);
                     if(fragmentOne!= null) {
                         fragmentOne.initData(dataService.getBufferZoneList());
                     }
