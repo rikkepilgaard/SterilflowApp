@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <bufferzones>
-    <!-- Alle formerGln er forkerte-->
+    <bufferzone>
+        <name>Ren Buffer Sterilcentral</name>
+        <gln>urn:epc:id:sgln:57980101.7856.0</gln>
+        <latitude>56.1909111982989</latitude>
+        <longitude>10.1764235430641</longitude>
+        <location>Q101</location>
+        <containedIn></containedIn>
+    </bufferzone>
     <bufferzone>
         <name>Bufferområde 202</name>
         <gln>urn:epc:id:sgln:57980101.8705.0</gln>
@@ -15,11 +22,36 @@
         <containedIn></containedIn>
     </bufferzone>
     <bufferzone>
-        <name>Ren Buffer Sterilcentral</name>
-        <gln>urn:epc:id:sgln:57980101.7856.0</gln>
-        <latitude>56.1909111982989</latitude>
-        <longitude>10.1764235430641</longitude>
-        <location>Q101</location>
+        <name>Sterillager Nord J105</name>
+        <gln>urn:epc:id:sgln:57980101.3329.0</gln><!-- Det anvendte gln er for J05-bygning. I virkeligheden skulle gln for Gang uden for sterillager bruges:urn:epc:id:sgln:57980102.1417.0!-->
+        <formerGln>urn:epc:id:sgln:57980102.1414.0</formerGln> <!-- sterillager nord,udpakning -->
+        <latitude>56.19143848341437</latitude>
+        <longitude>10.167469666696974</longitude>
+        <location>J105</location>
+        <containedIn></containedIn>
+    </bufferzone>
+    <bufferzone>
+        <name>Bufferområde 232-P1</name>
+        <gln>urn:epc:id:sgln:57980101.3660.0</gln><!-- Det anvendte gln er for vareelevator 106. I virkeligheden skulle gln for bufferområde 232-P1: urn:epc:id:sgln:57980102.8547.0-->
+        <latitude>56.191202369085</latitude>
+        <longitude>10.167302808033</longitude>
+        <location>J119</location>
+        <containedIn></containedIn>
+    </bufferzone>
+    <bufferzone>
+        <name>Bufferområde 236-P1</name>
+        <gln>urn:epc:id:sgln:57980102.8548.0</gln>
+        <latitude>56.19112670791311</latitude>
+        <longitude>10.16694934659995</longitude>
+        <location>J120</location>
+        <containedIn></containedIn>
+    </bufferzone>
+    <bufferzone>
+        <name>Bufferområde 105</name>
+        <gln>urn:epc:id:sgln:57980102.6093.0</gln>
+        <latitude>56.18902961995224</latitude>
+        <longitude>10.171454135363005</longitude>
+        <location>C414</location>
         <containedIn></containedIn>
     </bufferzone>
     <bufferzone>
@@ -38,29 +70,5 @@
         <location>B401</location>
         <containedIn></containedIn>
     </bufferzone>
-    <bufferzone>
-        <name>Sterillager Nord J105</name>
-        <gln>urn:epc:id:sgln:57980101.5946.0</gln><!-- gln-nummer ikke det rigtige!!-->
-        <formerGln>urn:epc:id:sgln:57980102.1414.0</formerGln> <!-- sterillager nord -->
-        <latitude>56.19143848341437</latitude><!-- lat ikke det rigtige!!-->
-        <longitude>10.167469666696974</longitude><!-- long ikke det rigtige!!-->
-        <location>J105</location>
-        <containedIn></containedIn>
-    </bufferzone>
-    <bufferzone>
-        <name>Bufferområde 232-P1</name>
-        <gln>urn:epc:id:sgln:57980101.3660.0</gln><!-- gln-nummer ikke det rigtige!! HUSK OGSÅ AT ÆNDRE KODEN, HVIS DETTE ÆNDRES-->
-        <latitude>56.191202369085</latitude>
-        <longitude>10.167302808033</longitude>
-        <location>J119</location>
-        <containedIn></containedIn>
-    </bufferzone>
-    <bufferzone>
-        <name>Bufferområde 236-P1</name>
-        <gln>urn:epc:id:sgln:57980102.8548.0</gln>
-        <latitude>56.19112670791311</latitude>
-        <longitude>10.16694934659995</longitude>
-        <location>J120</location>
-        <containedIn></containedIn>
-    </bufferzone>
+
 </bufferzones>
