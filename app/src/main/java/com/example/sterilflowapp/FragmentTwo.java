@@ -15,23 +15,16 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
-import org.osmdroid.bonuspack.clustering.RadiusMarkerClusterer;
-import org.osmdroid.bonuspack.overlays.GroundOverlay;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.FolderOverlay;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
-import org.osmdroid.views.overlay.Polyline;
-import org.osmdroid.views.overlay.gridlines.LatLonGridlineOverlay2;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.fragment.app.Fragment;
 
@@ -84,13 +77,13 @@ public class FragmentTwo extends Fragment {
         return view;
     }
 
-    CustomCluster radi;
+    CustomCluster clusterMarker;
 
     public void addMarker(ArrayList<BufferZone> bufferZones){
 
         osm.getOverlays().clear();
-        radi=new CustomCluster(getContext());
-        radi.setBufferZoneList(bufferZones);
+        clusterMarker =new CustomCluster(getContext());
+        clusterMarker.setBufferZoneList(bufferZones);
 
         if(toggle.isChecked()){addBuildings();}
 
@@ -122,10 +115,10 @@ public class FragmentTwo extends Fragment {
             marker.setSnippet(i.getLocationName());
             marker.setSubDescription("Se vogne");
             marker.setPanToView(false);
-            radi.add(marker);
+            clusterMarker.add(marker);
 
         }
-        osm.getOverlays().add(radi);
+        osm.getOverlays().add(clusterMarker);
         osm.invalidate();
 
     }

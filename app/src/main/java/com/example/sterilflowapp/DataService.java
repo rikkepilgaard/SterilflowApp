@@ -6,6 +6,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,7 +56,6 @@ public class DataService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference().child("TrackEvents");
-
         Log.d(TAG,"DataService started");
 
         reference.addValueEventListener(new ValueEventListener() {

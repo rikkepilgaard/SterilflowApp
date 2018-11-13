@@ -162,25 +162,19 @@ public class CustomCluster extends MarkerClusterer {
             }
 
         }
+
         Bitmap clusterIconD;
 
-
         if(expiredTrolley){
-        //clusterIconD = ctx.getResources().getDrawable(R.drawable.redmarker);}
+
             clusterIconD=BitmapFactory.decodeResource(ctx.getResources(),ctx.getResources().getIdentifier("redmarker", "drawable", ctx.getPackageName()));}
         else{
-            //clusterIconD = ctx.getResources().getDrawable(R.drawable.bluemarker);}
-            clusterIconD=BitmapFactory.decodeResource(ctx.getResources(),ctx.getResources().getIdentifier("redmarker", "drawable", ctx.getPackageName()));}
+            clusterIconD=BitmapFactory.decodeResource(ctx.getResources(),ctx.getResources().getIdentifier("bluemarker", "drawable", ctx.getPackageName()));}
 
-        //Bitmap clusterIcon = ((BitmapDrawable) clusterIconD).getBitmap();
-        Bitmap resizedBitmap = Bitmap.createScaledBitmap(clusterIconD, 90, 90, false);
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(clusterIconD, 100, 100, false);
 
-
-
-        //Bitmap finalIcon = Bitmap.createBitmap(mClusterIcon.getWidth(), mClusterIcon.getHeight(), mClusterIcon.getConfig());
         Canvas iconCanvas = new Canvas(resizedBitmap);
         iconCanvas.drawBitmap(resizedBitmap, 0, 0, null);
-
 
         String text = Integer.toString(wagonNumber);
         int textHeight = (int) (mTextPaint.descent() + mTextPaint.ascent());
@@ -188,7 +182,7 @@ public class CustomCluster extends MarkerClusterer {
                 mTextAnchorU * resizedBitmap.getWidth(),
                 mTextAnchorV * resizedBitmap.getHeight() - textHeight / 2,
                 mTextPaint);
-        m.setIcon(new BitmapDrawable(mapView.getContext().getResources(), resizedBitmap));
+        m.setIcon(new BitmapDrawable(ctx.getResources(), resizedBitmap));
         return m;
     }
 
