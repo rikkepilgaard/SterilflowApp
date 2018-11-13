@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         alert.setNegativeButton("Luk", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(),"Du har trykket på 'Luk'",Toast.LENGTH_LONG).show();
+
             }
         });
         alert.show();

@@ -152,12 +152,16 @@ public class TimeService extends Service {
                             sendBroadcast("time");
                         }
 
+                        //If trolley have been in bufferzone 3 hours or more, the trolley is "expired"
+                        //Unless bufferzone contains only sterile trolleys.
                         if(diffHours>2){
-                            if(!zone.getGln().equals("urn:epc:id:sgln:57980101.7856.0") ||
-                                    !zone.getGln().equals("urn:epc:id:sgln:57980101.5946.0"))
-                            event.setExpired(true);
+                            if(!zone.getGln().equals("urn:epc:id:sgln:57980101.7856.0"))
+                                if(!zone.getGln().equals("urn:epc:id:sgln:57980101.5946.0"))
+                                    event.setExpired(true);
                         }
 
+                        //When trolley have been in bufferzone for 3 hours, broadcast is sent to
+                        //MainActivity and notification is given.
                         if (diffHours == 3 && lastHours!=diffHours) {
 
                             preferenceEditor.putString(getResources().getString(R.string.buffer_time),zone.getName());
@@ -179,7 +183,6 @@ public class TimeService extends Service {
         if(stringDate==null) {
             return null;
         } else {
-            //ParsePosition pos = new ParsePosition(0);
             SimpleDateFormat simpledateformat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
             Date dateDate = null;
             try {
