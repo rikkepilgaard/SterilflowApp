@@ -185,9 +185,10 @@ public class FragmentTwo extends Fragment {
             int width = (int) (paint.measureText(text) + 0.75f); // round
             int height = (int) (baseline + paint.descent() + 0.5f);
             Bitmap image = Bitmap.createBitmap(50, 18, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(image);
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(image, 50, 18, false);
+            Canvas canvas = new Canvas(resizedBitmap);
             canvas.drawText(text, 0, baseline, paint);
-            Drawable textMarker = new BitmapDrawable(this.getResources(), image);
+            Drawable textMarker = new BitmapDrawable(this.getResources(), resizedBitmap);
             return textMarker;
         }
 
