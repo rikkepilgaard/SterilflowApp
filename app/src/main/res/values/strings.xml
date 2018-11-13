@@ -2,7 +2,7 @@
     <string name="app_name">Sterilflow App</string>
     <string name="tab_a_label">Table</string>
 
-    <string name="bufferomrade">Bufferzone</string>
+    <string name="bufferzone">Bufferzone</string>
 
     <string name="alert_time_title">"Warning! Timelimit is soon exceeded "</string>
     <string name="wagon_time">One or several trolleys soon exceeds timelimit in bufferzone</string>
@@ -15,7 +15,7 @@
     <string name="set_text_on">Add buildingnames</string>
 
     <string name="tab_b_label">Map</string>
-    <string name="number_of_wagons">Number of trolleys:</string>
+    <string name="number_of_wagons">Number of trolleys</string>
     <string name="wagon_id">Trolley ID</string>
 
     <string name="been_since">Parking time</string>
@@ -23,5 +23,6 @@
     <string name="set_text_off">Remove buildingnames</string>
     <string name="infowindowCluster">Zoom ind for detaljer om specifikt bufferområde.</string>
     <string name="placed_at">Time of placement</string>
+
 
 </resources>

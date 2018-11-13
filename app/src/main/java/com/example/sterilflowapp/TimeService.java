@@ -163,13 +163,17 @@ public class TimeService extends Service {
                         //When trolley have been in bufferzone for 3 hours, broadcast is sent to
                         //MainActivity and notification is given.
                         if (diffHours == 3 && lastHours!=diffHours) {
+                            if(!zone.getGln().equals("urn:epc:id:sgln:57980101.7856.0")) {
+                                if(!zone.getGln().equals("urn:epc:id:sgln:57980101.5946.0")) {
 
-                            preferenceEditor.putString(getResources().getString(R.string.buffer_time),zone.getName());
-                            preferenceEditor.commit();
+                                    preferenceEditor.putString(getResources().getString(R.string.buffer_time), zone.getName());
+                                    preferenceEditor.commit();
 
-                            showNotification(zone.getName());
+                                    showNotification(zone.getName());
 
-                            sendBroadcast("time_wagon");
+                                    sendBroadcast("time_wagon");
+                                }
+                            }
                         }
                     }
                 }
