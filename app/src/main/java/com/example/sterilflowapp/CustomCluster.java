@@ -2,6 +2,7 @@ package com.example.sterilflowapp;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -161,22 +162,24 @@ public class CustomCluster extends MarkerClusterer {
             }
 
         }
-        Drawable clusterIconD;
+        Bitmap clusterIconD;
 
 
         if(expiredTrolley){
-        clusterIconD = ctx.getResources().getDrawable(R.drawable.redmarker);}
+        //clusterIconD = ctx.getResources().getDrawable(R.drawable.redmarker);}
+            clusterIconD=BitmapFactory.decodeResource(ctx.getResources(),ctx.getResources().getIdentifier("redmarker", "drawable", ctx.getPackageName()));}
         else{
-            clusterIconD = ctx.getResources().getDrawable(R.drawable.bluemarker);}
+            //clusterIconD = ctx.getResources().getDrawable(R.drawable.bluemarker);}
+            clusterIconD=BitmapFactory.decodeResource(ctx.getResources(),ctx.getResources().getIdentifier("redmarker", "drawable", ctx.getPackageName()));}
 
-        Bitmap clusterIcon = ((BitmapDrawable) clusterIconD).getBitmap();
-        Bitmap resizedBitmap = Bitmap.createScaledBitmap(clusterIcon, 90, 90, false);
+        //Bitmap clusterIcon = ((BitmapDrawable) clusterIconD).getBitmap();
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(clusterIconD, 90, 90, false);
 
 
 
         //Bitmap finalIcon = Bitmap.createBitmap(mClusterIcon.getWidth(), mClusterIcon.getHeight(), mClusterIcon.getConfig());
         Canvas iconCanvas = new Canvas(resizedBitmap);
-        iconCanvas.drawBitmap(clusterIcon, 0, 0, null);
+        iconCanvas.drawBitmap(resizedBitmap, 0, 0, null);
 
 
         String text = Integer.toString(wagonNumber);
