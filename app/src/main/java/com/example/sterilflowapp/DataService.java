@@ -205,7 +205,8 @@ public class DataService extends Service {
 
             //Check whether status is changed (trolley moved in or out of bufferzone)
             if(newSize!=oldSize){
-                sendBroadcast();}
+                sendBroadcast();
+                }
 
 //                if(oldSize==0&&newSize==0){
 //                sendBroadcast();

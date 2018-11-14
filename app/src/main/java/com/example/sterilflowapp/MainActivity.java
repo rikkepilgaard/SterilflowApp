@@ -32,11 +32,14 @@ import android.Manifest;
 
 import java.util.ArrayList;
 
+import static com.example.sterilflowapp.ConstantValues.PERMISSIONS;
+import static com.example.sterilflowapp.ConstantValues.PERMISSION_ALL;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-ProgressBar progressbar;
+    private ProgressBar progressbar;
     private DataService dataService;
     private TimeService timeService;
 
@@ -60,17 +63,6 @@ ProgressBar progressbar;
         setContentView(R.layout.activity_main);
 
         //https://stackoverflow.com/questions/34342816/android-6-0-multiple-permissions
-        int PERMISSION_ALL = 1;
-        String[] PERMISSIONS = {
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.INTERNET,
-                Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.ACCESS_NETWORK_STATE
-        };
-
         if(!hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
@@ -123,13 +115,6 @@ ProgressBar progressbar;
 
             }
         });
-
-
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
 
 
     }
@@ -308,7 +293,6 @@ ProgressBar progressbar;
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-
         viewPagerAdapter.addFragment(fragmentOne,getResources().getString(R.string.tab_a_label));
         viewPagerAdapter.addFragment(fragmentTwo,getResources().getString(R.string.tab_b_label));
         viewPager.setAdapter(viewPagerAdapter);
