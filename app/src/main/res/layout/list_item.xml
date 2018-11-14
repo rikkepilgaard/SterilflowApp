@@ -45,7 +45,10 @@
         android:foregroundGravity="center"
         android:maxWidth="5dp"
         android:maxHeight="5dp"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/time"
+        android:tint="@color/red"
+        android:visibility="invisible"/>
 
 
 </LinearLayout>

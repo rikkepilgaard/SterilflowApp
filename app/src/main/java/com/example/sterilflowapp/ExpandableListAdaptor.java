@@ -182,7 +182,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             ImageView imageChild = convertView.findViewById(R.id.lvChildImageTime);
 
             if(trackEvent.isExpired()){
-                imageChild.setImageResource(R.drawable.time);
+                imageChild.setVisibility(View.VISIBLE);
                 txtChildId.setTextColor(context.getResources().getColor(R.color.red));
                 txtChildPlaced.setTextColor(context.getResources().getColor(R.color.red));
                 txtChildSince.setTextColor(context.getResources().getColor(R.color.red));
