@@ -100,16 +100,10 @@ public class FragmentTwo extends Fragment {
 
         for (final BufferZone i: bufferZones){
             marker = new Marker(osm);
-            boolean expired = false;
+
             //Resize icon and set number of wagons inside icon
             if(i.getWagonList() != null) {
-
-                for (TrackEvent event : i.getWagonList()){
-                    if(event.isExpired()){
-                        expired = true;
-                    }
-                }
-                marker.setIcon(createMarkerIcon(i.getWagonList().size(),expired));
+                marker.setIcon(createMarkerIcon(i.getWagonList().size(),i.containsExpiredWagon()));
             }
             else{marker.setIcon(createMarkerIcon(0,false));}
 
