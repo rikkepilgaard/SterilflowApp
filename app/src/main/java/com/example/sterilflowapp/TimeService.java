@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -97,13 +98,6 @@ public class TimeService extends Service {
         bindService(dataIntent,dataConnection,Context.BIND_AUTO_CREATE);
     }
 
-    private void unbindServices(){
-        if(serviceBound){
-            unbindService(dataConnection);
-        }
-    }
-
-
     private ServiceConnection dataConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -122,7 +116,6 @@ public class TimeService extends Service {
 
 
     public void timeMethod() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
         if(dataService!=null) {
             bufferZones = dataService.getBufferZoneList();
@@ -130,23 +123,28 @@ public class TimeService extends Service {
 
         if(bufferZones != null) {
             for (BufferZone zone : bufferZones) {
+                zone.setContainsExpiredWagon(false);
                 if(zone.getWagonList()!=null) {
                     for (TrackEvent event : zone.getWagonList()) {
 
                         long lastDiff = sharedPreferences.getLong(event.getObjectkey(), 0);
                         long lastMinutes = lastDiff / (60 * 1000) % 60;
-                        long lastHours = lastDiff / (60 * 60 * 1000) % 24 -1;
+                        long lastHours = lastDiff / (60 * 60 * 1000) % 24;
 
                         Date currentDate = Calendar.getInstance().getTime();
-                        String format = simpleDateFormat.format(currentDate);
-                        currentDate = fromStringToDate(format);
-
                         Date otherDate = fromStringToDate(event.getEventTime());
+
+                        //Wrong time zone in trolley eventtime
+                        Calendar calender = Calendar.getInstance();
+                        calender.setTime(otherDate);
+                        calender.add(calender.HOUR,1);
+
+                        otherDate = calender.getTime();
 
                         long diff = currentDate.getTime() - otherDate.getTime();
 
                         long diffMinutes = diff / (60 * 1000) % 60;
-                        long diffHours = diff / (60 * 60 * 1000) % 24 -1;
+                        long diffHours = diff / (60 * 60 * 1000) % 24;
 
                         if (lastMinutes != diffMinutes) {
                             preferenceEditor.putLong(event.getObjectkey(), diff);
@@ -158,9 +156,13 @@ public class TimeService extends Service {
                         //If trolley have been in bufferzone 3 hours or more, the trolley is "expired"
                         //Unless bufferzone contains only sterile trolleys.
                         if(diffHours>2){
-                            if(!zone.getGln().equals(BUFFER_NORDLAGER))
-                                if(!zone.getGln().equals(BUFFER_STERILCENTRAL))
-                                    event.setExpired(true);
+                            event.setExpired(true);
+                            zone.setContainsExpiredWagon(true);
+                            if(zone.getGln().equals(BUFFER_NORDLAGER) || zone.getGln().equals(BUFFER_STERILCENTRAL)) {
+                                event.setExpired(false);
+                                zone.setContainsExpiredWagon(false);
+                            }
+
                         }
 
                         //When trolley have been in bufferzone for 3 hours, broadcast is sent to

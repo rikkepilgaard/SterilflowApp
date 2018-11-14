@@ -275,6 +275,7 @@ public class DataService extends Service {
                         }
 
                         currentBuffer.setFormerGln(formerGln);
+                        currentBuffer.setContainsExpiredWagon(false);
                     }
                     break;
 

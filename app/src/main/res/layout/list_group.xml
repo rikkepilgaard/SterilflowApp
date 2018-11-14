@@ -8,7 +8,6 @@
     android:paddingRight="20dp"
     android:weightSum="100">
 
-
     <TextView
         android:id="@+id/lvHeaderBuffer"
         android:layout_width="match_parent"
@@ -30,6 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_weight="45"
-        android:foregroundGravity="center" />
+        android:foregroundGravity="center"
+        android:src="@drawable/time"
+        android:visibility="visible"/>
 
 </LinearLayout>

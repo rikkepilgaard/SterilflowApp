@@ -149,14 +149,18 @@ public class CustomCluster extends MarkerClusterer {
                 if(i.equals(j.getName())){
                     if(j.getWagonList()!=null)
                     wagonNumber=wagonNumber+j.getWagonList().size();
-                    if(j.getWagonList() != null) {
+                    if(j.containsExpiredWagon()){
+                        expiredTrolley = true;
+                    }
+
+                    /*if(j.getWagonList() != null) {
 
                         for (TrackEvent event : j.getWagonList()){
                             if(event.isExpired()){
                                 expiredTrolley = true;
                             }
                         }
-                    }
+                    }*/
                 }
 
             }

@@ -7,17 +7,19 @@ class BufferZone {
     private ArrayList<String> containedIn;
     private ArrayList<String> formerGln;
     private ArrayList<TrackEvent> vogneList;
+    private boolean containsExpiredWagon;
 
 
-    public BufferZone(String name, String gln, String latitude, String longitude, ArrayList<String> formerGln, String locationName, ArrayList<String> containedIn, ArrayList<TrackEvent> vogneList) {
+    public BufferZone(String name, String gln, String latitude, String longitude, String locationName, ArrayList<String> containedIn, ArrayList<String> formerGln, ArrayList<TrackEvent> vogneList, boolean containsExpiredWagon) {
         this.name = name;
         this.gln = gln;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.formerGln = formerGln;
-        this.containedIn = containedIn;
-        this.vogneList = vogneList;
         this.locationName = locationName;
+        this.containedIn = containedIn;
+        this.formerGln = formerGln;
+        this.vogneList = vogneList;
+        this.containsExpiredWagon = containsExpiredWagon;
     }
 
     public BufferZone() {
@@ -85,5 +87,13 @@ class BufferZone {
 
     public void setWagonList(ArrayList<TrackEvent> vogneList) {
         this.vogneList = vogneList;
+    }
+
+    public boolean containsExpiredWagon() {
+        return containsExpiredWagon;
+    }
+
+    public void setContainsExpiredWagon(boolean containsExpiredWagon) {
+        this.containsExpiredWagon = containsExpiredWagon;
     }
 }

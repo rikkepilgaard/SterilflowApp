@@ -106,18 +106,19 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
         ImageView timeImage = convertView.findViewById(R.id.lvImageTime);
 
-        if(bufferZone.getWagonList() != null) {
-            timeImage.setImageResource(0);
+        /*if(bufferZone.getWagonList() != null) {
             for (TrackEvent event : bufferZone.getWagonList()) {
                 if (event.isExpired()) {
-                    //Hvis den kun skal farve et enkelt billede
-                    //Drawable timeDrawable = ContextCompat.getDrawable(context,R.drawable.time).mutate();
-                    Drawable timeDrawable = ContextCompat.getDrawable(context,R.drawable.time);
-                    timeDrawable.setColorFilter(Color.RED,PorterDuff.Mode.SRC_ATOP);
-                    timeImage.setImageDrawable(timeDrawable);
+                    expired = true;
                 }
             }
+        }*/
+
+        if(bufferZone.containsExpiredWagon()) {
+            timeImage.setVisibility(View.VISIBLE);
         }
+        else timeImage.setVisibility(View.INVISIBLE);
+
 
         TextView lblListHeader = (TextView)convertView.findViewById(R.id.lvHeaderBuffer);
         lblListHeader.setText(headerTitleBuffer);
@@ -129,9 +130,8 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         }
         if(bufferZone.getWagonList()==null){
             lblListHeaderWagons.setTypeface(null,Typeface.NORMAL);
-            timeImage.setImageResource(0);
+            timeImage.setVisibility(View.INVISIBLE);
         }
-
 
         return convertView;
     }
@@ -141,14 +141,8 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if(childPosition == 0){
+       if(childPosition == 0){
             convertView = inflater.inflate(R.layout.child_header_layout,null);
-            TextView txtHeaderID = convertView.findViewById(R.id.txtChildHeaderID);
-            txtHeaderID.setText(context.getString(R.string.wagon_id));
-            TextView txtHeaderPlaced = convertView.findViewById(R.id.txtChildHeaderPlaced);
-            txtHeaderPlaced.setText(context.getString(R.string.placed_at));
-            TextView txtHeaderSince = convertView.findViewById(R.id.txtChildHeaderSince);
-            txtHeaderSince.setText(context.getString(R.string.been_since));
         }
 
         if(childPosition>0){
@@ -168,7 +162,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             long timeDifference = sharedPreferences.getLong(trackEvent.getObjectkey(),0);
             int diffMinutes = safeLongToInt(timeDifference / (60 * 1000) % 60);
-            int diffHours = safeLongToInt(timeDifference / (60 * 60 * 1000) % 24 -1 ); //1 hour time difference
+            int diffHours = safeLongToInt(timeDifference / (60 * 60 * 1000) % 24);
             int diffDays = safeLongToInt(timeDifference / (24 * 60 * 60 * 1000));
             String diffMinutesText = (diffMinutes < 10 ? "0" : "") + diffMinutes;
             String diffHoursText = (diffHours < 10 ? "0" : "") + diffHours;
@@ -193,6 +187,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
                 txtChildPlaced.setTextColor(context.getResources().getColor(R.color.red));
                 txtChildSince.setTextColor(context.getResources().getColor(R.color.red));
                 //convertView.setBackgroundColor(context.getResources().getColor(R.color.warningColor));
+                
             }
 
         }
@@ -200,6 +195,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
         return convertView;
     }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
