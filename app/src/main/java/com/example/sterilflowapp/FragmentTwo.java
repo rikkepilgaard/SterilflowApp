@@ -34,7 +34,7 @@ public class FragmentTwo extends Fragment {
 
     private MapView osm;
     private MapController mc;
-    //MainActivity activity;
+
     Marker marker;
     ToggleButton toggle;
 
@@ -98,9 +98,6 @@ public class FragmentTwo extends Fragment {
         if(toggle.isChecked()){addBuildings();}
 
 
-
-        //activity = (MainActivity) getActivity();
-
         for (final BufferZone i: bufferZones){
             marker = new Marker(osm);
             boolean expired = false;
@@ -123,7 +120,7 @@ public class FragmentTwo extends Fragment {
             marker.setInfoWindow(new CustomInfoWindow(osm,getActivity().getApplicationContext()));
             marker.setTitle(i.getName());
             marker.setSnippet(i.getLocationName());
-            marker.setSubDescription("Se vogne");
+            marker.setSubDescription(getString(R.string.See_trolleys));
             marker.setPanToView(false);
             clusterMarker.add(marker);
 

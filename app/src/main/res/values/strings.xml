@@ -23,6 +23,8 @@
     <string name="set_text_off">Remove buildingnames</string>
     <string name="infowindowCluster">Zoom ind for detaljer om specifikt bufferområde.</string>
     <string name="placed_at">Time of placement</string>
+    <string name="See_trolleys">See trolleys</string>
+    <string name="bufferomrade">Bufferzone</string>
 
 
 </resources>

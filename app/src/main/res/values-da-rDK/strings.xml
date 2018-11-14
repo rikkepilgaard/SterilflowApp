@@ -18,4 +18,6 @@
     <string name="set_text_on">Tilføj bygningsnavne</string>
     <string name="set_text_off">Fjern bygningsnavne</string>
     <string name="infowindowCluster">Zoom ind for detaljer om specifikt bufferområde.</string>
+    <string name="bufferzone">Bufferområde</string>
+    <string name="See_trolleys">Se vogne</string>
 </resources>
