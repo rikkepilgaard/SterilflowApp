@@ -168,16 +168,15 @@ public class TimeService extends Service {
                         //When trolley have been in bufferzone for 3 hours, broadcast is sent to
                         //MainActivity and notification is given.
                         if (diffHours == 3 && lastHours!=diffHours) {
-                            if(!zone.getGln().equals(BUFFER_NORDLAGER)) {
-                                if(!zone.getGln().equals(BUFFER_STERILCENTRAL)) {
+                            if(!zone.getGln().equals(BUFFER_NORDLAGER) || !zone.getGln().equals(BUFFER_STERILCENTRAL)) {
 
-                                    preferenceEditor.putString(getResources().getString(R.string.buffer_time), zone.getName());
-                                    preferenceEditor.commit();
+                                preferenceEditor.putString(getResources().getString(R.string.buffer_time), zone.getName());
+                                preferenceEditor.commit();
 
-                                    showNotification(zone.getName());
+                                showNotification(zone.getName());
 
-                                    sendBroadcast("time_wagon");
-                                }
+                                sendBroadcast("time_wagon");
+
                             }
                         }
                     }
@@ -237,7 +236,7 @@ public class TimeService extends Service {
         }
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,"channel_1")
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle(getString(R.string.alert_time_title))
                 .setContentText(getString(R.string.wagon_time) + "\n" + buffer);
 
