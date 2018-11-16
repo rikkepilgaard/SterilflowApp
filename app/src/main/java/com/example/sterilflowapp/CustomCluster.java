@@ -173,7 +173,7 @@ public class CustomCluster extends MarkerClusterer {
 
             clusterIconD=BitmapFactory.decodeResource(ctx.getResources(),ctx.getResources().getIdentifier("redmarker", "drawable", ctx.getPackageName()));}
         else{
-            clusterIconD=BitmapFactory.decodeResource(ctx.getResources(),ctx.getResources().getIdentifier("bluemarker", "drawable", ctx.getPackageName()));}
+            clusterIconD=BitmapFactory.decodeResource(ctx.getResources(),ctx.getResources().getIdentifier("greenmarker", "drawable", ctx.getPackageName()));}
 
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(clusterIconD, 100, 100, false);
 

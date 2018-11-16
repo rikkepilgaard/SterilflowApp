@@ -10,21 +10,29 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
+import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.events.MapListener;
+import org.osmdroid.events.ScrollEvent;
+import org.osmdroid.events.ZoomEvent;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
+import java.util.Currency;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -56,6 +64,7 @@ public class FragmentTwo extends Fragment {
         osm.setBuiltInZoomControls(false);
         osm.setMultiTouchControls(true);
         mc=(MapController) this.osm.getController();
+
         mc.setZoom(17);
         osm.setMinZoomLevel((double) 16);
         osm.setMaxZoomLevel((double) 20);
@@ -64,6 +73,9 @@ public class FragmentTwo extends Fragment {
         BoundingBox box = new BoundingBox(56.196023, 10.183009,56.185341, 10.161220);
         osm.setScrollableAreaLimitDouble(box);
         osm.setMapOrientation(21.05f);
+
+
+
 
         if(savedInstanceState!=null){
             if(savedInstanceState.getBoolean("ischecked")){
@@ -83,7 +95,6 @@ public class FragmentTwo extends Fragment {
                 }
             }
         });
-
         return view;
     }
 
@@ -149,11 +160,10 @@ public class FragmentTwo extends Fragment {
 
 
         if(!isExpired){
-        imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("bluemarker", "drawable", getActivity().getPackageName()));}
+        imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("greenmarker", "drawable", getActivity().getPackageName()));}
         else{imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("redmarker", "drawable", getActivity().getPackageName()));}
 
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, 80, 80, false);
-
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
