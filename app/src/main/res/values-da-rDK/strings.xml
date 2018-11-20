@@ -21,4 +21,6 @@
     <string name="bufferzone">Bufferområde</string>
     <string name="See_trolleys">Se vogne</string>
     <string name="close">Luk</string>
+    <string name="empty_buffer">Der er ingen vogne i bufferområdet</string>
+    <string name="show_map">Vis på kort</string>
 </resources>
