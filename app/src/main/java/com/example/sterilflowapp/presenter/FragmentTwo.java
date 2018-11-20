@@ -37,7 +37,7 @@ import androidx.fragment.app.Fragment;
 public class FragmentTwo extends Fragment {
 
     private MapView osm;
-    private MapController mc;
+
 
     Marker marker;
     ToggleButton toggle;
@@ -59,7 +59,7 @@ public class FragmentTwo extends Fragment {
         osm.setTileSource(TileSourceFactory.MAPNIK);
         osm.setBuiltInZoomControls(false);
         osm.setMultiTouchControls(true);
-        mc=(MapController) this.osm.getController();
+        MapController mc=(MapController) this.osm.getController();
 
         mc.setZoom(17);
         osm.setMinZoomLevel((double) 16);
@@ -94,7 +94,7 @@ public class FragmentTwo extends Fragment {
         return view;
     }
 
-    CustomCluster clusterMarker;
+    private CustomCluster clusterMarker;
 
     public void addMarker(ArrayList<BufferZone> bufferZones){
 
@@ -131,11 +131,11 @@ public class FragmentTwo extends Fragment {
 
     }
 
-    ArrayList<Building> bList = new ArrayList<>();
+    private ArrayList<Building> bList = new ArrayList<>();
     public void setBuildingList(ArrayList<Building> buildingList){this.bList=buildingList;}
 
 
-    ItemizedIconOverlay BuildingOverlay;
+    private ItemizedIconOverlay BuildingOverlay;
 
     public void addBuildings(){
 
@@ -154,7 +154,7 @@ public class FragmentTwo extends Fragment {
     }
 
 
-    public Drawable createMarkerIcon(int numberWagons, boolean isExpired){
+    private Drawable createMarkerIcon(int numberWagons, boolean isExpired){
         Bitmap imageBitmap;
 
 
@@ -178,15 +178,13 @@ public class FragmentTwo extends Fragment {
         return marker;
     }
 
-    public Drawable createTextBitmap(String text){
+    private Drawable createTextBitmap(String text){
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             paint.setTextSize(18);
             paint.setTypeface(Typeface.DEFAULT_BOLD);
             paint.setColor(Color.BLACK);
             paint.setTextAlign(Paint.Align.LEFT);
             float baseline = -paint.ascent(); // ascent() is negative
-            int width = (int) (paint.measureText(text) + 0.75f); // round
-            int height = (int) (baseline + paint.descent() + 0.5f);
 
             Bitmap image = Bitmap.createBitmap(50, 18, Bitmap.Config.ARGB_8888);
             Bitmap resizedBitmap = Bitmap.createScaledBitmap(image, 50, 18, false);

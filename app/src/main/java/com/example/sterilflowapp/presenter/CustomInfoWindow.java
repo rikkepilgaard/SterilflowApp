@@ -25,10 +25,10 @@ Context context;
     @Override
     public void onOpen(Object item){
         super.onOpen(item);
-        Button btn = (Button)(mView.findViewById(R.id.bubble_moreinfo));
-        final TextView txtTitle = (TextView) mView.findViewById(R.id.bubble_title);
-        TextView txtDescription = (TextView) mView.findViewById(R.id.bubble_description);
-        TextView txtSubdescription = (TextView) mView.findViewById(R.id.bubble_subdescription);
+        Button btn = (mView.findViewById(R.id.bubble_moreinfo));
+        final TextView txtTitle =mView.findViewById(R.id.bubble_title);
+        TextView txtDescription =  mView.findViewById(R.id.bubble_description);
+        TextView txtSubdescription =mView.findViewById(R.id.bubble_subdescription);
         mView.findViewById(R.id.bubble_moreinfo).setVisibility(View.VISIBLE);
         btn.setBackgroundResource(R.drawable.moreinfo);
 
@@ -41,7 +41,7 @@ Context context;
                 broadcastIntent.putExtra("buffername",buffername);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
 
-        };
+        }
 
     });
 

@@ -20,4 +20,5 @@
     <string name="infowindowCluster">Zoom ind for detaljer om specifikt bufferområde.</string>
     <string name="bufferzone">Bufferområde</string>
     <string name="See_trolleys">Se vogne</string>
+    <string name="close">Luk</string>
 </resources>

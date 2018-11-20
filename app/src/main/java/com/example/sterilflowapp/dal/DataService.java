@@ -27,8 +27,6 @@ public class DataService extends Service {
     private ArrayList<TrackEvent> trackEventArrayList;
     private ArrayList<BufferZone> bufferZones;
     private ArrayList<Building> buildingsList;
-    private ParseBufferzoneXML parseBufferzones;
-    private ParseBuildingXML parseBuildings;
     private BufferzoneDataProcessor dataProcessor;
 
 
@@ -55,8 +53,8 @@ public class DataService extends Service {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference().child("TrackEvents");
         Log.d(TAG,"DataService started");
-        parseBufferzones=new ParseBufferzoneXML();
-        parseBuildings=new ParseBuildingXML();
+        ParseBufferzoneXML parseBufferzones= new ParseBufferzoneXML();
+        ParseBuildingXML parseBuildings= new ParseBuildingXML();
         buildingsList=parseBuildings.parseBuildingsXML(this);
         bufferZones=parseBufferzones.parseBufferzoneXML(this);
 

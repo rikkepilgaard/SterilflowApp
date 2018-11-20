@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG,"Broadcast received: " + intent.getAction());
 
-
+            if(intent.getAction()!=null){
             switch (intent.getAction()){
                 case "time":
                     if(fragmentOne!=null) {
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 case "dataNull":
                     progressbar.setVisibility(View.INVISIBLE);
 
-            }
+            }}
 
 
         }

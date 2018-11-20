@@ -159,7 +159,7 @@ public class BufferzoneDataProcessor {
         return bufferZonesList;
     }
 
-    public void sendBroadcast(String action){
+    private void sendBroadcast(String action){
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction(action);
         LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);

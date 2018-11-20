@@ -1,7 +1,5 @@
 package com.example.sterilflowapp.model;
 
-import com.example.sterilflowapp.model.TrackEvent;
-
 import java.util.ArrayList;
 
 public class BufferZone {

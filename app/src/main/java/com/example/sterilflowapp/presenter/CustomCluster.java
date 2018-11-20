@@ -79,10 +79,10 @@ public class CustomCluster extends MarkerClusterer {
     /** Radius-Based clustering algorithm */
     @Override public ArrayList<StaticCluster> clusterer(MapView mapView) {
 
-        ArrayList<StaticCluster> clusters = new ArrayList<StaticCluster>();
+        ArrayList<StaticCluster> clusters = new ArrayList<>();
         convertRadiusToMeters(mapView);
 
-        mClonedMarkers = new ArrayList<Marker>(mItems); //shallow copy
+        mClonedMarkers = new ArrayList<>(mItems); //shallow copy
         while (!mClonedMarkers.isEmpty()) {
             Marker m = mClonedMarkers.get(0);
             StaticCluster cluster = createCluster(m, mapView);
@@ -122,7 +122,7 @@ public class CustomCluster extends MarkerClusterer {
     public void setBufferZoneList(ArrayList<BufferZone> buff){
         bufferZones=buff; }
 
-    MarkerInfoWindow markerInfoWindow;
+    private MarkerInfoWindow markerInfoWindow;
 
     @Override public Marker buildClusterMarker(StaticCluster cluster, MapView mapView) {
 
