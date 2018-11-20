@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".presenter.MainActivity">
 
 
     <ProgressBar
@@ -34,7 +34,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.example.sterilflowapp.CustomViewPager
+    <com.example.sterilflowapp.presenter.CustomViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

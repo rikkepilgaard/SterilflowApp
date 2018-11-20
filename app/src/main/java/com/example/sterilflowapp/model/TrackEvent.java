@@ -1,6 +1,6 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.model;
 
-class TrackEvent {
+public class TrackEvent {
     private String localitykey, objectkey, comments,distanceFloor,distanceMtr,durationSec,eventTime,floor,latitude, longitude,locationSgln;
     private boolean expired;
 

@@ -1,16 +1,18 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.model;
+
+import com.example.sterilflowapp.model.TrackEvent;
 
 import java.util.ArrayList;
 
-class BufferZone {
+public class BufferZone {
     private String name, gln, latitude, longitude, locationName;
     private ArrayList<String> containedIn;
     private ArrayList<String> formerGln;
-    private ArrayList<TrackEvent> vogneList;
+    private ArrayList<TrackEvent> trolleyList;
     private boolean containsExpiredWagon;
 
 
-    public BufferZone(String name, String gln, String latitude, String longitude, String locationName, ArrayList<String> containedIn, ArrayList<String> formerGln, ArrayList<TrackEvent> vogneList, boolean containsExpiredWagon) {
+    public BufferZone(String name, String gln, String latitude, String longitude, ArrayList<String> formerGln, String locationName, ArrayList<String> containedIn, ArrayList<TrackEvent> trolleyList, boolean containsExpiredWagon) {
         this.name = name;
         this.gln = gln;
         this.latitude = latitude;
@@ -18,7 +20,7 @@ class BufferZone {
         this.locationName = locationName;
         this.containedIn = containedIn;
         this.formerGln = formerGln;
-        this.vogneList = vogneList;
+        this.trolleyList = trolleyList;
         this.containsExpiredWagon = containsExpiredWagon;
     }
 
@@ -81,12 +83,12 @@ class BufferZone {
         this.containedIn = containedIn;
     }
 
-    public ArrayList<TrackEvent> getWagonList() {
-        return vogneList;
+    public ArrayList<TrackEvent> getTrolleyList() {
+        return trolleyList;
     }
 
-    public void setWagonList(ArrayList<TrackEvent> vogneList) {
-        this.vogneList = vogneList;
+    public void setTrolleyList(ArrayList<TrackEvent> trolleyList) {
+        this.trolleyList = trolleyList;
     }
 
     public boolean containsExpiredWagon() {

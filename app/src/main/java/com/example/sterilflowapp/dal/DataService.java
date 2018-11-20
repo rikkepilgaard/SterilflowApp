@@ -1,37 +1,21 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.dal;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.widget.ProgressBar;
 
+import com.example.sterilflowapp.model.BufferZone;
+import com.example.sterilflowapp.model.Building;
+import com.example.sterilflowapp.model.TrackEvent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import static com.example.sterilflowapp.ConstantValues.BUFFER_105;
-import static com.example.sterilflowapp.ConstantValues.BUFFER_109;
-import static com.example.sterilflowapp.ConstantValues.BUFFER_120;
-import static com.example.sterilflowapp.ConstantValues.BUFFER_202;
-import static com.example.sterilflowapp.ConstantValues.BUFFER_232;
-import static com.example.sterilflowapp.ConstantValues.BUFFER_236;
-import static com.example.sterilflowapp.ConstantValues.BUFFER_NORDLAGER;
-import static com.example.sterilflowapp.ConstantValues.BUFFER_STERILCENTRAL;
 
 public class DataService extends Service {
 
@@ -58,7 +42,7 @@ public class DataService extends Service {
     }
 
     public class DataServiceBinder extends Binder {
-        DataService getService() {
+        public DataService getService() {
             return DataService.this;
         }
     }
@@ -94,7 +78,7 @@ public class DataService extends Service {
                     }
                 }
 
-                dataProcessor.wagonInBufferzones(trackEventArrayList,bufferZones);
+                dataProcessor.trolleyInBufferzones(trackEventArrayList,bufferZones);
 
             }
 

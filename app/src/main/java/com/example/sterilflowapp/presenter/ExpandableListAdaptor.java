@@ -1,11 +1,8 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
@@ -16,10 +13,11 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.sterilflowapp.R;
+import com.example.sterilflowapp.model.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import androidx.core.content.ContextCompat;
 
 public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     private static final String TAG = "ExpandableListAdaptor";
@@ -94,8 +92,8 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         String headerTitleBuffer = bufferZone.getName();
         int headerTitleWagon = 0;
 
-        if(bufferZone.getWagonList() != null) {
-            headerTitleWagon = bufferZone.getWagonList().size();
+        if(bufferZone.getTrolleyList() != null) {
+            headerTitleWagon = bufferZone.getTrolleyList().size();
         }
         if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -106,8 +104,8 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
         ImageView timeImage = convertView.findViewById(R.id.lvImageTime);
 
-        /*if(bufferZone.getWagonList() != null) {
-            for (TrackEvent event : bufferZone.getWagonList()) {
+        /*if(bufferZone.getTrolleyList() != null) {
+            for (TrackEvent event : bufferZone.getTrolleyList()) {
                 if (event.isExpired()) {
                     expired = true;
                 }
@@ -125,10 +123,10 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         TextView lblListHeaderWagons = (TextView)convertView.findViewById(R.id.lvHeaderNumberOfWagons);
         lblListHeaderWagons.setText(String.valueOf(headerTitleWagon));
 
-        if(bufferZone.getWagonList()!=null){
+        if(bufferZone.getTrolleyList()!=null){
             lblListHeaderWagons.setTypeface(null,Typeface.BOLD);
         }
-        if(bufferZone.getWagonList()==null){
+        if(bufferZone.getTrolleyList()==null){
             lblListHeaderWagons.setTypeface(null,Typeface.NORMAL);
             timeImage.setVisibility(View.INVISIBLE);
         }

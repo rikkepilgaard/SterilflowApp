@@ -1,8 +1,11 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.dal;
 
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
+import com.example.sterilflowapp.model.BufferZone;
+import com.example.sterilflowapp.model.TrackEvent;
 
 import java.util.ArrayList;
 
@@ -22,13 +25,16 @@ public class BufferzoneDataProcessor {
     private static final String TAG = "BufferzoneDataProcessor";
 
     private ArrayList<TrackEvent> trackEventArrayList;
-    private ArrayList<BufferZone> bufferZones;
+    private ArrayList<BufferZone> bufferZonesList;
     private Context context;
 
     public BufferzoneDataProcessor(Context context){
 
         this.context = context.getApplicationContext();
     }
+
+    //Constructor to test
+    public BufferzoneDataProcessor(){}
 
 
     private ArrayList<TrackEvent> newestEvents(ArrayList<TrackEvent> trackList){
@@ -52,14 +58,14 @@ public class BufferzoneDataProcessor {
         return newList;
     }
 
-    public void wagonInBufferzones(ArrayList<TrackEvent> trackEventArrayList, ArrayList<BufferZone> bufferZones){
+    public void trolleyInBufferzones(ArrayList<TrackEvent> trackEventArrayList, ArrayList<BufferZone> bufferZones){
 
         ArrayList<TrackEvent> arrayList = newestEvents(trackEventArrayList);
 
         if(bufferZones!= null) {
             for (int j = 0; j < bufferZones.size(); j++) {
-                ArrayList<TrackEvent> oldWagonList = bufferZones.get(j).getWagonList();
-                bufferZones.get(j).setWagonList(null);
+                ArrayList<TrackEvent> oldTrolleyList = bufferZones.get(j).getTrolleyList();
+                bufferZones.get(j).setTrolleyList(null);
                 ArrayList<TrackEvent> list = new ArrayList<>();
 
                 switch (bufferZones.get(j).getGln()) {
@@ -77,7 +83,7 @@ public class BufferzoneDataProcessor {
                                         for (String formerGln : bufferZones.get(j).getFormerGln()) {
                                             if (event1.getLocationSgln().equals(formerGln)) {
                                                 list.add(trackEvent);
-                                                bufferZones.get(j).setWagonList(list);
+                                                bufferZones.get(j).setTrolleyList(list);
                                             }
                                         }
                                     }
@@ -97,7 +103,7 @@ public class BufferzoneDataProcessor {
                                         TrackEvent event1 = trackEventArrayList.get(h - 1);
                                         if (Integer.valueOf(event1.getFloor()) == 3) {
                                             list.add(trackEvent);
-                                            bufferZones.get(j).setWagonList(list);
+                                            bufferZones.get(j).setTrolleyList(list);
                                         }
                                     }
                                 }
@@ -116,20 +122,20 @@ public class BufferzoneDataProcessor {
                             TrackEvent trackEvent = arrayList.get(i);
                             if (bufferZones.get(j).getGln().equals(trackEvent.getLocationSgln())) {
                                 list.add(trackEvent);
-                                bufferZones.get(j).setWagonList(list);
+                                bufferZones.get(j).setTrolleyList(list);
                             }
                         }
 
                         break;
                 }
                 int newSize = 0;
-                if (bufferZones.get(j).getWagonList() != null) {
-                    newSize = bufferZones.get(j).getWagonList().size();
+                if (bufferZones.get(j).getTrolleyList() != null) {
+                    newSize = bufferZones.get(j).getTrolleyList().size();
                 }
 
                 int oldSize = 0;
-                if (oldWagonList != null) {
-                    oldSize = oldWagonList.size();
+                if (oldTrolleyList != null) {
+                    oldSize = oldTrolleyList.size();
                 }
 
                 //Check whether status is changed (trolley moved in or out of bufferzone)
@@ -143,14 +149,14 @@ public class BufferzoneDataProcessor {
 
             }
         }
+        if(this.trackEventArrayList==null){
+            sendBroadcast("dataNull");
+        }
+        this.trackEventArrayList = trackEventArrayList;
+        bufferZonesList=bufferZones;
     }
-
-    //To test
-    public void setBufferZones(ArrayList<BufferZone>buffer){this.bufferZones=buffer;}
-    public void setTrackEventArrayList(ArrayList<TrackEvent>tracks){this.trackEventArrayList=tracks;}
-
     public ArrayList<BufferZone> getBufferZones(){
-        return bufferZones;
+        return bufferZonesList;
     }
 
     public void sendBroadcast(String action){

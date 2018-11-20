@@ -1,32 +1,22 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.presenter;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.text.Html;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import com.example.sterilflowapp.R;
+import com.example.sterilflowapp.model.BufferZone;
+import com.example.sterilflowapp.model.TrackEvent;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 
@@ -81,7 +71,7 @@ public class FragmentOne extends Fragment {
         HashMap<BufferZone, ArrayList<TrackEvent>> hashMap = new HashMap<>();
 
         for (BufferZone bufferZone : bufferZones){
-            ArrayList<TrackEvent> trackEvents = bufferZone.getWagonList();
+            ArrayList<TrackEvent> trackEvents = bufferZone.getTrolleyList();
             hashMap.put(bufferZone, trackEvents);
         }
 

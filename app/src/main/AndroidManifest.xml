@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sterilflowapp">
 
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -19,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         >
-        <activity android:name=".MainActivity">
+        <activity android:name=".presenter.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,11 +29,11 @@
         </activity>
 
         <service
-            android:name=".TimeService"
+            android:name=".presenter.TimeService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".DataService"
+            android:name=".dal.DataService"
             android:enabled="true"
             android:exported="true"></service>
     </application>

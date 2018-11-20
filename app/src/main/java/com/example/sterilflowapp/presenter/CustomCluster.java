@@ -1,4 +1,4 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.presenter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,6 +9,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+
+import com.example.sterilflowapp.R;
+import com.example.sterilflowapp.model.BufferZone;
 
 import org.osmdroid.bonuspack.clustering.MarkerClusterer;
 import org.osmdroid.bonuspack.clustering.StaticCluster;
@@ -53,8 +56,6 @@ public class CustomCluster extends MarkerClusterer {
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(clusterIcon, 80, 80, false);
         setIcon(resizedBitmap);
     }
-
-
 
 
     /** If you want to change the default text paint (color, size, font) */
@@ -147,20 +148,11 @@ public class CustomCluster extends MarkerClusterer {
             for (BufferZone j: bufferZones)
             {
                 if(i.equals(j.getName())){
-                    if(j.getWagonList()!=null)
-                    wagonNumber=wagonNumber+j.getWagonList().size();
+                    if(j.getTrolleyList()!=null)
+                    wagonNumber=wagonNumber+j.getTrolleyList().size();
                     if(j.containsExpiredWagon()){
                         expiredTrolley = true;
                     }
-
-                    /*if(j.getWagonList() != null) {
-
-                        for (TrackEvent event : j.getWagonList()){
-                            if(event.isExpired()){
-                                expiredTrolley = true;
-                            }
-                        }
-                    }*/
                 }
 
             }

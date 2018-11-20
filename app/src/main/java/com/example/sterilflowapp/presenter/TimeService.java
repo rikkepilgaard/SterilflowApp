@@ -1,4 +1,4 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.presenter;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -14,6 +14,11 @@ import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import com.example.sterilflowapp.R;
+import com.example.sterilflowapp.dal.DataService;
+import com.example.sterilflowapp.model.BufferZone;
+import com.example.sterilflowapp.model.TrackEvent;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -112,8 +117,8 @@ public class TimeService extends Service {
         if(bufferZones != null) {
             for (BufferZone zone : bufferZones) {
                 zone.setContainsExpiredWagon(false);
-                if(zone.getWagonList()!=null) {
-                    for (TrackEvent event : zone.getWagonList()) {
+                if(zone.getTrolleyList()!=null) {
+                    for (TrackEvent event : zone.getTrolleyList()) {
 
                         long lastDiff = sharedPreferences.getLong(event.getObjectkey(), 0);
                         long lastMinutes = lastDiff / (60 * 1000) % 60;

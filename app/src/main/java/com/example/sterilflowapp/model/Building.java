@@ -1,4 +1,4 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.model;
 
 public class Building {
 

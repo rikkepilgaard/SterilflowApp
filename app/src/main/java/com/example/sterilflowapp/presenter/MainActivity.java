@@ -1,5 +1,8 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.presenter;
 
+import com.example.sterilflowapp.R;
+import com.example.sterilflowapp.dal.DataService;
+import com.example.sterilflowapp.model.BufferZone;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -27,7 +30,7 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
-import static com.example.sterilflowapp.ConstantValues.PERMISSIONS;
+import static com.example.sterilflowapp.ConstantValues.*;
 import static com.example.sterilflowapp.ConstantValues.PERMISSION_ALL;
 
 
@@ -122,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         dataFilter.addAction("time");
         dataFilter.addAction("time_wagon");
         dataFilter.addAction("changetab");
+        dataFilter.addAction("dataNull");
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,dataFilter);
     }
 
@@ -181,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
 
                 case "data":
                     timeService.calculateTimeDifference();
-                    progressbar.setVisibility(View.INVISIBLE);
                     if(fragmentOne!= null) {
                         fragmentOne.initData(dataService.getBufferZoneList());
                     }
@@ -194,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
                     viewPager.setCurrentItem(0);
                     fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),intent.getStringExtra("buffername"));
                     break;
+                case "dataNull":
+                    progressbar.setVisibility(View.INVISIBLE);
 
             }
 
@@ -209,14 +214,14 @@ public class MainActivity extends AppCompatActivity {
         String alertMsg = getString(R.string.wagon_time) + " " + buffer;
         alert.setMessage(alertMsg);
 
-        alert.setPositiveButton("Gå til vogn", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(getString(R.string.See_trolleys), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 viewPager.setCurrentItem(0);
                 fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),buffer);
             }
         });
-        alert.setNegativeButton("Luk", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

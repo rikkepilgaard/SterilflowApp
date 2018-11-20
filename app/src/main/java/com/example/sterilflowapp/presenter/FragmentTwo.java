@@ -1,4 +1,4 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.presenter;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,29 +10,25 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
-import org.osmdroid.events.MapEventsReceiver;
-import org.osmdroid.events.MapListener;
-import org.osmdroid.events.ScrollEvent;
-import org.osmdroid.events.ZoomEvent;
+import com.example.sterilflowapp.R;
+import com.example.sterilflowapp.model.BufferZone;
+import com.example.sterilflowapp.model.Building;
+
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
-import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
-import java.util.Currency;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -113,8 +109,8 @@ public class FragmentTwo extends Fragment {
             marker = new Marker(osm);
 
             //Resize icon and set number of wagons inside icon
-            if(i.getWagonList() != null) {
-                marker.setIcon(createMarkerIcon(i.getWagonList().size(),i.containsExpiredWagon()));
+            if(i.getTrolleyList() != null) {
+                marker.setIcon(createMarkerIcon(i.getTrolleyList().size(),i.containsExpiredWagon()));
             }
             else{marker.setIcon(createMarkerIcon(0,false));}
 

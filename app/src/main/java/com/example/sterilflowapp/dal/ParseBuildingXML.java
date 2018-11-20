@@ -1,6 +1,8 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.dal;
 
 import android.content.Context;
+
+import com.example.sterilflowapp.model.Building;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

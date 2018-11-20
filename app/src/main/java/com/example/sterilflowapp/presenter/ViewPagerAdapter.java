@@ -1,4 +1,4 @@
-package com.example.sterilflowapp;
+package com.example.sterilflowapp.presenter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

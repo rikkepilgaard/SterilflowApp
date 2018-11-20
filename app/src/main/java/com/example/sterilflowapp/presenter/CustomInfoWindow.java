@@ -1,7 +1,4 @@
-package com.example.sterilflowapp;
-
-import android.app.Activity;
-
+package com.example.sterilflowapp.presenter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,22 +6,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.sterilflowapp.R;
 
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.infowindow.MarkerInfoWindow;
 
-
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.viewpager.widget.ViewPager;
 
 //https://code.google.com/archive/p/osmbonuspack/wikis/Tutorial_2.wiki
 public class CustomInfoWindow extends MarkerInfoWindow {
-    //Activity activity;
+
 Context context;
     public CustomInfoWindow(MapView mapView, Context context){
         super(R.layout.bubble_layout,mapView);
         this.context=context;
-        //this.activity=activity;
     }
 
     @Override
