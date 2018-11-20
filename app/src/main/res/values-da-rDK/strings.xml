@@ -4,7 +4,7 @@
     <string name="tab_a_label">Tabel</string>
     <string name="tab_b_label">Kort</string>
     <string name="bufferomrade">Bufferområde</string>
-    <string name="number_of_wagons">Antal vogne:</string>
+    <string name="number_of_wagons">Antal vogne</string>
     <string name="alert_time_title">Advarsel! Tidsgrænse overskrides snart</string>
     <string name="wagon_time">En eller flere vogne overskrider snart tidsgrænse i bufferområde</string>
     <string name="buffer_time">Specifikt bufferområde</string>
@@ -17,7 +17,7 @@
     <string name="permission_denied">Denne app kræver brug af lokation. Slå dette til før appen kan bruges.</string>
     <string name="set_text_on">Tilføj bygningsnavne</string>
     <string name="set_text_off">Fjern bygningsnavne</string>
-    <string name="infowindowCluster">Zoom ind for detaljer om specifikt bufferområde.</string>
+    <string name="infowindowCluster">Zoom ind for detaljer om bufferområder</string>
     <string name="bufferzone">Bufferområde</string>
     <string name="See_trolleys">Se vogne</string>
     <string name="close">Luk</string>

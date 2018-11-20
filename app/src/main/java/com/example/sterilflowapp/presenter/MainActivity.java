@@ -23,6 +23,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -126,7 +127,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        int density= getResources().getDisplayMetrics().heightPixels;
 
+        Log.d("screenzise",Integer.toString(screenSize));
     }
 
     @Override
@@ -219,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     public void setAlert(){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this,R.style.AlertTheme);
         final String buffer = sharedPreferences.getString(getString(R.string.buffer_time),"'Not found'");
         String alertTitle = getString(R.string.alert_time_title);
         alert.setTitle(alertTitle);
@@ -231,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 viewPager.setCurrentItem(0);
                 fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),buffer);
+
             }
         });
         alert.setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener() {

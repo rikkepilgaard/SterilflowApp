@@ -96,7 +96,7 @@ public class FragmentTwo extends Fragment {
 
     private CustomCluster clusterMarker;
 
-    public void addMarker(ArrayList<BufferZone> bufferZones){
+    void addMarker(ArrayList<BufferZone> bufferZones){
 
         osm.getOverlays().clear();
         clusterMarker =new CustomCluster(getContext());
@@ -132,12 +132,12 @@ public class FragmentTwo extends Fragment {
     }
 
     private ArrayList<Building> bList = new ArrayList<>();
-    public void setBuildingList(ArrayList<Building> buildingList){this.bList=buildingList;}
+    void setBuildingList(ArrayList<Building> buildingList){this.bList=buildingList;}
 
 
     private ItemizedIconOverlay BuildingOverlay;
 
-    public void addBuildings(){
+    private void addBuildings(){
 
         final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
 
@@ -174,8 +174,7 @@ public class FragmentTwo extends Fragment {
         else{
             canvas.drawText(Integer.toString(numberWagons), 25, resizedBitmap.getHeight()/1.5f, paint);
         }
-        Drawable marker = new BitmapDrawable(this.getResources(), resizedBitmap);
-        return marker;
+        return new BitmapDrawable(this.getResources(), resizedBitmap);
     }
 
     private Drawable createTextBitmap(String text){
@@ -190,11 +189,10 @@ public class FragmentTwo extends Fragment {
             Bitmap resizedBitmap = Bitmap.createScaledBitmap(image, 50, 18, false);
             Canvas canvas = new Canvas(resizedBitmap);
             canvas.drawText(text, 0, baseline, paint);
-            Drawable textMarker = new BitmapDrawable(this.getResources(), resizedBitmap);
-            return textMarker;
+            return new BitmapDrawable(this.getResources(), resizedBitmap);
         }
 
-        public void closeInfoWindows(){
+        void closeInfoWindows(){
             CustomInfoWindow.closeAllInfoWindowsOn(osm);
         }
 
