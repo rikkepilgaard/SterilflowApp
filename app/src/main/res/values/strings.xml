@@ -26,6 +26,8 @@
     <string name="See_trolleys">See trolleys</string>
     <string name="bufferomrade">Bufferzone</string>
     <string name="close">Close</string>
+    <string name="empty_buffer">Bufferzone contains no trolleys</string>
+    <string name="show_map">Show on map</string>
 
 
 

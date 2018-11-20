@@ -1,6 +1,7 @@
 package com.example.sterilflowapp.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
@@ -10,14 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sterilflowapp.R;
 import com.example.sterilflowapp.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     private static final String TAG = "ExpandableListAdaptor";
@@ -52,7 +57,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     public int getChildrenCount(int groupPosition) {
         if(listHashMap.get(bufferZones.get(groupPosition)) != null) {
             return listHashMap.get(bufferZones.get(groupPosition)).size() + 1;
-        } else return 0;
+        } else return 1;
     }
 
     @Override
@@ -84,10 +89,9 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     }
     //https://robusttechhouse.com/how-to-add-header-footer-to-expandablelistview-childview/
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        Log.d(TAG,"getGroupView method entered");
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
-        BufferZone bufferZone = getGroup(groupPosition);
+        final BufferZone bufferZone = getGroup(groupPosition);
 
         String headerTitleBuffer = bufferZone.getName();
         int headerTitleWagon = 0;
@@ -104,23 +108,15 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
         ImageView timeImage = convertView.findViewById(R.id.lvImageTime);
 
-        /*if(bufferZone.getTrolleyList() != null) {
-            for (TrackEvent event : bufferZone.getTrolleyList()) {
-                if (event.isExpired()) {
-                    expired = true;
-                }
-            }
-        }*/
-
         if(bufferZone.containsExpiredWagon()) {
             timeImage.setVisibility(View.VISIBLE);
         }
         else timeImage.setVisibility(View.INVISIBLE);
 
 
-        TextView lblListHeader = (TextView)convertView.findViewById(R.id.lvHeaderBuffer);
+        TextView lblListHeader = convertView.findViewById(R.id.lvHeaderBuffer);
         lblListHeader.setText(headerTitleBuffer);
-        TextView lblListHeaderWagons = (TextView)convertView.findViewById(R.id.lvHeaderNumberOfWagons);
+        TextView lblListHeaderWagons = convertView.findViewById(R.id.lvHeaderNumberOfWagons);
         lblListHeaderWagons.setText(String.valueOf(headerTitleWagon));
 
         if(bufferZone.getTrolleyList()!=null){
@@ -131,6 +127,17 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             timeImage.setVisibility(View.INVISIBLE);
         }
 
+        Button btnToMap = convertView.findViewById(R.id.btnToMap);
+        btnToMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction("changetab");
+                broadcastIntent.putExtra("buffername",bufferZone.getName());
+                LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
+            }
+        });
+
         return convertView;
     }
 
@@ -139,7 +146,11 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-       if(childPosition == 0){
+        if(getChildrenCount(groupPosition)==1){
+            convertView = inflater.inflate(R.layout.empty_bufferzone,null);
+        }
+
+       if(childPosition == 0 && getChildrenCount(groupPosition)>1){
             convertView = inflater.inflate(R.layout.child_header_layout,null);
         }
 
