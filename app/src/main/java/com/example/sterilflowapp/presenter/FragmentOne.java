@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ public class FragmentOne extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
@@ -61,7 +63,7 @@ public class FragmentOne extends Fragment {
         //tableLayout = view.findViewById(R.id.tableLayoutOverview);
 
         listView = view.findViewById(R.id.listViewExpandable);
-
+        listView.setChildDivider(getResources().getDrawable(R.color.white));
         // Inflate the layout for this fragment
         return view;
     }
