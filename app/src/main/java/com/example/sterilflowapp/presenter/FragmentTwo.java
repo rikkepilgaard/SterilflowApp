@@ -26,9 +26,12 @@ import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -206,10 +209,24 @@ public class FragmentTwo extends Fragment {
     }
 
     public void zoomToSpecificBufferzone(ArrayList<BufferZone>bufferZones,String buffername){
+
+        List<Overlay> o = osm.getOverlays();
+        Iterator<Overlay> iterator = osm.getOverlays().iterator();
+        while(iterator.hasNext()){
+            Overlay next = iterator.next();
+            if (next instanceof CustomCluster){
+                ((CustomCluster) next).getItem(1);
+                CustomCluster x = (CustomCluster) next;
+            }
+        }
+
+
+
         for (BufferZone i:bufferZones){
             if(i.getName().equals(buffername)){
-                mc.setZoom(18);
+                mc.setZoom(19);
                 mc.setCenter(new GeoPoint(Double.parseDouble(i.getLatitude()),Double.parseDouble(i.getLongitude())));
+                String d = "jgr";
             }
         }
 
