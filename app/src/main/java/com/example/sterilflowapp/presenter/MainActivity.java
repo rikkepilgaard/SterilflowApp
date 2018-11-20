@@ -7,6 +7,8 @@ import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
@@ -21,6 +23,10 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -87,8 +93,14 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setPagingEnabled(false);
 
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_icon_a_24);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_icon_b_24);
+
+        //Set tab icon with drawable icons in white
+        Drawable listIcon = getResources().getDrawable(R.drawable.ic_icon_a_24);
+        Drawable mapIcon = getResources().getDrawable(R.drawable.ic_icon_b_24);
+        listIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        mapIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        tabLayout.getTabAt(0).setIcon(listIcon);
+        tabLayout.getTabAt(1).setIcon(mapIcon);
 
         progressbar=findViewById(R.id.progressbar);
         progressbar.setVisibility(View.VISIBLE);

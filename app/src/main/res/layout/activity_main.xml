@@ -15,6 +15,7 @@
         android:layout_gravity="center"
         style="@style/Base.Widget.AppCompat.ProgressBar"
         android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimary"
         />
 
     <com.google.android.material.appbar.AppBarLayout
@@ -28,7 +29,8 @@
             android:layout_height="wrap_content"
             app:tabMaxWidth="0dp"
             app:tabGravity="fill"
-            app:tabMode="fixed">
+            app:tabMode="fixed"
+            app:tabTextAppearance="@style/TabLayoutText">
 
         </com.google.android.material.tabs.TabLayout>
 

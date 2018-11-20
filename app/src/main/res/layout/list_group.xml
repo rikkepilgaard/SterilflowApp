@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingLeft="50dp"
     android:paddingRight="20dp"
@@ -11,24 +11,33 @@
     <TextView
         android:id="@+id/lvHeaderBuffer"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_weight="15"
+        android:layout_height="70dp"
+        android:layout_weight="10"
         android:gravity="center_vertical"
         android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/lvImageWagon"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_weight="30"
+        android:foregroundGravity="center"
+        android:src="@drawable/trolley1"
+        android:padding="10dp"/>
 
     <TextView
         android:id="@+id/lvHeaderNumberOfWagons"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_weight="40"
-        android:gravity="center"
-        android:textSize="20sp" />
+        android:layout_height="70dp"
+        android:layout_weight="30"
+        android:gravity="center_vertical"
+        android:textSize="22sp" />
 
     <ImageView
         android:id="@+id/lvImageTime"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_weight="45"
+        android:layout_height="70dp"
+        android:layout_weight="30"
         android:foregroundGravity="center"
         android:src="@drawable/time"
         android:tint="@color/red"

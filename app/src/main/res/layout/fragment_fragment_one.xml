@@ -7,47 +7,14 @@
     tools:context=".presenter.MainActivity"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:paddingLeft="60dp"
-        android:paddingStart="60dp"
-        android:paddingRight="30dp"
-        android:paddingEnd="30dp"
-        android:background="@color/colorAccent">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="40"
-            android:gravity="start"
-            android:text="@string/bufferzone"
-            android:textSize="20sp"
-            android:textColor="@color/white"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="60"
-            android:text="@string/number_of_wagons"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="@color/white"/>
-
-    </LinearLayout>
 
     <ExpandableListView
         android:id="@+id/listViewExpandable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:childDivider="@color/colorPrimary"
-        android:transcriptMode="disabled"/>
+        android:transcriptMode="disabled"
+         />
 
     <!-- layout_direction="rtl" kan sætte pilen i højre side-->
 
