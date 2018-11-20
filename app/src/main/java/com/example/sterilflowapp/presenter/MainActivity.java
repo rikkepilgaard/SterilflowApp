@@ -126,12 +126,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        int screenSize = getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_MASK;
-        int density= getResources().getDisplayMetrics().heightPixels;
-
-        Log.d("screenzise",Integer.toString(screenSize));
     }
 
     @Override
@@ -211,11 +205,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case "changetab":
+                    if(viewPager.getCurrentItem()==1){
                     viewPager.setCurrentItem(0);
-                    fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),intent.getStringExtra("buffername"));
+                    fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),intent.getStringExtra("buffername"));}
+                    else{viewPager.setCurrentItem(1);
+                    fragmentTwo.zoomToSpecificBufferzone(dataService.getBufferZoneList(),intent.getStringExtra("buffername"));}
                     break;
                 case "dataNull":
                     progressbar.setVisibility(View.INVISIBLE);
+
 
             }}
 

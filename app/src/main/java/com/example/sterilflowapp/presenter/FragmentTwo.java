@@ -37,10 +37,12 @@ import androidx.fragment.app.Fragment;
 public class FragmentTwo extends Fragment {
 
     private MapView osm;
+    private MapController mc;
 
 
     Marker marker;
     ToggleButton toggle;
+
 
     public FragmentTwo() {}
 
@@ -59,7 +61,7 @@ public class FragmentTwo extends Fragment {
         osm.setTileSource(TileSourceFactory.MAPNIK);
         osm.setBuiltInZoomControls(false);
         osm.setMultiTouchControls(true);
-        MapController mc=(MapController) this.osm.getController();
+        mc=(MapController) this.osm.getController();
 
         mc.setZoom(17);
         osm.setMinZoomLevel((double) 16);
@@ -159,7 +161,7 @@ public class FragmentTwo extends Fragment {
 
 
         if(!isExpired){
-        imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("greenmarker", "drawable", getActivity().getPackageName()));}
+        imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("bluemarker", "drawable", getActivity().getPackageName()));}
         else{imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("redmarker", "drawable", getActivity().getPackageName()));}
 
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, 80, 80, false);
@@ -201,5 +203,15 @@ public class FragmentTwo extends Fragment {
         super.onSaveInstanceState(outState);
 
         outState.putBoolean("ischecked", toggle.isChecked());
+    }
+
+    public void zoomToSpecificBufferzone(ArrayList<BufferZone>bufferZones,String buffername){
+        for (BufferZone i:bufferZones){
+            if(i.getName().equals(buffername)){
+                mc.setZoom(18);
+                mc.setCenter(new GeoPoint(Double.parseDouble(i.getLatitude()),Double.parseDouble(i.getLongitude())));
+            }
+        }
+
     }
 }
