@@ -58,11 +58,9 @@ public class FragmentOne extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_one, container, false);
 
-        //tableLayout = view.findViewById(R.id.tableLayoutOverview);
 
         listView = view.findViewById(R.id.listViewExpandable);
 
-        // Inflate the layout for this fragment
         return view;
     }
 
@@ -75,11 +73,14 @@ public class FragmentOne extends Fragment {
             hashMap.put(bufferZone, trackEvents);
         }
 
+
+
         if(adapter == null) {
 
             adapter = new ExpandableListAdaptor(getActivity(), bufferZones, hashMap);
             listView.setAdapter(adapter);
         }
+
 
         ((ExpandableListAdaptor) adapter).updateListView(bufferZones,hashMap);
     }

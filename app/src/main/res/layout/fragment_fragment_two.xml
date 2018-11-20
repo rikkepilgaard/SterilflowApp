@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/mapview"
             android:layout_alignLeft="@id/mapview"
+            android:layout_alignStart="@+id/mapview"
             android:textOn="@string/set_text_off"
             android:textOff="@string/set_text_on"
             android:theme="@style/ToggleButton"

@@ -128,11 +128,12 @@ public class TimeService extends Service {
                         Date otherDate = fromStringToDate(event.getEventTime());
 
                         //Wrong time zone in trolley eventtime
-                        Calendar calender = Calendar.getInstance();
-                        calender.setTime(otherDate);
-                        calender.add(calender.HOUR,1);
 
-                        otherDate = calender.getTime();
+//                        Calendar calender = Calendar.getInstance();
+//                        calender.setTime(otherDate);
+//                        calender.add(calender.HOUR,1);
+
+                        //otherDate = calender.getTime();
 
                         long diff = currentDate.getTime() - otherDate.getTime();
 
@@ -184,7 +185,7 @@ public class TimeService extends Service {
         if(stringDate==null) {
             return null;
         } else {
-            SimpleDateFormat simpledateformat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+            SimpleDateFormat simpledateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             Date dateDate = null;
             try {
                 dateDate = simpledateformat.parse(stringDate);

@@ -30,7 +30,8 @@
             app:tabMaxWidth="0dp"
             app:tabGravity="fill"
             app:tabMode="fixed"
-            app:tabTextAppearance="@style/TabLayoutText">
+            app:tabTextAppearance="@style/TabLayoutText"
+            app:tabIndicatorHeight="3dp">
 
         </com.google.android.material.tabs.TabLayout>
 

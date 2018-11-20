@@ -29,7 +29,7 @@
         android:text="Title" />
     <Button android:id="@+id/bubble_moreinfo"
         android:background="@drawable/btn_moreinfo"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/colorPrimary"
         android:visibility="gone"
         android:layout_width="5mm"
         android:layout_height="5mm"
