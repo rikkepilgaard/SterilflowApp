@@ -3,7 +3,6 @@ package com.example.sterilflowapp;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -14,24 +13,13 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.text.Html;
 import android.util.Log;
-import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -115,7 +103,7 @@ public class TimeService extends Service {
     };
 
 
-    public void timeMethod() {
+    public void calculateTimeDifference() {
 
         if(dataService!=null) {
             bufferZones = dataService.getBufferZoneList();
@@ -209,7 +197,7 @@ public class TimeService extends Service {
 
             while(isRunning) {
                 try {
-                    timeMethod();
+                    calculateTimeDifference();
                     Thread.sleep(30000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

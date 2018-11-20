@@ -4,9 +4,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,13 +20,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-import android.Manifest;
 
 import java.util.ArrayList;
 
@@ -185,13 +180,14 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case "data":
-                    timeService.timeMethod();
+                    timeService.calculateTimeDifference();
                     progressbar.setVisibility(View.INVISIBLE);
                     if(fragmentOne!= null) {
                         fragmentOne.initData(dataService.getBufferZoneList());
                     }
                     if(fragmentTwo!= null) {
                         fragmentTwo.addMarker(dataService.getBufferZoneList());
+                        fragmentTwo.setBuildingList(dataService.getBuildingsList());
                     }
                     break;
                 case "changetab":

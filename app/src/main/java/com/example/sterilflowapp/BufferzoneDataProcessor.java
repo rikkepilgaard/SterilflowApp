@@ -145,6 +145,10 @@ public class BufferzoneDataProcessor {
         }
     }
 
+    //To test
+    public void setBufferZones(ArrayList<BufferZone>buffer){this.bufferZones=buffer;}
+    public void setTrackEventArrayList(ArrayList<TrackEvent>tracks){this.trackEventArrayList=tracks;}
+
     public ArrayList<BufferZone> getBufferZones(){
         return bufferZones;
     }

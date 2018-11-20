@@ -135,11 +135,14 @@ public class FragmentTwo extends Fragment {
 
     }
 
+    ArrayList<Building> bList = new ArrayList<>();
+    public void setBuildingList(ArrayList<Building> buildingList){this.bList=buildingList;}
+
+
     ItemizedIconOverlay BuildingOverlay;
 
     public void addBuildings(){
-        Building b = new Building();
-        ArrayList<Building> bList = b.getBuildings(getActivity().getApplicationContext());
+
         final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
 
         for (Building i: bList) {
