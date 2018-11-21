@@ -28,7 +28,7 @@ public class FragmentOne extends Fragment {
     //TableLayout tableLayout;
     MainActivity activity;
 
-    private ExpandableListView listView;
+    public ExpandableListView listView;
     private ExpandableListAdapter adapter;
 
     private boolean isOpen = false;
@@ -66,7 +66,6 @@ public class FragmentOne extends Fragment {
         }
 
         if(adapter == null) {
-
             adapter = new ExpandableListAdaptor(getActivity(), bufferZones, hashMap);
             listView.setAdapter(adapter);
         }
@@ -87,5 +86,8 @@ public class FragmentOne extends Fragment {
         }
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }

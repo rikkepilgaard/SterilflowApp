@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -156,6 +157,17 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
         unbindServices();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(fragmentOne,"fragone");
+        //fragmentTransaction.replace(..............);
+        //fragmentTransaction.addToBackStack(fragmentOne);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -330,6 +342,7 @@ public class MainActivity extends AppCompatActivity {
             bufferZones = dataService.getBufferZoneList();
             if(fragmentOne!=null) {
                 fragmentOne.initData(bufferZones);
+
             }
             if(fragmentTwo!=null){
                 fragmentTwo.addMarker(bufferZones);
