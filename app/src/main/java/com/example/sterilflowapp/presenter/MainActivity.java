@@ -7,6 +7,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentManager;
@@ -14,6 +15,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -28,6 +31,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -191,7 +195,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case "time_wagon":
-                    setAlert();
+                    setAlert(intent.getStringExtra("buffername"));
+                    showNotification(intent.getStringExtra("buffername"));
                     break;
 
                 case "data":
@@ -225,12 +230,12 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void setAlert(){
+    public void setAlert(final String buffer){
         final AlertDialog.Builder alert = new AlertDialog.Builder(this,R.style.AlertTheme);
-        final String buffer = sharedPreferences.getString(getString(R.string.buffer_time),"'Not found'");
+        //final String buffer = sharedPreferences.getString(getString(R.string.buffer_time),"'Not found'");
         String alertTitle = getString(R.string.alert_time_title);
         alert.setTitle(alertTitle);
-        String alertMsg = getString(R.string.wagon_time) + " " + buffer;
+        String alertMsg = getString(R.string.wagon_time) + "\n" + buffer;
         alert.setMessage(alertMsg);
 
         alert.setPositiveButton(getString(R.string.See_trolleys), new DialogInterface.OnClickListener() {
@@ -248,6 +253,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         alert.show();
+
+    }
+    public void showNotification(String buffer){
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "channel_1";
+            CharSequence channelName = "My_Channel";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel channel = new NotificationChannel(channelId,channelName,importance);
+            channel.canShowBadge();
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,"channel_1")
+                .setSmallIcon(R.drawable.ic_noti_icon)
+                .setContentTitle(getString(R.string.alert_time_title))
+                .setContentText(getString(R.string.wagon_time) + "\n" + buffer);
+
+
+        if (notificationManager != null) {
+            notificationManager.notify(1,notificationBuilder.build());
+        }
 
     }
 

@@ -143,7 +143,7 @@ public class TimeService extends Service {
                             preferenceEditor.putLong(event.getObjectkey(), diff);
                             preferenceEditor.commit();
 
-                            sendBroadcast("time");
+                            sendBroadcast("time","");
                         }
 
                         //If trolley have been in bufferzone 3 hours or more, the trolley is "expired"
@@ -168,12 +168,7 @@ public class TimeService extends Service {
 
                             }
 
-                            preferenceEditor.putString(getResources().getString(R.string.buffer_time), zone.getName());
-                            preferenceEditor.commit();
-
-                            showNotification(zone.getName());
-
-                            sendBroadcast("time_wagon");
+                            sendBroadcast("time_wagon",zone.getName());
                         }
                     }
                 }
@@ -216,37 +211,10 @@ public class TimeService extends Service {
 
     }
 
-    public void showNotification(String buffer){
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelId = "channel_1";
-            CharSequence channelName = "My_Channel";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-
-            NotificationChannel channel = new NotificationChannel(channelId,channelName,importance);
-            channel.canShowBadge();
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            }
-        }
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,"channel_1")
-                .setSmallIcon(R.drawable.ic_noti_icon)
-                .setContentTitle(getString(R.string.alert_time_title))
-                .setContentText(getString(R.string.wagon_time) + "\n" + buffer);
-
-
-        if (notificationManager != null) {
-            notificationManager.notify(1,notificationBuilder.build());
-        }
-
-    }
-
-    public void sendBroadcast(String action){
+    public void sendBroadcast(String action, String buffername){
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction(action);
-
+        broadcastIntent.putExtra("buffername",buffername);
         LocalBroadcastManager.getInstance(TimeService.this).sendBroadcast(broadcastIntent);
         Log.d(TAG,"Broadcast sent");
     }
