@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
 
                     } else{
                         viewPager.setCurrentItem(1);
-                        fragmentTwo.zoomToSpecificBufferzone(dataService.getBufferZoneList(),intent.getStringExtra("buffername"));
+                        fragmentTwo.zoomToSpecificBufferzone(intent.getStringExtra("buffername"));
                     }
                     break;
                 case "dataNull":
@@ -302,6 +302,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if(fragmentTwo!=null){
                 fragmentTwo.addMarker(bufferZones);
+                fragmentTwo.setBuildingList(dataService.getBuildingsList());
             }
             Log.d(TAG,"Connected to DataService");
         }

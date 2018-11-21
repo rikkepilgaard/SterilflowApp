@@ -36,6 +36,7 @@
             android:name=".dal.DataService"
             android:enabled="true"
             android:exported="true"></service>
+
     </application>
 
 </manifest>

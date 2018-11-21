@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sterilflow App</string>
+    <string name="app_name">Sterilflow</string>
     <string name="tab_a_label">Table</string>
 
     <string name="bufferzone">Bufferzone</string>

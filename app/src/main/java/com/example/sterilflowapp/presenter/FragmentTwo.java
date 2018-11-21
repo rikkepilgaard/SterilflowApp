@@ -41,11 +41,8 @@ public class FragmentTwo extends Fragment {
 
     private MapView osm;
     private MapController mc;
-
-
     Marker marker;
     ToggleButton toggle;
-
 
     public FragmentTwo() {}
 
@@ -76,12 +73,9 @@ public class FragmentTwo extends Fragment {
         osm.setMapOrientation(21.05f);
 
 
-
-
         if(savedInstanceState!=null){
             if(savedInstanceState.getBoolean("ischecked")){
                 addBuildings();
-                osm.invalidate();
             }
         }
 
@@ -144,7 +138,7 @@ public class FragmentTwo extends Fragment {
 
     private void addBuildings(){
 
-        final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
+        final ArrayList<OverlayItem> items = new ArrayList<>();
 
         for (Building i: bList) {
             OverlayItem buildingOverlayItem = new OverlayItem("", "", new GeoPoint(i.getLatitude(),i.getLongitude()));
@@ -153,7 +147,7 @@ public class FragmentTwo extends Fragment {
 
 
         }
-        BuildingOverlay = new ItemizedIconOverlay<OverlayItem>(items,null,getContext());
+        BuildingOverlay = new ItemizedIconOverlay<>(items,null,getContext());
         osm.getOverlays().add(BuildingOverlay);
         osm.invalidate();
     }
@@ -208,28 +202,19 @@ public class FragmentTwo extends Fragment {
         outState.putBoolean("ischecked", toggle.isChecked());
     }
 
-    public void zoomToSpecificBufferzone(ArrayList<BufferZone>bufferZones,String buffername){
-
-
-        //Overlay overlay = osm.getOverlays().get(0);
-        //for(Marker m: overlay){}
-        //Overlay overlay= osm.getOverlayManager().;
-
+    public void zoomToSpecificBufferzone(String buffername){
         Iterator<Overlay> iterator = osm.getOverlays().iterator();
         while(iterator.hasNext()){
             Overlay next = iterator.next();
             if (next instanceof CustomCluster){
-                ((CustomCluster) next).getItem(1);
-                CustomCluster x = (CustomCluster) next;
+                for(Marker m: ((CustomCluster) next).getItems()){
+                    if(m.getTitle().equals(buffername)){
+                        m.showInfoWindow();
+                        mc.setZoom(19);
+                        mc.setCenter(m.getPosition());
+                    }
+                }
             }
         }
-        for (BufferZone i:bufferZones){
-            if(i.getName().equals(buffername)){
-                mc.setZoom(19);
-                mc.setCenter(new GeoPoint(Double.parseDouble(i.getLatitude()),Double.parseDouble(i.getLongitude())));
-                String d = "jgr";
-            }
-        }
-
     }
 }
