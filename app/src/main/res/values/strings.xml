@@ -30,7 +30,9 @@
     <string name="show_map">Show on map</string>
     <string name="time_content_description">Image shows when time limit is exceeded</string>
     <string name="trolley_content_description">Shows trolley</string>
-
+    <string name="progresstext">Collecting data...</string>
+    <string name="noconnection">No internet connection</string>
+    <string name="noconnectionmessage">There is no internet connection. Activate this in settings</string>
 
 
 </resources>

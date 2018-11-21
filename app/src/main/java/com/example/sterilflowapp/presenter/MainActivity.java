@@ -4,18 +4,13 @@ import com.example.sterilflowapp.R;
 import com.example.sterilflowapp.dal.DataService;
 import com.example.sterilflowapp.model.BufferZone;
 import com.google.android.material.tabs.TabLayout;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -25,17 +20,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -59,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
     private FragmentOne fragmentOne;
     private FragmentTwo fragmentTwo;
 
-    private SharedPreferences sharedPreferences;
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private ArrayList<BufferZone> bufferZones;
 
     private FragmentManager fragmentManager;
+    private InternetConnectionTask itTask;
 
 
     @Override
@@ -76,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         if(!hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        itTask= new InternetConnectionTask(this);
+        itTask.execute();
 
         fragmentManager = getSupportFragmentManager();
 
@@ -133,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -157,17 +149,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
         unbindServices();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(fragmentOne,"fragone");
-        //fragmentTransaction.replace(..............);
-        //fragmentTransaction.addToBackStack(fragmentOne);
-        fragmentTransaction.commit();
     }
 
     @Override
@@ -235,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
                 case "dataNull":
                     progressbar.setVisibility(View.INVISIBLE);
 
-
             }}
 
 
@@ -244,11 +224,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void setAlert(final String buffer){
         final AlertDialog.Builder alert = new AlertDialog.Builder(this,R.style.AlertTheme);
-        //final String buffer = sharedPreferences.getString(getString(R.string.buffer_time),"'Not found'");
-        String alertTitle = getString(R.string.alert_time_title);
-        alert.setTitle(alertTitle);
-        String alertMsg = getString(R.string.wagon_time) + "\n" + buffer;
-        alert.setMessage(alertMsg);
+        alert.setTitle(getString(R.string.alert_time_title));
+        alert.setMessage(getString(R.string.wagon_time) + "\n" + buffer);
 
         alert.setPositiveButton(getString(R.string.See_trolleys), new DialogInterface.OnClickListener() {
             @Override
@@ -258,12 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        alert.setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
+        alert.setNegativeButton(getString(R.string.close), null);
         alert.show();
 
     }
@@ -340,11 +312,11 @@ public class MainActivity extends AppCompatActivity {
             dataService = dataBinder.getService();
             dataServiceBound = true;
             bufferZones = dataService.getBufferZoneList();
-            if(fragmentOne!=null) {
+            if(fragmentOne.isAdded()) {
                 fragmentOne.initData(bufferZones);
 
             }
-            if(fragmentTwo!=null){
+            if(fragmentTwo.isAdded()){
                 fragmentTwo.addMarker(bufferZones);
                 fragmentTwo.setBuildingList(dataService.getBuildingsList());
             }

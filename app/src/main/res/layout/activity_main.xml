@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".presenter.MainActivity">
 
-
     <ProgressBar
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
@@ -15,9 +14,7 @@
         android:layout_gravity="center"
         style="@style/Base.Widget.AppCompat.ProgressBar"
         android:indeterminate="true"
-        android:indeterminateTint="@color/colorPrimary"
-        />
-
+        android:indeterminateTint="@color/colorPrimary" />
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

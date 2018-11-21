@@ -25,4 +25,7 @@
     <string name="show_map">Vis på kort</string>
     <string name="time_content_description">Billede vises når tidsgrænse er overskredet</string>
     <string name="trolley_content_description">Viser vogn</string>
+    <string name="progresstext">Henter data...</string>
+    <string name="noconnection">Ingen internetforbindelse</string>
+    <string name="noconnectionmessage">Der er ingen internetforbindelse. Aktivér dette i indstillinger</string>
 </resources>
