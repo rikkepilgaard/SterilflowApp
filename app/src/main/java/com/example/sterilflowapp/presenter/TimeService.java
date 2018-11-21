@@ -48,7 +48,7 @@ public class TimeService extends Service {
     }
 
 
-    public class TimeServiceBinder extends Binder {
+    class TimeServiceBinder extends Binder {
         TimeService getService() {
             return TimeService.this;
         }

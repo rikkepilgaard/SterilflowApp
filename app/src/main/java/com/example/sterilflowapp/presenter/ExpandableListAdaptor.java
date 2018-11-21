@@ -12,38 +12,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sterilflowapp.R;
 import com.example.sterilflowapp.model.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     private static final String TAG = "ExpandableListAdaptor";
 
-    SharedPreferences sharedPreferences;
-
     private Context context;
     private ArrayList<BufferZone> bufferZones;
-    private HashMap<BufferZone, ArrayList<TrackEvent>> listHashMap;
 
 
-    public ExpandableListAdaptor(Context context, ArrayList<BufferZone> bufferZones, HashMap<BufferZone,ArrayList<TrackEvent>> hashMap) {
+    ExpandableListAdaptor(Context context, ArrayList<BufferZone> bufferZones) {
         this.context = context;
         this.bufferZones = bufferZones;
-        this.listHashMap = hashMap;
     }
 
-    public void updateListView(ArrayList<BufferZone> bufferZonesNew, HashMap<BufferZone,ArrayList<TrackEvent>> hashmap)
+    void updateListView(ArrayList<BufferZone> bufferZonesNew)
     {
-        this.listHashMap = hashmap;
         this.bufferZones = bufferZonesNew;
 
         notifyDataSetChanged();
@@ -56,9 +48,14 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        if(listHashMap.get(bufferZones.get(groupPosition)) != null) {
-            return listHashMap.get(bufferZones.get(groupPosition)).size() + 1;
+
+        if(bufferZones.get(groupPosition).getTrolleyList()!=null){
+            return bufferZones.get(groupPosition).getTrolleyList().size() +1;
         } else return 1;
+
+        /*if(listHashMap.get(bufferZones.get(groupPosition)) != null) {
+            return listHashMap.get(bufferZones.get(groupPosition)).size() + 1;
+        } else return 1;*/
     }
 
     @Override
@@ -68,9 +65,12 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
     @Override
     public TrackEvent getChild(int groupPosition, int childPosition) {
-        if (listHashMap.get(bufferZones.get(groupPosition))!= null) {
+
+        return bufferZones.get(groupPosition).getTrolleyList().get(childPosition);
+
+        /*if (listHashMap.get(bufferZones.get(groupPosition))!= null) {
             return listHashMap.get(bufferZones.get(groupPosition)).get(childPosition);
-        } else return null;
+        } else return null;*/
     }
 
     @Override
@@ -169,7 +169,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             String sub2 = placedAt.substring(11,16);
             placedAt = sub1 + " " + sub2;
 
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             long timeDifference = sharedPreferences.getLong(trackEvent.getObjectkey(),0);
             int diffMinutes = safeLongToInt(timeDifference / (60 * 1000) % 60);
             int diffHours = safeLongToInt(timeDifference / (60 * 60 * 1000) % 24);
@@ -178,15 +178,17 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             String diffHoursText = (diffHours < 10 ? "0" : "") + diffHours;
             String diffDaysText = (diffDays < 10 ? "0" : "") + diffDays;
             String text = diffHoursText + "<b>t </b>" + diffMinutesText + "<b>m </b>";
+            String text1 = diffDaysText + "<b>d </b>" + diffHoursText + "<b>t </b>"
+                    + diffMinutesText + "<b>m </b>";
 
 
-            TextView txtChildId = (TextView) convertView.findViewById(R.id.lvItemID);
+            TextView txtChildId = convertView.findViewById(R.id.lvItemID);
             txtChildId.setText(id);
-            TextView txtChildPlaced = (TextView) convertView.findViewById(R.id.lvItemPlaced);
+            TextView txtChildPlaced = convertView.findViewById(R.id.lvItemPlaced);
             txtChildPlaced.setText(placedAt);
-            TextView txtChildSince = (TextView) convertView.findViewById(R.id.lvItemSince);
+            TextView txtChildSince = convertView.findViewById(R.id.lvItemSince);
             if (diffDays != 0) {
-                txtChildSince.setText(diffDaysText + ":" + diffHoursText + ":" + diffMinutesText);
+                txtChildSince.setText(Html.fromHtml(text1));
             } else txtChildSince.setText(Html.fromHtml(text));
 
             ImageView imageChild = convertView.findViewById(R.id.lvChildImageTime);
@@ -196,8 +198,6 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
                 txtChildId.setTextColor(context.getResources().getColor(R.color.red));
                 txtChildPlaced.setTextColor(context.getResources().getColor(R.color.red));
                 txtChildSince.setTextColor(context.getResources().getColor(R.color.red));
-                //convertView.setBackgroundColor(context.getResources().getColor(R.color.warningColor));
-                
             }
 
         }
