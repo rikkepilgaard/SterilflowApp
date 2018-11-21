@@ -6,7 +6,7 @@
     <string name="bufferomrade">Bufferområde</string>
     <string name="number_of_wagons">Antal vogne</string>
     <string name="alert_time_title">Advarsel! Tidsgrænse overskrides snart</string>
-    <string name="wagon_time">En eller flere vogne overskrider snart tidsgrænse i bufferområde</string>
+    <string name="wagon_time">En eller flere vogne overskrider snart tidsgrænse i:</string>
     <string name="buffer_time">Specifikt bufferområde</string>
     <string name="wagon_id">Vogn ID</string>
     <string name="placed_at">Placerings- tidspunkt</string>

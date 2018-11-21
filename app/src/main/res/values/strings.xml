@@ -5,7 +5,7 @@
     <string name="bufferzone">Bufferzone</string>
 
     <string name="alert_time_title">"Warning! Timelimit is soon exceeded "</string>
-    <string name="wagon_time">One or several trolleys soon exceeds timelimit in bufferzone</string>
+    <string name="wagon_time">One or several trolleys soon exceeds timelimit in:</string>
     <string name="buffer_time">Specific bufferzone</string>
 
     <string name="title_location_permission">wants to use location</string>
