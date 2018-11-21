@@ -23,4 +23,6 @@
     <string name="close">Luk</string>
     <string name="empty_buffer">Der er ingen vogne i bufferområdet</string>
     <string name="show_map">Vis på kort</string>
+    <string name="time_content_description">Billede vises når tidsgrænse er overskredet</string>
+    <string name="trolley_content_description">Viser vogn</string>
 </resources>

@@ -28,6 +28,8 @@
     <string name="close">Close</string>
     <string name="empty_buffer">Bufferzone contains no trolleys</string>
     <string name="show_map">Show on map</string>
+    <string name="time_content_description">Image shows when time limit is exceeded</string>
+    <string name="trolley_content_description">Shows trolley</string>
 
 
 

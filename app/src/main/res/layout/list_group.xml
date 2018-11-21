@@ -1,31 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:paddingLeft="50dp"
+    android:paddingStart="50dp"
     android:paddingRight="20dp"
-    >
+    android:paddingEnd="20dp"
+    android:weightSum="100">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="100">
-
-    <TextView
-        android:id="@+id/lvHeaderBuffer"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:orientation="vertical"
         android:layout_weight="10"
-        android:gravity="center_vertical"
-        android:textSize="20sp" />
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        >
+
+        <TextView
+
+            android:id="@+id/lvHeaderBuffer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btnToMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/show_map"
+            android:minHeight="30dp"
+            android:focusable="false"
+            android:textSize="13sp"
+            android:textAllCaps="false"
+            android:textColor="@color/another_color"/>
+
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/lvImageWagon"
+        android:contentDescription="@string/trolley_content_description"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="30"
+        android:layout_gravity="center_vertical"
         android:foregroundGravity="center"
         android:src="@drawable/trolley1"
         android:padding="10dp"/>
@@ -36,27 +59,19 @@
         android:layout_height="50dp"
         android:layout_weight="30"
         android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
         android:textSize="22sp" />
 
     <ImageView
         android:id="@+id/lvImageTime"
+        android:contentDescription="@string/time_content_description"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="30"
         android:foregroundGravity="center"
+        android:layout_gravity="center_vertical"
         android:src="@drawable/time"
         android:tint="@color/red"
         android:visibility="visible"/>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnToMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/show_map"
-        android:background="@android:color/transparent"
-        android:minHeight="1dp"
-        android:focusable="false"/>
 
 </LinearLayout>

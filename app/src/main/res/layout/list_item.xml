@@ -4,6 +4,9 @@
     android:layout_height="55dip"
     android:orientation="horizontal"
     android:paddingRight="5dp"
+    android:paddingEnd="5dp"
+    android:paddingStart="5dp"
+    android:paddingLeft="5dp"
     android:weightSum="100">
 
     <TextView
@@ -38,6 +41,7 @@
 
     <ImageView
         android:id="@+id/lvChildImageTime"
+        android:contentDescription="@string/time_content_description"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_weight="31"
