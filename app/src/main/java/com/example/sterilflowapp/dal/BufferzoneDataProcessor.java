@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import static com.example.sterilflowapp.ConstantValues.ACTION_DATA;
+import static com.example.sterilflowapp.ConstantValues.ACTION_NULL;
 import static com.example.sterilflowapp.ConstantValues.BUFFER_105;
 import static com.example.sterilflowapp.ConstantValues.BUFFER_109;
 import static com.example.sterilflowapp.ConstantValues.BUFFER_120;
@@ -28,7 +30,7 @@ public class BufferzoneDataProcessor {
     private ArrayList<BufferZone> bufferZonesList;
     private Context context;
 
-    public BufferzoneDataProcessor(Context context){
+    BufferzoneDataProcessor(Context context){
 
         this.context = context.getApplicationContext();
     }
@@ -140,7 +142,7 @@ public class BufferzoneDataProcessor {
 
                 //Check whether status is changed (trolley moved in or out of bufferzone)
                 if (newSize != oldSize) {
-                   sendBroadcast("data");
+                   sendBroadcast(ACTION_DATA);
                 }
 
 //                if(oldSize==0&&newSize==0){
@@ -150,7 +152,7 @@ public class BufferzoneDataProcessor {
             }
         }
         if(this.trackEventArrayList==null){
-            sendBroadcast("dataNull");
+            sendBroadcast(ACTION_NULL);
         }
         this.trackEventArrayList = trackEventArrayList;
         bufferZonesList=bufferZones;

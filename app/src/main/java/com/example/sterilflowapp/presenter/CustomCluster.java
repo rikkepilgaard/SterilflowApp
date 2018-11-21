@@ -58,24 +58,6 @@ public class CustomCluster extends MarkerClusterer {
     }
 
 
-    /** If you want to change the default text paint (color, size, font) */
-    public Paint getTextPaint(){
-        return mTextPaint;
-    }
-
-    /** Set the radius of clustering in pixels. Default is 100px. */
-    public void setRadius(int radius){
-        mRadiusInPixels = radius;
-    }
-
-    /** Set max zoom level with clustering. When zoom is higher or equal to this level, clustering is disabled.
-     * You can put a high value to disable this feature. */
-    public void setMaxClusteringZoomLevel(int zoom){
-        mMaxClusteringZoomLevel = zoom;
-    }
-
-
-
     /** Radius-Based clustering algorithm */
     @Override public ArrayList<StaticCluster> clusterer(MapView mapView) {
 
@@ -131,7 +113,6 @@ public class CustomCluster extends MarkerClusterer {
         for(int i=0;i<cluster.getSize();i++){
             buffernames.add(cluster.getItem(i).getTitle());
         }
-
 
 
         markerInfoWindow= new MarkerInfoWindow(R.layout.cluster_layout,mapView);

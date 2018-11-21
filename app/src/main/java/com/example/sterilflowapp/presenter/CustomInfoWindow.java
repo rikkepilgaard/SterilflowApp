@@ -13,32 +13,33 @@ import org.osmdroid.views.overlay.infowindow.MarkerInfoWindow;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import static com.example.sterilflowapp.ConstantValues.ACTION_CHANGE_TAB;
+import static com.example.sterilflowapp.ConstantValues.EXTRA_BUFFERZONE;
+
 //https://code.google.com/archive/p/osmbonuspack/wikis/Tutorial_2.wiki
 public class CustomInfoWindow extends MarkerInfoWindow {
 
-Context context;
-    public CustomInfoWindow(MapView mapView, Context context){
+private Context context;
+    CustomInfoWindow(MapView mapView, Context context){
         super(R.layout.bubble_layout,mapView);
-        this.context=context;
+        this.context = context;
     }
 
     @Override
     public void onOpen(Object item){
         super.onOpen(item);
         Button btn = (mView.findViewById(R.id.bubble_moreinfo));
-        final TextView txtTitle =mView.findViewById(R.id.bubble_title);
-        TextView txtDescription =  mView.findViewById(R.id.bubble_description);
-        TextView txtSubdescription =mView.findViewById(R.id.bubble_subdescription);
+        final TextView txtTitle = mView.findViewById(R.id.bubble_title);
         mView.findViewById(R.id.bubble_moreinfo).setVisibility(View.VISIBLE);
         btn.setBackgroundResource(R.drawable.moreinfo);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String buffername = txtTitle.getText().toString();
+                String bufferName = txtTitle.getText().toString();
                 Intent broadcastIntent = new Intent();
-                broadcastIntent.setAction("changetab");
-                broadcastIntent.putExtra("buffername",buffername);
+                broadcastIntent.setAction(ACTION_CHANGE_TAB);
+                broadcastIntent.putExtra(EXTRA_BUFFERZONE,bufferName);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
 
         }

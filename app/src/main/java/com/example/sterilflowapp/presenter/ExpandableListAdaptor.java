@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +21,10 @@ import java.util.ArrayList;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import static com.example.sterilflowapp.ConstantValues.ACTION_CHANGE_TAB;
+import static com.example.sterilflowapp.ConstantValues.EXTRA_BUFFERZONE;
+
 public class ExpandableListAdaptor extends BaseExpandableListAdapter {
-    private static final String TAG = "ExpandableListAdaptor";
 
     private Context context;
     private ArrayList<BufferZone> bufferZones;
@@ -52,10 +53,6 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         if(bufferZones.get(groupPosition).getTrolleyList()!=null){
             return bufferZones.get(groupPosition).getTrolleyList().size() +1;
         } else return 1;
-
-        /*if(listHashMap.get(bufferZones.get(groupPosition)) != null) {
-            return listHashMap.get(bufferZones.get(groupPosition)).size() + 1;
-        } else return 1;*/
     }
 
     @Override
@@ -67,15 +64,10 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     public TrackEvent getChild(int groupPosition, int childPosition) {
 
         return bufferZones.get(groupPosition).getTrolleyList().get(childPosition);
-
-        /*if (listHashMap.get(bufferZones.get(groupPosition))!= null) {
-            return listHashMap.get(bufferZones.get(groupPosition)).get(childPosition);
-        } else return null;*/
     }
 
     @Override
     public long getGroupId(int groupPosition) {
-        Log.d(TAG,"getGroupID method entered");
         return groupPosition;
     }
 
@@ -88,7 +80,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
     public boolean hasStableIds() {
         return true;
     }
-    //https://robusttechhouse.com/how-to-add-header-footer-to-expandablelistview-childview/
+
     @Override
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
@@ -102,7 +94,8 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         }
         if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_group, null);
+            assert inflater != null;
+            convertView = inflater.inflate(R.layout.list_group, parent,false);
         }
 
         convertView.setBackgroundColor(context.getResources().getColor(R.color.columnColor));
@@ -133,8 +126,8 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 Intent broadcastIntent = new Intent();
-                broadcastIntent.setAction("changetab");
-                broadcastIntent.putExtra("buffername",bufferZone.getName());
+                broadcastIntent.setAction(ACTION_CHANGE_TAB);
+                broadcastIntent.putExtra(EXTRA_BUFFERZONE,bufferZone.getName());
                 LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent);
             }
         });
@@ -148,18 +141,21 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if(getChildrenCount(groupPosition)==1){
-            convertView = inflater.inflate(R.layout.empty_bufferzone,null);
+            assert inflater != null;
+            convertView = inflater.inflate(R.layout.empty_bufferzone,parent,false);
         }
 
        if(childPosition == 0 && getChildrenCount(groupPosition)>1){
-            convertView = inflater.inflate(R.layout.child_header_layout,null);
+           assert inflater != null;
+           convertView = inflater.inflate(R.layout.child_header_layout,parent,false);
         }
 
         if(childPosition>0){
 
             TrackEvent trackEvent = getChild(groupPosition,childPosition-1);
 
-            convertView = inflater.inflate(R.layout.list_item,null);
+            assert inflater != null;
+            convertView = inflater.inflate(R.layout.list_item,parent,false);
 
             String id = trackEvent.getObjectkey();
             id = id.replace("urn:rm-trolley:","").toUpperCase();
@@ -215,10 +211,10 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
 
 
     //https://stackoverflow.com/questions/1590831/safely-casting-long-to-int-in-java
-    public static int safeLongToInt(long l) {
+    private static int safeLongToInt(long l) {
         if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
             throw new IllegalArgumentException
-                    (l + " cannot be cast to int without changing its value.");
+                    (""+ l);
         }
         return (int) l;
     }

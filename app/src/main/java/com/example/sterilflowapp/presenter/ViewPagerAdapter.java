@@ -12,21 +12,14 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
 
     //https://www.youtube.com/watch?v=G7CnD7p8PkE
 
-    private FragmentManager fm;
-    private FragmentTransaction ft;
-
     private List<String> fragmentTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    ViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.fm = fm;
-        this.ft = fm.beginTransaction();
     }
 
-
-    public void addFragment(Fragment fragment, String title){
-        //ft.add(fragment,""+title);
+    void addFragment(Fragment fragment, String title){
         fragmentList.add(fragment);
         fragmentTitle.add(title);
     }

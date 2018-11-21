@@ -1,7 +1,5 @@
 package com.example.sterilflowapp.presenter;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,12 +8,10 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Binder;
-import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.example.sterilflowapp.R;
 import com.example.sterilflowapp.dal.DataService;
 import com.example.sterilflowapp.model.BufferZone;
 import com.example.sterilflowapp.model.TrackEvent;
@@ -27,11 +23,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import static com.example.sterilflowapp.ConstantValues.ACTION_TIME;
+import static com.example.sterilflowapp.ConstantValues.ACTION_TIME_EXCEEDED;
 import static com.example.sterilflowapp.ConstantValues.BUFFER_NORDLAGER;
 import static com.example.sterilflowapp.ConstantValues.BUFFER_STERILCENTRAL;
+import static com.example.sterilflowapp.ConstantValues.EXTRA_BUFFERZONE;
 
 public class TimeService extends Service {
 
@@ -63,7 +61,6 @@ public class TimeService extends Service {
         Log.d(TAG,"DataService started");
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        preferenceEditor = sharedPreferences.edit();
 
         isRunning = true;
 
@@ -75,9 +72,7 @@ public class TimeService extends Service {
 
     @Override
     public void onDestroy() {
-        Log.d(TAG,"Service destroyed");
         isRunning = false;
-
         super.onDestroy();
     }
 
@@ -140,10 +135,11 @@ public class TimeService extends Service {
                         long diffHours = diff / (60 * 60 * 1000) % 24;
 
                         if (lastMinutes != diffMinutes) {
+                            preferenceEditor = sharedPreferences.edit();
                             preferenceEditor.putLong(event.getObjectkey(), diff);
                             preferenceEditor.commit();
 
-                            sendBroadcast("time","");
+                            sendBroadcast(ACTION_TIME,null);
                         }
 
                         //If trolley have been in bufferzone 3 hours or more, the trolley is "expired"
@@ -168,7 +164,7 @@ public class TimeService extends Service {
 
                             }
 
-                            sendBroadcast("time_wagon",zone.getName());
+                            sendBroadcast(ACTION_TIME_EXCEEDED,zone.getName());
                         }
                     }
                 }
@@ -214,7 +210,7 @@ public class TimeService extends Service {
     public void sendBroadcast(String action, String buffername){
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction(action);
-        broadcastIntent.putExtra("buffername",buffername);
+        broadcastIntent.putExtra(EXTRA_BUFFERZONE,buffername);
         LocalBroadcastManager.getInstance(TimeService.this).sendBroadcast(broadcastIntent);
         Log.d(TAG,"Broadcast sent");
     }

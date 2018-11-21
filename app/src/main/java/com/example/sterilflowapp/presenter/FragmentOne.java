@@ -40,7 +40,6 @@ public class FragmentOne extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_one, container, false);
 
-
         listView = view.findViewById(R.id.listViewExpandable);
 
         return view;

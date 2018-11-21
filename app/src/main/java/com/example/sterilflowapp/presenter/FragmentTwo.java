@@ -31,7 +31,6 @@ import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -41,8 +40,7 @@ public class FragmentTwo extends Fragment {
 
     private MapView osm;
     private MapController mc;
-    Marker marker;
-    ToggleButton toggle;
+    private ToggleButton toggle;
 
     public FragmentTwo() {}
 
@@ -52,16 +50,15 @@ public class FragmentTwo extends Fragment {
         super.onCreate(savedInstanceState);}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_two, container, false);
 
-
-        osm=(MapView) view.findViewById(R.id.mapview);
+        osm = view.findViewById(R.id.mapview);
         osm.setTileSource(TileSourceFactory.MAPNIK);
         osm.setBuiltInZoomControls(false);
         osm.setMultiTouchControls(true);
-        mc=(MapController) this.osm.getController();
+        mc = (MapController)this.osm.getController();
 
         mc.setZoom(17);
         osm.setMinZoomLevel((double) 16);
@@ -93,25 +90,26 @@ public class FragmentTwo extends Fragment {
         return view;
     }
 
-    private CustomCluster clusterMarker;
-
     void addMarker(ArrayList<BufferZone> bufferZones){
 
         osm.getOverlays().clear();
-        clusterMarker =new CustomCluster(getContext());
+        CustomCluster clusterMarker = new CustomCluster(getContext());
         clusterMarker.setBufferZoneList(bufferZones);
 
-        if(toggle.isChecked()){addBuildings();}
+        if(toggle.isChecked()){
+            addBuildings();
+        }
 
 
         for (final BufferZone i: bufferZones){
-            marker = new Marker(osm);
+            Marker marker = new Marker(osm);
 
             //Resize icon and set number of wagons inside icon
             if(i.getTrolleyList() != null) {
                 marker.setIcon(createMarkerIcon(i.getTrolleyList().size(),i.containsExpiredWagon()));
             }
-            else{marker.setIcon(createMarkerIcon(0,false));}
+            else{
+                marker.setIcon(createMarkerIcon(0,false));}
 
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             marker.setPosition(new GeoPoint(Double.parseDouble(i.getLatitude()),Double.parseDouble(i.getLongitude())));
@@ -202,7 +200,7 @@ public class FragmentTwo extends Fragment {
         outState.putBoolean("ischecked", toggle.isChecked());
     }
 
-    public void zoomToSpecificBufferzone(String buffername){
+    void zoomToSpecificBufferzone(String buffername){
         Iterator<Overlay> iterator = osm.getOverlays().iterator();
         while(iterator.hasNext()){
             Overlay next = iterator.next();

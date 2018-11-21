@@ -12,16 +12,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class ParseBuildingXML {
+import static com.example.sterilflowapp.ConstantValues.BUILDING;
+import static com.example.sterilflowapp.ConstantValues.BUILDINGS_XML;
+import static com.example.sterilflowapp.ConstantValues.BUILDING_LATITUDE;
+import static com.example.sterilflowapp.ConstantValues.BUILDING_LONGITUDE;
+import static com.example.sterilflowapp.ConstantValues.BUILDING_NAME;
 
-    public ParseBuildingXML(){}
+class ParseBuildingXML {
 
-    public ArrayList<Building> parseBuildingsXML(Context context) {
+    ParseBuildingXML(){}
+
+    ArrayList<Building> parseBuildingsXML(Context context) {
         XmlPullParserFactory parserFactory;
         try {
             parserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserFactory.newPullParser();
-            InputStream is = context.getAssets().open("AUHbuildings.xml");
+            InputStream is = context.getAssets().open(BUILDINGS_XML);
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(is, null);
 
@@ -45,23 +51,23 @@ public class ParseBuildingXML {
 
 
         while (eventType != XmlPullParser.END_DOCUMENT) {
-            String name = null;
+            String name;
 
             switch (eventType) {
                 case XmlPullParser.START_TAG:
                     name = parser.getName();
 
 
-                    if ("Building".equals(name)) {
+                    if (BUILDING.equals(name)) {
                         currentBuilding = new Building();
                         buildingList.add(currentBuilding);
 
                     } else if (currentBuilding != null) {
-                        if ("name".equals(name)) {
+                        if (BUILDING_NAME.equals(name)) {
                             currentBuilding.setName(parser.nextText());
-                        } else if ("latitude".equals(name)) {
+                        } else if (BUILDING_LATITUDE.equals(name)) {
                             currentBuilding.setLatitude(Double.parseDouble(parser.nextText()));
-                        } else if ("longitude".equals(name)) {
+                        } else if (BUILDING_LONGITUDE.equals(name)) {
                             currentBuilding.setLongitude(Double.parseDouble(parser.nextText()));
                         }
                     }

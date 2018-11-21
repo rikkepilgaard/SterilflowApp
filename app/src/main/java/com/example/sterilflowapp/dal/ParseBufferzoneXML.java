@@ -12,6 +12,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import static com.example.sterilflowapp.ConstantValues.BUFFERZONE;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_FORMER_GLN;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_GLN;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_LATITUDE;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_LOCATION;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_LONGITUDE;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_NAME;
+import static com.example.sterilflowapp.ConstantValues.BUFFER_XML;
+
 public class ParseBufferzoneXML {
 
     public ParseBufferzoneXML(){}
@@ -22,7 +31,7 @@ public class ParseBufferzoneXML {
         try {
             parserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserFactory.newPullParser();
-            InputStream is = context.getAssets().open("buffer.xml");
+            InputStream is = context.getAssets().open(BUFFER_XML);
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES,false);
             parser.setInput(is,null);
 
@@ -46,30 +55,29 @@ public class ParseBufferzoneXML {
         ArrayList<String> formerGln = new ArrayList<>();
 
         while (eventType!=XmlPullParser.END_DOCUMENT){
-            String zone = null;
-            //ArrayList<String> formerGln;
+            String zone;
 
             switch (eventType){
                 case XmlPullParser.START_TAG:
                     zone = parser.getName();
 
 
-                    if("bufferzone".equals(zone)){
+                    if(BUFFERZONE.equals(zone)){
                         currentBuffer = new BufferZone();
                         bufferZones.add(currentBuffer);
                         formerGln = new ArrayList<>();
                     } else if (currentBuffer != null){
-                        if ("name".equals(zone)){
+                        if (BUFFER_NAME.equals(zone)){
                             currentBuffer.setName(parser.nextText());
-                        } else if("gln".equals(zone)){
+                        } else if(BUFFER_GLN.equals(zone)){
                             currentBuffer.setGln(parser.nextText());
-                        } else if("formerGln".equals(zone)) {
+                        } else if(BUFFER_FORMER_GLN.equals(zone)) {
                             formerGln.add(parser.nextText());
-                        } else if ("latitude".equals(zone)){
+                        } else if (BUFFER_LATITUDE.equals(zone)){
                             currentBuffer.setLatitude(parser.nextText());
-                        } else if ("longitude".equals(zone)){
+                        } else if (BUFFER_LONGITUDE.equals(zone)){
                             currentBuffer.setLongitude(parser.nextText());
-                        } else if("location".equals(zone)){
+                        } else if(BUFFER_LOCATION.equals(zone)){
                             currentBuffer.setLocationName(parser.nextText());
                         }
 

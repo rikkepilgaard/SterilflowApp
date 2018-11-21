@@ -17,16 +17,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+
+import static com.example.sterilflowapp.ConstantValues.CHILD_NAME;
+
 public class DataService extends Service {
 
     private static final String TAG = "DataService";
 
-    private FirebaseDatabase database;
-    private DatabaseReference reference;
-
     private ArrayList<TrackEvent> trackEventArrayList;
     private ArrayList<BufferZone> bufferZones;
     private ArrayList<Building> buildingsList;
+
     private BufferzoneDataProcessor dataProcessor;
 
 
@@ -49,19 +51,23 @@ public class DataService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        dataProcessor=new BufferzoneDataProcessor(this);
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("TrackEvents");
         Log.d(TAG,"DataService started");
-        ParseBufferzoneXML parseBufferzones= new ParseBufferzoneXML();
-        ParseBuildingXML parseBuildings= new ParseBuildingXML();
-        buildingsList=parseBuildings.parseBuildingsXML(this);
-        bufferZones=parseBufferzones.parseBufferzoneXML(this);
+
+        dataProcessor = new BufferzoneDataProcessor(this);
+
+        ParseBufferzoneXML parseBufferzones = new ParseBufferzoneXML();
+        ParseBuildingXML parseBuildings = new ParseBuildingXML();
+
+        buildingsList = parseBuildings.parseBuildingsXML(this);
+        bufferZones = parseBufferzones.parseBufferzoneXML(this);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference().child(CHILD_NAME);
 
         reference.addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
 
@@ -70,6 +76,7 @@ public class DataService extends Service {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     for (DataSnapshot ds1 : ds.getChildren()) {
                         TrackEvent trackEvent = ds1.getValue(TrackEvent.class);
+                        assert trackEvent != null;
                         trackEvent.setExpired(false);
                         trackEventArrayList.add(trackEvent);
 
@@ -81,7 +88,7 @@ public class DataService extends Service {
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }

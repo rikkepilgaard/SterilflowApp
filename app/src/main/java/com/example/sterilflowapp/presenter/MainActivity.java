@@ -74,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(savedInstanceState!=null){
             fragmentOne = (FragmentOne)fragmentManager
-                    .getFragment(savedInstanceState,"fragment_one");
+                    .getFragment(savedInstanceState,FRAGMENT_ONE_TAG);
             fragmentTwo = (FragmentTwo)fragmentManager
-                    .getFragment(savedInstanceState,"fragment_two");
+                    .getFragment(savedInstanceState,FRAGMENT_TWO_TAG);
         } else {
             fragmentOne = new FragmentOne();
             fragmentTwo = new FragmentTwo();
@@ -129,11 +129,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         IntentFilter dataFilter = new IntentFilter();
-        dataFilter.addAction("data");
-        dataFilter.addAction("time");
-        dataFilter.addAction("time_wagon");
-        dataFilter.addAction("changetab");
-        dataFilter.addAction("dataNull");
+        dataFilter.addAction(ACTION_DATA);
+        dataFilter.addAction(ACTION_TIME);
+        dataFilter.addAction(ACTION_TIME_EXCEEDED);
+        dataFilter.addAction(ACTION_CHANGE_TAB);
+        dataFilter.addAction(ACTION_NULL);
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,dataFilter);
     }
 
@@ -155,8 +155,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        fragmentManager.putFragment(outState,"fragment_one",fragmentOne);
-        fragmentManager.putFragment(outState,"fragment_two",fragmentTwo);
+        //Save fragment states in case of orientation change
+        fragmentManager.putFragment(outState,FRAGMENT_ONE_TAG,fragmentOne);
+        fragmentManager.putFragment(outState,FRAGMENT_TWO_TAG,fragmentTwo);
     }
 
 
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    //Handles broadcasts according to actions
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -182,17 +183,21 @@ public class MainActivity extends AppCompatActivity {
 
             if(intent.getAction()!=null){
             switch (intent.getAction()){
-                case "time":
+                case ACTION_TIME:
                     if(fragmentOne!=null) {
                         fragmentOne.initData(dataService.getBufferZoneList());
                     }
                     break;
-                case "time_wagon":
-                    setAlert(intent.getStringExtra("buffername"));
-                    showNotification(intent.getStringExtra("buffername"));
+
+                case ACTION_TIME_EXCEEDED:
+
+                    //Broadcasts are received from TimeService, when a trolley has exceeded the
+                    //time limit (reached 3 hours)
+                    setAlert(intent.getStringExtra(EXTRA_BUFFERZONE));
+                    showNotification(intent.getStringExtra(EXTRA_BUFFERZONE));
                     break;
 
-                case "data":
+                case ACTION_DATA:
                     timeService.calculateTimeDifference();
                     if(fragmentOne!= null) {
                         fragmentOne.initData(dataService.getBufferZoneList());
@@ -202,18 +207,20 @@ public class MainActivity extends AppCompatActivity {
                         fragmentTwo.setBuildingList(dataService.getBuildingsList());
                     }
                     break;
-                case "changetab":
+
+                case ACTION_CHANGE_TAB:
                     if(viewPager.getCurrentItem()==1){
 
                     viewPager.setCurrentItem(0);
-                    fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),intent.getStringExtra("buffername"));
+                    fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),intent.getStringExtra(EXTRA_BUFFERZONE));
 
                     } else{
                         viewPager.setCurrentItem(1);
-                        fragmentTwo.zoomToSpecificBufferzone(intent.getStringExtra("buffername"));
+                        fragmentTwo.zoomToSpecificBufferzone(intent.getStringExtra(EXTRA_BUFFERZONE));
                     }
                     break;
-                case "dataNull":
+
+                case ACTION_NULL:
                     progressbar.setVisibility(View.INVISIBLE);
 
             }}
@@ -221,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
 
     public void setAlert(final String buffer){
         final AlertDialog.Builder alert = new AlertDialog.Builder(this,R.style.AlertTheme);
@@ -230,6 +238,8 @@ public class MainActivity extends AppCompatActivity {
         alert.setPositiveButton(getString(R.string.See_trolleys), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                //Go to map overview and expand bufferzone with "expired" trolley(s).
                 viewPager.setCurrentItem(0);
                 fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),buffer);
 
@@ -240,21 +250,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void showNotification(String buffer){
+        //https://developer.android.com/training/notify-user/build-notification
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelId = "channel_1";
-            CharSequence channelName = "My_Channel";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
 
-            NotificationChannel channel = new NotificationChannel(channelId,channelName,importance);
+            NotificationChannel channel = new NotificationChannel(NOT_CHANNEL_ID,
+                    NOT_CHANNEL_NAME,NotificationManager.IMPORTANCE_DEFAULT);
+
             channel.canShowBadge();
             if (notificationManager != null) {
                 notificationManager.createNotificationChannel(channel);
             }
         }
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,"channel_1")
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,NOT_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_noti_icon)
                 .setContentTitle(getString(R.string.alert_time_title))
                 .setContentText(getString(R.string.wagon_time) + "\n" + buffer);
