@@ -232,7 +232,7 @@ public class TimeService extends Service {
         }
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,"channel_1")
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.ic_noti_icon)
                 .setContentTitle(getString(R.string.alert_time_title))
                 .setContentText(getString(R.string.wagon_time) + "\n" + buffer);
 
