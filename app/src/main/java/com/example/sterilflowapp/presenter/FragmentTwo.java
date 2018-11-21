@@ -210,7 +210,11 @@ public class FragmentTwo extends Fragment {
 
     public void zoomToSpecificBufferzone(ArrayList<BufferZone>bufferZones,String buffername){
 
-        List<Overlay> o = osm.getOverlays();
+
+        //Overlay overlay = osm.getOverlays().get(0);
+        //for(Marker m: overlay){}
+        //Overlay overlay= osm.getOverlayManager().;
+
         Iterator<Overlay> iterator = osm.getOverlays().iterator();
         while(iterator.hasNext()){
             Overlay next = iterator.next();
@@ -219,9 +223,6 @@ public class FragmentTwo extends Fragment {
                 CustomCluster x = (CustomCluster) next;
             }
         }
-
-
-
         for (BufferZone i:bufferZones){
             if(i.getName().equals(buffername)){
                 mc.setZoom(19);

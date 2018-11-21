@@ -72,9 +72,9 @@ public class FragmentOne extends Fragment {
             ArrayList<TrackEvent> trackEvents = bufferZone.getTrolleyList();
             hashMap.put(bufferZone, trackEvents);
         }
-
-
-
+        if(listView==null){
+            listView=getView().findViewById(R.id.listViewExpandable);
+        }
         if(adapter == null) {
 
             adapter = new ExpandableListAdaptor(getActivity(), bufferZones, hashMap);
@@ -96,5 +96,6 @@ public class FragmentOne extends Fragment {
             }
         }
     }
+
 
 }
