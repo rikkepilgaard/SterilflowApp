@@ -27,4 +27,6 @@ public class ConstantValues {
             Manifest.permission.ACCESS_NETWORK_STATE
     };
 
+    public static final String LIST_VIEW_INSTANCE_STATE_KEY = "listview_save_state";
+
 }

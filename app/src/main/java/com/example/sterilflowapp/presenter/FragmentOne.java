@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import com.example.sterilflowapp.model.TrackEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static com.example.sterilflowapp.ConstantValues.LIST_VIEW_INSTANCE_STATE_KEY;
 
 
 public class FragmentOne extends Fragment {
@@ -35,17 +38,6 @@ public class FragmentOne extends Fragment {
         // Required empty public constructor
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-       // if (savedInstanceState != null)
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,9 +64,7 @@ public class FragmentOne extends Fragment {
             ArrayList<TrackEvent> trackEvents = bufferZone.getTrolleyList();
             hashMap.put(bufferZone, trackEvents);
         }
-        if(listView==null){
-            listView=getView().findViewById(R.id.listViewExpandable);
-        }
+
         if(adapter == null) {
 
             adapter = new ExpandableListAdaptor(getActivity(), bufferZones, hashMap);

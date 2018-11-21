@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -36,7 +37,6 @@ public class TimeService extends Service {
 
     private static final String TAG = "TimeService";
 
-    private boolean serviceBound = false;
     private ArrayList<BufferZone> bufferZones;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor preferenceEditor;
@@ -96,14 +96,13 @@ public class TimeService extends Service {
         public void onServiceConnected(ComponentName name, IBinder service) {
             DataService.DataServiceBinder dataBinder = (DataService.DataServiceBinder) service;
             dataService = dataBinder.getService();
-            serviceBound = true;
             bufferZones = dataService.getBufferZoneList();
             Log.d(TAG,"Connected to DataService");
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            serviceBound = false;
+
         }
     };
 
@@ -162,16 +161,19 @@ public class TimeService extends Service {
                         //When trolley have been in bufferzone for 3 hours, broadcast is sent to
                         //MainActivity and notification is given.
                         if (diffHours == 3 && lastHours!=diffHours) {
-                            if(!zone.getGln().equals(BUFFER_NORDLAGER) || !zone.getGln().equals(BUFFER_STERILCENTRAL)) {
+                            if(zone.getGln().equals(BUFFER_NORDLAGER)
+                                    || zone.getGln().equals(BUFFER_STERILCENTRAL)) {
 
-                                preferenceEditor.putString(getResources().getString(R.string.buffer_time), zone.getName());
-                                preferenceEditor.commit();
-
-                                showNotification(zone.getName());
-
-                                sendBroadcast("time_wagon");
+                                return;
 
                             }
+
+                            preferenceEditor.putString(getResources().getString(R.string.buffer_time), zone.getName());
+                            preferenceEditor.commit();
+
+                            showNotification(zone.getName());
+
+                            sendBroadcast("time_wagon");
                         }
                     }
                 }
@@ -185,7 +187,7 @@ public class TimeService extends Service {
         if(stringDate==null) {
             return null;
         } else {
-            SimpleDateFormat simpledateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            SimpleDateFormat simpledateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss",Locale.getDefault());
             Date dateDate = null;
             try {
                 dateDate = simpledateformat.parse(stringDate);

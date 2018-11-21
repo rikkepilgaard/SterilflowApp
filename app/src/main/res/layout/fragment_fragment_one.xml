@@ -15,7 +15,7 @@
         android:childDivider="@color/colorPrimary"
         android:transcriptMode="disabled"
         android:fadeScrollbars="false"
-        android:scrollbarSize="12dp"
+        android:scrollbarSize="9dp"
          />
 
     <!-- layout_direction="rtl" kan sætte pilen i højre side-->

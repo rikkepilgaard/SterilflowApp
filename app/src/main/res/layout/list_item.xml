@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="55dip"
     android:orientation="horizontal"
-    android:paddingRight="5dp"
-    android:paddingEnd="5dp"
-    android:paddingStart="5dp"
-    android:paddingLeft="5dp"
+    android:paddingRight="10dp"
+    android:paddingEnd="10dp"
+    android:paddingStart="0dp"
+    android:paddingLeft="0dp"
     android:weightSum="100">
 
     <TextView
