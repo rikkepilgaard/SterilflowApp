@@ -50,12 +50,9 @@ public class MainActivity extends AppCompatActivity {
     private FragmentOne fragmentOne;
     private FragmentTwo fragmentTwo;
 
-    private TabLayout tabLayout;
     private CustomViewPager viewPager;
-    private ArrayList<BufferZone> bufferZones;
 
     private FragmentManager fragmentManager;
-    private InternetConnectionTask itTask;
 
 
     @Override
@@ -67,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         if(!hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
-        itTask= new InternetConnectionTask(this);
+        InternetConnectionTask itTask = new InternetConnectionTask(this);
         itTask.execute();
 
         fragmentManager = getSupportFragmentManager();
@@ -82,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentTwo = new FragmentTwo();
         }
 
-        tabLayout = findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.viewPager);
 
         setupViewPager(viewPager);
@@ -321,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
             DataService.DataServiceBinder dataBinder = (DataService.DataServiceBinder) service;
             dataService = dataBinder.getService();
             dataServiceBound = true;
-            bufferZones = dataService.getBufferZoneList();
+            ArrayList<BufferZone> bufferZones = dataService.getBufferZoneList();
             if(fragmentOne.isAdded()) {
                 fragmentOne.initData(bufferZones);
 
