@@ -15,8 +15,8 @@
     <string name="text_location_permission">Giv denne app tilladelse til at bruge din lokation?</string>
     <string name="ok">OK</string>
     <string name="permission_denied">Denne app kræver brug af lokation. Slå dette til før appen kan bruges.</string>
-    <string name="set_text_on">Tilføj bygningsnavne</string>
-    <string name="set_text_off">Fjern bygningsnavne</string>
+    <string name="set_text_on">Vis bygningsnavne</string>
+    <string name="set_text_off">Skjul bygningsnavne</string>
     <string name="infowindowCluster">Zoom ind for detaljer om bufferområder</string>
     <string name="bufferzone">Bufferområde</string>
     <string name="See_trolleys">Se vogne</string>
@@ -28,4 +28,5 @@
     <string name="progresstext">Henter data...</string>
     <string name="noconnection">Ingen internetforbindelse</string>
     <string name="noconnectionmessage">Der er ingen internetforbindelse. Aktivér dette i indstillinger</string>
+    <string name="location">Krydspunkt:</string>
 </resources>

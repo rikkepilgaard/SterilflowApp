@@ -12,7 +12,7 @@
     <string name="text_location_permission">Give this app permission to use your location?</string>
     <string name="ok">OK</string>
 
-    <string name="set_text_on">Add buildingnames</string>
+    <string name="set_text_on">Show buildingnames</string>
 
     <string name="tab_b_label">Map</string>
     <string name="number_of_wagons">Number of trolleys</string>
@@ -20,7 +20,7 @@
 
     <string name="been_since">Parking time</string>
     <string name="permission_denied">This app needs to use locationsservices. Activate this in settings before the app can be used.</string>
-    <string name="set_text_off">Remove buildingnames</string>
+    <string name="set_text_off">Hide buildingnames</string>
     <string name="infowindowCluster">Zoom for details about bufferzones</string>
     <string name="placed_at">Time of placement</string>
     <string name="See_trolleys">See trolleys</string>
@@ -33,6 +33,7 @@
     <string name="progresstext">Collecting data...</string>
     <string name="noconnection">No internet connection</string>
     <string name="noconnectionmessage">There is no internet connection. Activate this in settings</string>
+    <string name="location">Location:</string>
 
 
 </resources>

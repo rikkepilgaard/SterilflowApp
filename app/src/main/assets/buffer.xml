@@ -18,11 +18,11 @@
         </formerGlns>
         <latitude>56.191935800971</latitude>
         <longitude>10.1694486931553</longitude>
-        <location>I401</location>
+        <location>J401</location>
         <containedIn></containedIn>
     </bufferzone>
     <bufferzone>
-        <name>Sterillager Nord J105</name>
+        <name>Sterillager Nord</name>
         <gln>urn:epc:id:sgln:57980101.3329.0</gln><!-- Det anvendte gln er for J05-bygning. I virkeligheden skulle gln for Gang uden for sterillager bruges:urn:epc:id:sgln:57980102.1417.0!-->
         <formerGln>urn:epc:id:sgln:57980102.1414.0</formerGln> <!-- sterillager nord,udpakning -->
         <latitude>56.19143848341437</latitude>
@@ -35,7 +35,7 @@
         <gln>urn:epc:id:sgln:57980101.3660.0</gln><!-- Det anvendte gln er for vareelevator 106. I virkeligheden skulle gln for bufferområde 232-P1: urn:epc:id:sgln:57980102.8547.0-->
         <latitude>56.191202369085</latitude>
         <longitude>10.167302808033</longitude>
-        <location>J119</location>
+        <location>J106</location>
         <containedIn></containedIn>
     </bufferzone>
     <bufferzone>
@@ -43,7 +43,7 @@
         <gln>urn:epc:id:sgln:57980102.8548.0</gln>
         <latitude>56.19112670791311</latitude>
         <longitude>10.16694934659995</longitude>
-        <location>J120</location>
+        <location>J108</location>
         <containedIn></containedIn>
     </bufferzone>
     <bufferzone>
@@ -51,7 +51,7 @@
         <gln>urn:epc:id:sgln:57980102.6093.0</gln>
         <latitude>56.18902961995224</latitude>
         <longitude>10.171454135363005</longitude>
-        <location>C414</location>
+        <location>C404</location>
         <containedIn></containedIn>
     </bufferzone>
     <bufferzone>

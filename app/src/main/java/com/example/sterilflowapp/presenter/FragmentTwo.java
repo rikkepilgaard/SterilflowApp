@@ -117,7 +117,7 @@ public class FragmentTwo extends Fragment {
             //Set infowindow with button
             marker.setInfoWindow(new CustomInfoWindow(osm,getActivity().getApplicationContext()));
             marker.setTitle(i.getName());
-            marker.setSnippet(i.getLocationName());
+            marker.setSnippet(getString(R.string.location)+" "+i.getLocationName());
             marker.setSubDescription(getString(R.string.See_trolleys));
             marker.setPanToView(false);
             clusterMarker.add(marker);
@@ -176,14 +176,14 @@ public class FragmentTwo extends Fragment {
 
     private Drawable createTextBitmap(String text){
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            paint.setTextSize(18);
+            paint.setTextSize(22);
             paint.setTypeface(Typeface.DEFAULT_BOLD);
             paint.setColor(Color.BLACK);
             paint.setTextAlign(Paint.Align.LEFT);
             float baseline = -paint.ascent(); // ascent() is negative
 
-            Bitmap image = Bitmap.createBitmap(50, 18, Bitmap.Config.ARGB_8888);
-            Bitmap resizedBitmap = Bitmap.createScaledBitmap(image, 50, 18, false);
+            Bitmap image = Bitmap.createBitmap(50, 22, Bitmap.Config.ARGB_8888);
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(image, 50, 22, false);
             Canvas canvas = new Canvas(resizedBitmap);
             canvas.drawText(text, 0, baseline, paint);
             return new BitmapDrawable(this.getResources(), resizedBitmap);
