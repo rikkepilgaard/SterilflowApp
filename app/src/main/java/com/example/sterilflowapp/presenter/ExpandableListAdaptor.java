@@ -87,6 +87,7 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         final BufferZone bufferZone = getGroup(groupPosition);
 
         String headerTitleBuffer = bufferZone.getName();
+        String location =  bufferZone.getLocationName();
         int headerTitleWagon = 0;
 
         if(bufferZone.getTrolleyList() != null) {
@@ -108,16 +109,19 @@ public class ExpandableListAdaptor extends BaseExpandableListAdapter {
         else timeImage.setVisibility(View.INVISIBLE);
 
 
-        TextView lblListHeader = convertView.findViewById(R.id.lvHeaderBuffer);
-        lblListHeader.setText(headerTitleBuffer);
-        TextView lblListHeaderWagons = convertView.findViewById(R.id.lvHeaderNumberOfWagons);
-        lblListHeaderWagons.setText(String.valueOf(headerTitleWagon));
+        TextView txtBufferName = convertView.findViewById(R.id.lvHeaderBuffer);
+        txtBufferName.setText(headerTitleBuffer);
+        TextView txtLocation = convertView.findViewById(R.id.lvLocation);
+        txtLocation.setText(location);
+        TextView txtNumberTrolleys = convertView.findViewById(R.id.lvHeaderNumberOfWagons);
+        txtNumberTrolleys.setText(String.valueOf(headerTitleWagon));
+
 
         if(bufferZone.getTrolleyList()!=null){
-            lblListHeaderWagons.setTypeface(null,Typeface.BOLD);
+            txtNumberTrolleys.setTypeface(null,Typeface.BOLD);
         }
         if(bufferZone.getTrolleyList()==null){
-            lblListHeaderWagons.setTypeface(null,Typeface.NORMAL);
+            txtNumberTrolleys.setTypeface(null,Typeface.NORMAL);
             timeImage.setVisibility(View.INVISIBLE);
         }
 

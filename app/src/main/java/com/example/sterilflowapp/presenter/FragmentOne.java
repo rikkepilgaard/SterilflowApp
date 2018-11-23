@@ -42,6 +42,17 @@ public class FragmentOne extends Fragment {
 
         listView = view.findViewById(R.id.listViewExpandable);
 
+        listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            int previousGroup = -1;
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if(groupPosition != previousGroup)
+                    listView.collapseGroup(previousGroup);
+                previousGroup = groupPosition;
+            }
+        });
+
         return view;
     }
 
