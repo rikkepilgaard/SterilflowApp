@@ -4,19 +4,17 @@ import java.util.ArrayList;
 
 public class BufferZone {
     private String name, gln, latitude, longitude, locationName;
-    private ArrayList<String> containedIn;
     private ArrayList<String> formerGln;
     private ArrayList<TrackEvent> trolleyList;
     private boolean containsExpiredWagon;
 
 
-    public BufferZone(String name, String gln, String latitude, String longitude, ArrayList<String> formerGln, String locationName, ArrayList<String> containedIn, ArrayList<TrackEvent> trolleyList, boolean containsExpiredWagon) {
+    public BufferZone(String name, String gln, String latitude, String longitude, ArrayList<String> formerGln, String locationName, ArrayList<TrackEvent> trolleyList, boolean containsExpiredWagon) {
         this.name = name;
         this.gln = gln;
         this.latitude = latitude;
         this.longitude = longitude;
         this.locationName = locationName;
-        this.containedIn = containedIn;
         this.formerGln = formerGln;
         this.trolleyList = trolleyList;
         this.containsExpiredWagon = containsExpiredWagon;
@@ -71,14 +69,6 @@ public class BufferZone {
 
     public void setLocationName(String locationName) {
         this.locationName = locationName;
-    }
-
-    public ArrayList<String> getContainedIn() {
-        return containedIn;
-    }
-
-    public void setContainedIn(ArrayList<String> containedIn) {
-        this.containedIn = containedIn;
     }
 
     public ArrayList<TrackEvent> getTrolleyList() {

@@ -36,13 +36,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 
-public class FragmentTwo extends Fragment {
+public class MapFragment extends Fragment {
 
     private MapView osm;
     private MapController mc;
     private ToggleButton toggle;
 
-    public FragmentTwo() {}
+    public MapFragment() {}
 
 
     @Override

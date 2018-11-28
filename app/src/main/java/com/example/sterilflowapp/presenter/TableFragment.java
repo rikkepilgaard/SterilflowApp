@@ -17,14 +17,14 @@ import com.example.sterilflowapp.model.BufferZone;
 import java.util.ArrayList;
 
 
-public class FragmentOne extends Fragment {
+public class TableFragment extends Fragment {
 
 
     private ExpandableListView listView;
     private ExpandableListAdapter adapter;
 
 
-    public FragmentOne() {
+    public TableFragment() {
         // Required empty public constructor
     }
 

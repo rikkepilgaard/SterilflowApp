@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean dataServiceBound = false;
     private boolean timeServiceBound = false;
 
-    private FragmentOne fragmentOne;
-    private FragmentTwo fragmentTwo;
+    private TableFragment tableFragment;
+    private MapFragment mapFragment;
 
     private CustomViewPager viewPager;
 
@@ -70,13 +70,13 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         if(savedInstanceState!=null){
-            fragmentOne = (FragmentOne)fragmentManager
+            tableFragment = (TableFragment)fragmentManager
                     .getFragment(savedInstanceState,FRAGMENT_ONE_TAG);
-            fragmentTwo = (FragmentTwo)fragmentManager
+            mapFragment = (MapFragment)fragmentManager
                     .getFragment(savedInstanceState,FRAGMENT_TWO_TAG);
         } else {
-            fragmentOne = new FragmentOne();
-            fragmentTwo = new FragmentTwo();
+            tableFragment = new TableFragment();
+            mapFragment = new MapFragment();
         }
 
         TabLayout tabLayout = findViewById(R.id.tabs);
@@ -104,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if(fragmentTwo!=null) {
-                    fragmentTwo.closeInfoWindows();
+                if(mapFragment !=null) {
+                    mapFragment.closeInfoWindows();
                 }
             }
 
@@ -153,8 +153,8 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
         //Save fragment states in case of orientation change
-        fragmentManager.putFragment(outState,FRAGMENT_ONE_TAG,fragmentOne);
-        fragmentManager.putFragment(outState,FRAGMENT_TWO_TAG,fragmentTwo);
+        fragmentManager.putFragment(outState,FRAGMENT_ONE_TAG, tableFragment);
+        fragmentManager.putFragment(outState,FRAGMENT_TWO_TAG, mapFragment);
     }
 
 
@@ -181,8 +181,8 @@ public class MainActivity extends AppCompatActivity {
             if(intent.getAction()!=null){
             switch (intent.getAction()){
                 case ACTION_TIME:
-                    if(fragmentOne!=null) {
-                        fragmentOne.initData(dataService.getBufferZoneList());
+                    if(tableFragment !=null) {
+                        tableFragment.initData(dataService.getBufferZoneList());
                     }
                     break;
 
@@ -196,12 +196,12 @@ public class MainActivity extends AppCompatActivity {
 
                 case ACTION_DATA:
                     timeService.calculateTimeDifference();
-                    if(fragmentOne!= null) {
-                        fragmentOne.initData(dataService.getBufferZoneList());
+                    if(tableFragment != null) {
+                        tableFragment.initData(dataService.getBufferZoneList());
                     }
-                    if(fragmentTwo!= null) {
-                        fragmentTwo.addMarker(dataService.getBufferZoneList());
-                        fragmentTwo.setBuildingList(dataService.getBuildingsList());
+                    if(mapFragment != null) {
+                        mapFragment.addMarker(dataService.getBufferZoneList());
+                        mapFragment.setBuildingList(dataService.getBuildingsList());
                     }
                     break;
 
@@ -209,11 +209,11 @@ public class MainActivity extends AppCompatActivity {
                     if(viewPager.getCurrentItem()==1){
 
                     viewPager.setCurrentItem(0);
-                    fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),intent.getStringExtra(EXTRA_BUFFERZONE));
+                    tableFragment.expandSpecifiedGroup(dataService.getBufferZoneList(),intent.getStringExtra(EXTRA_BUFFERZONE));
 
                     } else{
                         viewPager.setCurrentItem(1);
-                        fragmentTwo.zoomToSpecificBufferzone(intent.getStringExtra(EXTRA_BUFFERZONE));
+                        mapFragment.zoomToSpecificBufferzone(intent.getStringExtra(EXTRA_BUFFERZONE));
                     }
                     break;
 
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //Go to map overview and expand bufferzone with "expired" trolley(s).
                 viewPager.setCurrentItem(0);
-                fragmentOne.expandSpecifiedGroup(dataService.getBufferZoneList(),buffer);
+                tableFragment.expandSpecifiedGroup(dataService.getBufferZoneList(),buffer);
 
             }
         });
@@ -319,13 +319,13 @@ public class MainActivity extends AppCompatActivity {
             dataService = dataBinder.getService();
             dataServiceBound = true;
             ArrayList<BufferZone> bufferZones = dataService.getBufferZoneList();
-            if(fragmentOne.isAdded()) {
-                fragmentOne.initData(bufferZones);
+            if(tableFragment.isAdded()) {
+                tableFragment.initData(bufferZones);
 
             }
-            if(fragmentTwo.isAdded()){
-                fragmentTwo.addMarker(bufferZones);
-                fragmentTwo.setBuildingList(dataService.getBuildingsList());
+            if(mapFragment.isAdded()){
+                mapFragment.addMarker(bufferZones);
+                mapFragment.setBuildingList(dataService.getBuildingsList());
             }
             Log.d(TAG,"Connected to DataService");
         }
@@ -338,8 +338,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(fragmentOne,getResources().getString(R.string.tab_a_label));
-        viewPagerAdapter.addFragment(fragmentTwo,getResources().getString(R.string.tab_b_label));
+        viewPagerAdapter.addFragment(tableFragment,getResources().getString(R.string.tab_a_label));
+        viewPagerAdapter.addFragment(mapFragment,getResources().getString(R.string.tab_b_label));
         viewPager.setAdapter(viewPagerAdapter);
     }
 }
