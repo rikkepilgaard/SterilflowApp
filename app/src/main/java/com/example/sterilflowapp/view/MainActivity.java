@@ -1,8 +1,12 @@
-package com.example.sterilflowapp.presenter;
+package com.example.sterilflowapp.view;
 
 import com.example.sterilflowapp.R;
-import com.example.sterilflowapp.dal.DataService;
+import com.example.sterilflowapp.interactor.DataService;
 import com.example.sterilflowapp.model.BufferZone;
+import com.example.sterilflowapp.presenter.CustomViewPager;
+import com.example.sterilflowapp.presenter.InternetConnectionTask;
+import com.example.sterilflowapp.presenter.TimeService;
+import com.example.sterilflowapp.presenter.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;

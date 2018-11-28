@@ -1,4 +1,4 @@
-package com.example.sterilflowapp.presenter;
+package com.example.sterilflowapp.view;
 
 import android.content.Context;
 import android.content.Intent;

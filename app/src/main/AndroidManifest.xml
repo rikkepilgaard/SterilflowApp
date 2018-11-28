@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         >
-        <activity android:name=".presenter.MainActivity">
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +34,7 @@
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".dal.DataService"
+            android:name=".interactor.DataService"
             android:enabled="true"
             android:exported="true"></service>
 

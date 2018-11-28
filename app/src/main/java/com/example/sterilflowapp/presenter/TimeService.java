@@ -12,7 +12,7 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.example.sterilflowapp.dal.DataService;
+import com.example.sterilflowapp.interactor.DataService;
 import com.example.sterilflowapp.model.BufferZone;
 import com.example.sterilflowapp.model.TrackEvent;
 
@@ -46,8 +46,8 @@ public class TimeService extends Service {
     }
 
 
-    class TimeServiceBinder extends Binder {
-        TimeService getService() {
+    public class TimeServiceBinder extends Binder {
+        public TimeService getService() {
             return TimeService.this;
         }
     }

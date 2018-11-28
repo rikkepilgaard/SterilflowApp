@@ -1,6 +1,6 @@
 package com.example.sterilflowapp;
 
-import com.example.sterilflowapp.dal.BufferzoneDataProcessor;
+import com.example.sterilflowapp.presenter.BufferzoneDataProcessor;
 import com.example.sterilflowapp.model.BufferZone;
 import com.example.sterilflowapp.model.TrackEvent;
 

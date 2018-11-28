@@ -8,18 +8,18 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
-class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     //https://www.youtube.com/watch?v=G7CnD7p8PkE
 
     private List<String> fragmentTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
 
-    ViewPagerAdapter(FragmentManager fm) {
+    public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    void addFragment(Fragment fragment, String title){
+    public void addFragment(Fragment fragment, String title){
         fragmentList.add(fragment);
         fragmentTitle.add(title);
     }

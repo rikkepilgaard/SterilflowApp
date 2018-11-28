@@ -1,4 +1,4 @@
-package com.example.sterilflowapp.dal;
+package com.example.sterilflowapp.interactor;
 
 import android.app.Service;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.util.Log;
 import com.example.sterilflowapp.model.BufferZone;
 import com.example.sterilflowapp.model.Building;
 import com.example.sterilflowapp.model.TrackEvent;
+import com.example.sterilflowapp.presenter.BufferzoneDataProcessor;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

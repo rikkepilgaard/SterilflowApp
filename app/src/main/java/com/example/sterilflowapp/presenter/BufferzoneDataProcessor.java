@@ -1,4 +1,4 @@
-package com.example.sterilflowapp.dal;
+package com.example.sterilflowapp.presenter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +30,7 @@ public class BufferzoneDataProcessor {
     private ArrayList<BufferZone> bufferZonesList;
     private Context context;
 
-    BufferzoneDataProcessor(Context context){
+    public BufferzoneDataProcessor(Context context){
 
         this.context = context.getApplicationContext();
     }

@@ -1,4 +1,4 @@
-package com.example.sterilflowapp.dal;
+package com.example.sterilflowapp.interactor;
 
 import android.content.Context;
 
