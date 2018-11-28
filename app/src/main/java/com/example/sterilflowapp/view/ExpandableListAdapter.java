@@ -24,13 +24,13 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import static com.example.sterilflowapp.ConstantValues.ACTION_CHANGE_TAB;
 import static com.example.sterilflowapp.ConstantValues.EXTRA_BUFFERZONE;
 
-public class ExpandableListAdaptor extends BaseExpandableListAdapter {
+public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<BufferZone> bufferZones;
 
 
-    ExpandableListAdaptor(Context context, ArrayList<BufferZone> bufferZones) {
+    ExpandableListAdapter(Context context, ArrayList<BufferZone> bufferZones) {
         this.context = context;
         this.bufferZones = bufferZones;
     }

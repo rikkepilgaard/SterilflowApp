@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
 import com.example.sterilflowapp.R;
@@ -21,7 +20,7 @@ public class TableFragment extends Fragment {
 
 
     private ExpandableListView listView;
-    private ExpandableListAdapter adapter;
+    private android.widget.ExpandableListAdapter adapter;
 
 
     public TableFragment() {
@@ -60,11 +59,11 @@ public class TableFragment extends Fragment {
 
 
         if(adapter == null) {
-            adapter = new ExpandableListAdaptor(getActivity(), bufferZones);
+            adapter = new ExpandableListAdapter(getActivity(), bufferZones);
             listView.setAdapter(adapter);
         }
 
-        ((ExpandableListAdaptor) adapter).updateListView(bufferZones);
+        ((ExpandableListAdapter) adapter).updateListView(bufferZones);
     }
 
     void expandSpecifiedGroup(ArrayList<BufferZone> bufferZones, String bufferName){
