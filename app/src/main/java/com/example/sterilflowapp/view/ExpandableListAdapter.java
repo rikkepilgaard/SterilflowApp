@@ -213,7 +213,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
 
-
     //https://stackoverflow.com/questions/1590831/safely-casting-long-to-int-in-java
     private static int safeLongToInt(long l) {
         if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
