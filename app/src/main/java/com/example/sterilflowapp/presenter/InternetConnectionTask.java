@@ -13,7 +13,7 @@ import java.net.URL;
 
 public class InternetConnectionTask extends AsyncTask<String,String,String> {
     private Context context;
-
+    private String TAG = "InternetConnectionTask";
     private Boolean internetSucces=false;
     public InternetConnectionTask(Context context){
         this.context=context;
@@ -35,13 +35,13 @@ public class InternetConnectionTask extends AsyncTask<String,String,String> {
                 urlc.setConnectTimeout(1500);
                 urlc.connect();
                 internetSucces=true;
-                Log.d("ERRORRIKKE", "NETWORK OK!");
+                Log.d(TAG, "NETWORK OK!");
                 return (urlc.getResponseCode() == 200);
             } catch (IOException e) {
-                Log.e("ERRORRIKKE", "Error checking internet connection", e);
+                Log.e(TAG, "Error checking internet connection", e);
             }
         } else {
-            Log.d("ERRORRIKKE", "No network available!");
+            Log.d(TAG, "No network available!");
             Looper.prepare();
         }
         return false;

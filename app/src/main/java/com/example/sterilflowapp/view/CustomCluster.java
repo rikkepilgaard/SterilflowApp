@@ -29,10 +29,10 @@ import java.util.List;
 
 public class CustomCluster extends MarkerClusterer {
 
-    protected int mMaxClusteringZoomLevel = 20;
-    protected int mRadiusInPixels = 90;
-    protected double mRadiusInMeters;
-    protected Paint mTextPaint;
+    private int mMaxClusteringZoomLevel = 20;
+    private int mRadiusInPixels = 90;
+    private double mRadiusInMeters;
+    private Paint mTextPaint;
     private ArrayList<Marker> mClonedMarkers;
     private ArrayList<BufferZone> bufferZones;
 

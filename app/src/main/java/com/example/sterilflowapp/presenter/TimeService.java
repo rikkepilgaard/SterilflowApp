@@ -197,7 +197,7 @@ public class TimeService extends Service {
             while(isRunning) {
                 try {
                     calculateTimeDifference();
-                    Thread.sleep(30000);
+                    Thread.sleep(60000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
