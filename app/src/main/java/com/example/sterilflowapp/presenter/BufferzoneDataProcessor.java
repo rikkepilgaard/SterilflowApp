@@ -144,11 +144,6 @@ public class BufferzoneDataProcessor {
                 if (newSize != oldSize) {
                    sendBroadcast(ACTION_DATA);
                 }
-
-//                if(oldSize==0&&newSize==0){
-//                sendBroadcast();
-//                }
-
             }
         }
         if(this.trackEventArrayList==null){
@@ -157,6 +152,7 @@ public class BufferzoneDataProcessor {
         this.trackEventArrayList = trackEventArrayList;
         bufferZonesList=bufferZones;
     }
+
     public ArrayList<BufferZone> getBufferZones(){
         return bufferZonesList;
     }
