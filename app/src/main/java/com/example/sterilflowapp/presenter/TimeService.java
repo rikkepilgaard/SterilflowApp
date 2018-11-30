@@ -37,11 +37,9 @@ public class TimeService extends Service {
     private static final String TAG = "TimeService";
 
     private ArrayList<BufferZone> bufferZones;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor preferenceEditor;
     private boolean isRunning = false;
-
     private DataService dataService;
+
 
     public TimeService() {
     }
@@ -60,8 +58,6 @@ public class TimeService extends Service {
 
         bindToService();
         Log.d(TAG,"DataService started");
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         isRunning = true;
 
