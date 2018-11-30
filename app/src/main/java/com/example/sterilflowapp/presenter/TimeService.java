@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.util.Log;
 
 import com.example.sterilflowapp.interactor.DataService;
@@ -114,33 +115,25 @@ public class TimeService extends Service {
                 if(zone.getTrolleyList()!=null) {
                     for (TrackEvent event : zone.getTrolleyList()) {
 
-                        long lastDiff = sharedPreferences.getLong(event.getObjectkey(), 0);
-                        long lastMinutes = lastDiff / (60 * 1000) % 60;
-                        long lastHours = lastDiff / (60 * 60 * 1000) % 24;
-
                         Date currentDate = Calendar.getInstance().getTime();
                         Date otherDate = fromStringToDate(event.getEventTime());
 
-                        //Wrong time zone in trolley eventtime
-
-//                        Calendar calender = Calendar.getInstance();
-//                        calender.setTime(otherDate);
-//                        calender.add(calender.HOUR,1);
-
-                        //otherDate = calender.getTime();
-
                         long diff = currentDate.getTime() - otherDate.getTime();
+                        int diffMinutes = safeLongToInt(diff / (60 * 1000) % 60);
+                        int diffHours = safeLongToInt(diff / (60 * 60 * 1000) % 24);
+                        int diffDays = safeLongToInt(diff / (24 * 60 * 60 * 1000));
+                        String diffMinutesText = (diffMinutes < 10 ? "0" : "") + diffMinutes;
+                        String diffHoursText = (diffHours < 10 ? "0" : "") + diffHours;
+                        String diffDaysText = (diffDays < 10 ? "0" : "") + diffDays;
 
-                        long diffMinutes = diff / (60 * 1000) % 60;
-                        long diffHours = diff / (60 * 60 * 1000) % 24;
-
-                        if (lastMinutes != diffMinutes) {
-                            preferenceEditor = sharedPreferences.edit();
-                            preferenceEditor.putLong(event.getObjectkey(), diff);
-                            preferenceEditor.commit();
-
-                            sendBroadcast(ACTION_TIME,null);
+                        String text;
+                        if(diffDays==0) {
+                            text = diffHoursText + "<b>t </b>" + diffMinutesText + "<b>m </b>";
+                        }else{
+                            text = diffDaysText + "<b>d </b>" + diffHoursText + "<b>t </b>"
+                                    + diffMinutesText + "<b>m </b>";
                         }
+                        event.setTimeSincePlacement(text);
 
                         //If trolley have been in bufferzone 3 hours or more, the trolley is "expired"
                         //Unless bufferzone contains only sterile trolleys.
@@ -151,25 +144,34 @@ public class TimeService extends Service {
                                 event.setExpired(false);
                                 zone.setContainsExpiredWagon(false);
                             }
-
                         }
+                        sendBroadcast(ACTION_TIME,null);
+
 
                         //When trolley have been in bufferzone for 3 hours, broadcast is sent to
                         //MainActivity and notification is given.
-                        if (diffHours == 3 && lastHours!=diffHours) {
+                        if (diffHours == 3 && diffMinutes==0) {
                             if(zone.getGln().equals(BUFFER_NORDLAGER)
                                     || zone.getGln().equals(BUFFER_STERILCENTRAL)) {
 
                                 return;
 
                             }
-
                             sendBroadcast(ACTION_TIME_EXCEEDED,zone.getName());
                         }
                     }
                 }
             }
         }
+    }
+
+    //https://stackoverflow.com/questions/1590831/safely-casting-long-to-int-in-java
+    private static int safeLongToInt(long l) {
+        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException
+                    (""+ l);
+        }
+        return (int) l;
     }
     
 
