@@ -11,6 +11,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         Drawable listIcon = getResources().getDrawable(R.drawable.ic_icon_a_24);
         Drawable mapIcon = getResources().getDrawable(R.drawable.ic_icon_b_24);
         listIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-        mapIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        mapIcon.setColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_ATOP);
         tabLayout.getTabAt(0).setIcon(listIcon);
         tabLayout.getTabAt(1).setIcon(mapIcon);
 
@@ -108,6 +109,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
+                int tabIconColor =  Color.WHITE;
+                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+
                 if(mapFragment !=null) {
                     mapFragment.closeInfoWindows();
                 }
@@ -115,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                int tabIconColor = Color.LTGRAY;
+                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
             }
 
             @Override

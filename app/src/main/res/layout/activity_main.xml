@@ -28,7 +28,9 @@
             app:tabGravity="fill"
             app:tabMode="fixed"
             app:tabTextAppearance="@style/TabLayoutText"
-            app:tabIndicatorHeight="3dp">
+            app:tabIndicatorHeight="3dp"
+            app:tabTextColor="@color/columnColor"
+            app:tabSelectedTextColor="@color/white">
 
         </com.google.android.material.tabs.TabLayout>
 
