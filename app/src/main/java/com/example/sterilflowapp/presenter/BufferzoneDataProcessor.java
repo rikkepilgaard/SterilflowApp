@@ -142,12 +142,12 @@ public class BufferzoneDataProcessor {
 
                 //Check whether status is changed (trolley moved in or out of bufferzone)
                 if (newSize != oldSize) {
-                   //sendBroadcast(ACTION_DATA);
+                   sendBroadcast(ACTION_DATA);
                 }
             }
         }
         if(this.trackEventArrayList==null){
-            //sendBroadcast(ACTION_NULL);
+            sendBroadcast(ACTION_NULL);
         }
         this.trackEventArrayList = trackEventArrayList;
         bufferZonesList=bufferZones;
