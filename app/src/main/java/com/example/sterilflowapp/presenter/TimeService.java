@@ -124,10 +124,13 @@ public class TimeService extends Service {
 
                         String text;
                         if(diffDays==0) {
-                            text = diffHoursText + "<b>t </b>" + diffMinutesText + "<b>m </b>";
+                            //text = diffHoursText + "<b>t </b>" + diffMinutesText + "<b>m </b>";
+                            text = diffHoursText+ "t " + diffMinutesText+"m";
                         }else{
-                            text = diffDaysText + "<b>d </b>" + diffHoursText + "<b>t </b>"
-                                    + diffMinutesText + "<b>m </b>";
+                            //text = diffDaysText + "<b>d </b>" + diffHoursText + "<b>t </b>"
+                                    //+ diffMinutesText + "<b>m </b>";
+                            text = diffDaysText + "d " + diffHoursText + "t "
+                                    + diffMinutesText + "m";
                         }
                         event.setTimeSincePlacement(text);
 
