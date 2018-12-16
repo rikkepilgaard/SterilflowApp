@@ -40,6 +40,9 @@ public class TimeService extends Service {
     private boolean isRunning = false;
     private DataService dataService;
 
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor preferenceEditor;
+
 
     public TimeService() {
     }
@@ -58,6 +61,8 @@ public class TimeService extends Service {
 
         bindToService();
         Log.d(TAG,"DataService started");
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         isRunning = true;
 
@@ -111,11 +116,15 @@ public class TimeService extends Service {
                 if(zone.getTrolleyList()!=null) {
                     for (TrackEvent event : zone.getTrolleyList()) {
 
+
+                        String lastDiff = sharedPreferences.getString(event.getObjectkey(),"0");
+
                         Date currentDate = Calendar.getInstance().getTime();
                         Date otherDate = fromStringToDate(event.getEventTime());
 
                         long diff = currentDate.getTime() - otherDate.getTime();
-                        int diffMinutes = safeLongToInt(diff / (60 * 1000) % 60);
+                        long diffMinutesLong = diff / (60 * 1000) % 60;
+                        int diffMinutes = safeLongToInt(diffMinutesLong);
                         int diffHours = safeLongToInt(diff / (60 * 60 * 1000) % 24);
                         int diffDays = safeLongToInt(diff / (24 * 60 * 60 * 1000));
                         String diffMinutesText = (diffMinutes < 10 ? "0" : "") + diffMinutes;
@@ -124,23 +133,29 @@ public class TimeService extends Service {
 
                         String text;
                         if(diffDays==0) {
-                            //text = diffHoursText + "<b>t </b>" + diffMinutesText + "<b>m </b>";
                             text = diffHoursText+ "t " + diffMinutesText+"m";
                         }else{
-                            //text = diffDaysText + "<b>d </b>" + diffHoursText + "<b>t </b>"
-                                    //+ diffMinutesText + "<b>m </b>";
                             text = diffDaysText + "d " + diffHoursText + "t "
                                     + diffMinutesText + "m";
                         }
-                        event.setTimeSincePlacement(text);
+
+                        if(lastDiff != text) {
+                            preferenceEditor = sharedPreferences.edit();
+                            preferenceEditor.putString(event.getObjectkey(),text);
+                            preferenceEditor.commit();
+                            event.setTimeSincePlacement(text);
+                        }
 
                         //If trolley have been in bufferzone 3 hours or more, the trolley is "expired"
                         //Unless bufferzone contains only sterile trolleys.
                         if(diffHours>2){
-                            event.setExpired(true);
+
+                            preferenceEditor = sharedPreferences.edit();
+                            preferenceEditor.putBoolean(event.getObjectkey()+"bool",true);
+                            preferenceEditor.commit();
+
                             zone.setContainsExpiredWagon(true);
                             if(zone.getGln().equals(BUFFER_NORDLAGER) || zone.getGln().equals(BUFFER_STERILCENTRAL)) {
-                                event.setExpired(false);
                                 zone.setContainsExpiredWagon(false);
                             }
                         }

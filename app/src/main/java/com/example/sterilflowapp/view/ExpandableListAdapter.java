@@ -28,6 +28,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<BufferZone> bufferZones;
+    private SharedPreferences sharedPreferences;
 
 
     ExpandableListAdapter(Context context, ArrayList<BufferZone> bufferZones) {
@@ -169,7 +170,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             String sub2 = placedAt.substring(11,16);
             placedAt = sub1 + " " + sub2;
 
-            String beenSince = trackEvent.getTimeSincePlacement();
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            String beenSince = sharedPreferences.getString(trackEvent.getObjectkey(),"");
 
             TextView txtChildId = convertView.findViewById(R.id.lvItemID);
             txtChildId.setText(id);
@@ -179,8 +181,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             txtChildSince.setText(beenSince);
 
             ImageView imageChild = convertView.findViewById(R.id.lvChildImageTime);
-
-            if(trackEvent.isExpired()){
+            boolean isExpired = sharedPreferences.getBoolean(trackEvent.getObjectkey()+"bool", false);
+            if(isExpired){
                 imageChild.setVisibility(View.VISIBLE);
                 txtChildId.setTextColor(context.getResources().getColor(R.color.red));
                 txtChildPlaced.setTextColor(context.getResources().getColor(R.color.red));

@@ -77,10 +77,7 @@ public class DataService extends Service {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     for (DataSnapshot ds1 : ds.getChildren()) {
                         TrackEvent trackEvent = ds1.getValue(TrackEvent.class);
-                        assert trackEvent != null;
-                        trackEvent.setExpired(false);
                         trackEventArrayList.add(trackEvent);
-
                     }
                 }
 
@@ -103,5 +100,7 @@ public class DataService extends Service {
     public ArrayList<BufferZone> getBufferZoneList(){
         return bufferZones;
     }
+
+
 
 }
