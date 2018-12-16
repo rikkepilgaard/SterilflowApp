@@ -176,7 +176,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             TextView txtChildPlaced = convertView.findViewById(R.id.lvItemPlaced);
             txtChildPlaced.setText(placedAt);
             TextView txtChildSince = convertView.findViewById(R.id.lvItemSince);
-            txtChildSince.setText(Html.fromHtml(beenSince));
+            txtChildSince.setText(beenSince);
 
             ImageView imageChild = convertView.findViewById(R.id.lvChildImageTime);
 
