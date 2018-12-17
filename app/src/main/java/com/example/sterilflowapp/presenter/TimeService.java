@@ -116,9 +116,11 @@ public class TimeService extends Service {
                 if(zone.getTrolleyList()!=null) {
                     for (TrackEvent event : zone.getTrolleyList()) {
 
-
+                        //Used to check if time is updated
                         String lastDiff = sharedPreferences.getString(event.getObjectkey(),"0");
 
+
+                        //Calculate time passed since trolley was placed
                         Date currentDate = Calendar.getInstance().getTime();
                         Date otherDate = fromStringToDate(event.getEventTime());
 
@@ -131,6 +133,7 @@ public class TimeService extends Service {
                         String diffHoursText = (diffHours < 10 ? "0" : "") + diffHours;
                         String diffDaysText = (diffDays < 10 ? "0" : "") + diffDays;
 
+                        //Make presentable text for showing the time passed since trolley was placed
                         String text;
                         if(diffDays==0) {
                             text = diffHoursText+ "t " + diffMinutesText+"m";
@@ -139,11 +142,11 @@ public class TimeService extends Service {
                                     + diffMinutesText + "m";
                         }
 
-                        if(lastDiff != text) {
+                        //Check whether time has updated
+                        if(lastDiff.equals(text)) {
                             preferenceEditor = sharedPreferences.edit();
                             preferenceEditor.putString(event.getObjectkey(),text);
                             preferenceEditor.commit();
-                            event.setTimeSincePlacement(text);
                         }
 
                         //If trolley have been in bufferzone 3 hours or more, the trolley is "expired"
@@ -159,6 +162,8 @@ public class TimeService extends Service {
                                 zone.setContainsExpiredWagon(false);
                             }
                         }
+
+                        //Send broadcast to update time on UI every minute.
                         sendBroadcast(ACTION_TIME,null);
 
 
@@ -180,6 +185,7 @@ public class TimeService extends Service {
     }
 
     //https://stackoverflow.com/questions/1590831/safely-casting-long-to-int-in-java
+    //Convert long to int
     private static int safeLongToInt(long l) {
         if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
             throw new IllegalArgumentException
@@ -189,8 +195,8 @@ public class TimeService extends Service {
     }
     
 
+    //Convert string to Date
     private Date fromStringToDate(String stringDate){
-        //Vær opmærksom på formatet af den String dato, der kommer med metoden.
         if(stringDate==null) {
             return null;
         } else {
@@ -210,6 +216,7 @@ public class TimeService extends Service {
         @Override
         protected String doInBackground(String... params) {
 
+            //As long as service is running, calculateTimeDifference() is called every 60 sec
             while(isRunning) {
                 try {
                     calculateTimeDifference();
@@ -222,6 +229,7 @@ public class TimeService extends Service {
         }
 
     }
+
 
     public void sendBroadcast(String action, String buffername){
         Intent broadcastIntent = new Intent();

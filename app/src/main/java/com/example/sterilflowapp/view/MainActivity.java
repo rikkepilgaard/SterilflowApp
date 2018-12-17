@@ -201,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
                     showNotification(intent.getStringExtra(EXTRA_BUFFERZONE));
                     break;
 
+                    //Broadcasts are received when a trolley has moved in or out of a bufferzone
                 case ACTION_DATA:
                     timeService.calculateTimeDifference();
                     if(tableFragment != null) {
@@ -212,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
 
+                    //Broadcasts are received when user uses "buttons" to switch between tabs
                 case ACTION_CHANGE_TAB:
                     if(viewPager.getCurrentItem()==1){
 
@@ -224,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
 
+                    //Broadcast received when data is imported from Firebase first time (after app is opened)
                 case ACTION_NULL:
                     progressbar.setVisibility(View.INVISIBLE);
 
@@ -243,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                //Go to map overview and expand bufferzone with "expired" trolley(s).
+                //Go to table overview and expand bufferzone with "expired" trolley.
                 viewPager.setCurrentItem(0);
                 tableFragment.expandSpecifiedGroup(dataService.getBufferZoneList(),buffer);
 
@@ -256,6 +259,8 @@ public class MainActivity extends AppCompatActivity {
     public void showNotification(String buffer){
         //https://developer.android.com/training/notify-user/build-notification
 
+
+        //Building a notification depends on phone's OS.
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 

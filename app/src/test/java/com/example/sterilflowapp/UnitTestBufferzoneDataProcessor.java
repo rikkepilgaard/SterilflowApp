@@ -134,12 +134,9 @@ public class UnitTestBufferzoneDataProcessor {
         //Arrange
         ArrayList<String> formerGln = new ArrayList<>();
 
-
-
         bufferZones= new ArrayList<>();
         BufferZone bufferzoneSteril= new BufferZone("Bufferområde SterilCentral", "urn:epc:id:sgln:57980101.7856.0", "latitude", "longitude", formerGln, "locationName", wagonList,false);
         bufferZones.add(bufferzoneSteril);
-
 
         trackEventArrayList= new ArrayList<>();
         TrackEvent trackEventRecent= new TrackEvent("S30", "eventTime",  "floor", "urn:epc:id:sgln:57980101.7856.0",false);

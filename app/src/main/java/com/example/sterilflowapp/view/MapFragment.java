@@ -41,6 +41,8 @@ public class MapFragment extends Fragment {
     private MapView osm;
     private MapController mc;
     private ToggleButton toggle;
+    private ItemizedIconOverlay BuildingOverlay;
+    private ArrayList<Building> bList;
 
     public MapFragment() {}
 
@@ -53,6 +55,8 @@ public class MapFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_two, container, false);
+
+        //Set default map settings
 
         osm = view.findViewById(R.id.mapview);
         osm.setTileSource(TileSourceFactory.MAPNIK);
@@ -69,7 +73,9 @@ public class MapFragment extends Fragment {
         osm.setScrollableAreaLimitDouble(box);
         osm.setMapOrientation(21.05f);
 
+        bList = new ArrayList<>();
 
+        //If screen is rotated, check if building names were shown or not
         if(savedInstanceState!=null){
             if(savedInstanceState.getBoolean("ischecked")){
                 addBuildings();
@@ -90,6 +96,7 @@ public class MapFragment extends Fragment {
         return view;
     }
 
+    //Adds a marker for every bufferzone on the map
     void addMarker(ArrayList<BufferZone> bufferZones){
 
         osm.getOverlays().clear();
@@ -128,16 +135,14 @@ public class MapFragment extends Fragment {
 
     }
 
-    private ArrayList<Building> bList = new ArrayList<>();
     void setBuildingList(ArrayList<Building> buildingList){this.bList=buildingList;}
 
-
-    private ItemizedIconOverlay BuildingOverlay;
 
     private void addBuildings(){
 
         final ArrayList<OverlayItem> items = new ArrayList<>();
 
+        //Creates an overlay with building names
         for (Building i: bList) {
             OverlayItem buildingOverlayItem = new OverlayItem("", "", new GeoPoint(i.getLatitude(),i.getLongitude()));
         buildingOverlayItem.setMarker(createTextBitmap(i.getName()));
@@ -154,7 +159,8 @@ public class MapFragment extends Fragment {
     private Drawable createMarkerIcon(int numberWagons, boolean isExpired){
         Bitmap imageBitmap;
 
-
+        //If isExpired is true (bufferzone contain expired trolley), marker icon is "redmarker". Otherwise
+        //marker icon is "bluemarker".
         if(!isExpired){
         imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("bluemarker", "drawable", getActivity().getPackageName()));}
         else{imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("redmarker", "drawable", getActivity().getPackageName()));}
@@ -174,6 +180,7 @@ public class MapFragment extends Fragment {
         return new BitmapDrawable(this.getResources(), resizedBitmap);
     }
 
+    //Creates building text
     private Drawable createTextBitmap(String text){
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             paint.setTextSize(22);

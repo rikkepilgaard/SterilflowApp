@@ -29,6 +29,8 @@ public class InternetConnectionTask extends AsyncTask<String,String,String> {
     public boolean hasActiveInternetConnection(Context ctx) {
         if (isNetworkAvailable(ctx)) {
             try {
+                //Try to connect to google.com to check whether active internet connection is
+                //actually working
                 HttpURLConnection urlc = (HttpURLConnection) (new URL("http://www.google.com").openConnection());
                 urlc.setRequestProperty("User-Agent", "Test");
                 urlc.setRequestProperty("Connection", "close");
@@ -47,6 +49,8 @@ public class InternetConnectionTask extends AsyncTask<String,String,String> {
         return false;
     }
     private boolean isNetworkAvailable(Context ctx) {
+
+        //Check whether connection on phone in active
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -56,6 +60,8 @@ public class InternetConnectionTask extends AsyncTask<String,String,String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+
+        //Notify user if there is no internet connection
         if(!internetSucces){
             final androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(context,R.style.AlertTheme);
             alert.setTitle(context.getString(R.string.noconnection));

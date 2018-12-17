@@ -36,6 +36,7 @@ public class CustomViewPager extends ViewPager {
         return false;
     }
 
+    //Method used for disabling swipe events between map and table
     public void setPagingEnabled(boolean enabled) {
         this.swipePageChangeEnabled = enabled;
     }

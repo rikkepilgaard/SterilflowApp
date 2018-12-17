@@ -76,6 +76,7 @@ public class DataService extends Service {
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     for (DataSnapshot ds1 : ds.getChildren()) {
+                        //Data from Firebase is converted to TrackEvent objects
                         TrackEvent trackEvent = ds1.getValue(TrackEvent.class);
                         trackEventArrayList.add(trackEvent);
                     }

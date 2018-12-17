@@ -51,6 +51,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition) {
 
+        //Makes childrenCount 1 bigger than actual size. Used for making a header.
         if(bufferZones.get(groupPosition).getTrolleyList()!=null){
             return bufferZones.get(groupPosition).getTrolleyList().size() +1;
         } else return 1;
@@ -94,6 +95,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         if(bufferZone.getTrolleyList() != null) {
             headerTitleWagon = bufferZone.getTrolleyList().size();
         }
+
         if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             assert inflater != null;
@@ -102,8 +104,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         convertView.setBackgroundColor(context.getResources().getColor(R.color.columnColor));
 
-        ImageView timeImage = convertView.findViewById(R.id.lvImageTime);
 
+        //If bufferzone contains an expired trolley, set warning image
+        ImageView timeImage = convertView.findViewById(R.id.lvImageTime);
         if(bufferZone.containsExpiredWagon()) {
             timeImage.setVisibility(View.VISIBLE);
         }
@@ -118,6 +121,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         txtNumberTrolleys.setText(String.valueOf(headerTitleWagon));
 
 
+        //Bold text when number of trolleys is not 0.
         if(bufferZone.getTrolleyList()!=null){
             txtNumberTrolleys.setTypeface(null,Typeface.BOLD);
         }
@@ -126,6 +130,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             timeImage.setVisibility(View.INVISIBLE);
         }
 
+        //OnClickListener for button "Show on map" ("Vis på kort"). Sends broadcast when clicked
         Button btnToMap = convertView.findViewById(R.id.btnToMap);
         btnToMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,16 +150,20 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        //When childrenCount is 1, no trolleys are in bufferzone. Inflate different view telling
+        //user that no trolleys are in bufferzone.
         if(getChildrenCount(groupPosition)==1){
             assert inflater != null;
             convertView = inflater.inflate(R.layout.empty_bufferzone,parent,false);
         }
 
+        //If bufferzone contains trolleys, make first line a header
        if(childPosition == 0 && getChildrenCount(groupPosition)>1){
            assert inflater != null;
            convertView = inflater.inflate(R.layout.child_header_layout,parent,false);
         }
 
+        //Insert info about trolleys
         if(childPosition>0){
 
             TrackEvent trackEvent = getChild(groupPosition,childPosition-1);
@@ -180,6 +189,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             TextView txtChildSince = convertView.findViewById(R.id.lvItemSince);
             txtChildSince.setText(beenSince);
 
+
+            //If trolley is expired add warning image and change text color
             ImageView imageChild = convertView.findViewById(R.id.lvChildImageTime);
             boolean isExpired = sharedPreferences.getBoolean(trackEvent.getObjectkey()+"bool", false);
             if(isExpired){

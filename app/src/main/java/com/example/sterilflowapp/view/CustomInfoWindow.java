@@ -36,6 +36,9 @@ private Context context;
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Send broadcast when button in infowindow is clicked
+
                 String bufferName = txtTitle.getText().toString();
                 Intent broadcastIntent = new Intent();
                 broadcastIntent.setAction(ACTION_CHANGE_TAB);

@@ -44,6 +44,8 @@ public class BufferzoneDataProcessor {
         String currentValue = "";
         ArrayList<TrackEvent> newList = new ArrayList<>();
 
+        //Add newest event for each trolley to newList.
+        // Trolleys are already sorted (in the database) by objectKey and eventTime
         if(trackList != null) {
             for (int i = trackList.size() - 1; i >= 0; i--) {
                 TrackEvent event = trackList.get(i);
@@ -60,6 +62,7 @@ public class BufferzoneDataProcessor {
         return newList;
     }
 
+
     public void trolleyInBufferzones(ArrayList<TrackEvent> trackEventArrayList, ArrayList<BufferZone> bufferZones){
 
         ArrayList<TrackEvent> arrayList = newestEvents(trackEventArrayList);
@@ -70,20 +73,29 @@ public class BufferzoneDataProcessor {
                 bufferZones.get(j).setTrolleyList(null);
                 ArrayList<TrackEvent> list = new ArrayList<>();
 
+                //Check which bufferzone is current
                 switch (bufferZones.get(j).getGln()) {
                     case BUFFER_202:
                     case BUFFER_NORDLAGER:
 
                         for (int i = 0; i < arrayList.size(); i++) {
                             TrackEvent trackEvent = arrayList.get(i);
+
+                            //Check if trackevent (trolley) is placed in bufferzone
                             if (bufferZones.get(j).getGln().equals(trackEvent.getLocationSgln())) {
                                 for (int h = 0; h < trackEventArrayList.size(); h++) {
+
+                                    //Find corresponding trackevent in trackEventArrayList
                                     TrackEvent event = trackEventArrayList.get(h);
                                     if (event.getObjectkey().equals(trackEvent.getObjectkey())
                                             && event.getEventTime().equals(trackEvent.getEventTime())) {
+
+                                        //Check if former trackevent's location is "correct"
                                         TrackEvent event1 = trackEventArrayList.get(h - 1);
                                         for (String formerGln : bufferZones.get(j).getFormerGln()) {
                                             if (event1.getLocationSgln().equals(formerGln)) {
+
+                                                //Add trackevent (trolley) to bufferzone's trolleyList
                                                 list.add(trackEvent);
                                                 bufferZones.get(j).setTrolleyList(list);
                                             }
@@ -96,14 +108,22 @@ public class BufferzoneDataProcessor {
                         break;
                     case BUFFER_105:
                         for (int i = 0; i < arrayList.size(); i++) {
+
+                            //Check if trackevent (trolley) is placed in bufferzone
                             TrackEvent trackEvent = arrayList.get(i);
                             if (bufferZones.get(j).getGln().equals(trackEvent.getLocationSgln())) {
                                 for (int h = 0; h < trackEventArrayList.size(); h++) {
+
+                                    //Find corresponding trackevent in trackEventArrayList
                                     TrackEvent event = trackEventArrayList.get(h);
                                     if (event.getObjectkey().equals(trackEvent.getObjectkey())
                                             && event.getEventTime().equals(trackEvent.getEventTime())) {
+
+                                        //Check if former trackevent's floor is different from 4
                                         TrackEvent event1 = trackEventArrayList.get(h - 1);
                                         if (Integer.valueOf(event1.getFloor()) != 4) {
+
+                                            //Add trackevent (trolley) to bufferzone's trolleyList
                                             list.add(trackEvent);
                                             bufferZones.get(j).setTrolleyList(list);
                                         }
@@ -121,8 +141,12 @@ public class BufferzoneDataProcessor {
                     case BUFFER_236:
 
                         for (int i = 0; i < arrayList.size(); i++) {
+
+                            //Check if trackevent (trolley) is placed in bufferzone
                             TrackEvent trackEvent = arrayList.get(i);
                             if (bufferZones.get(j).getGln().equals(trackEvent.getLocationSgln())) {
+
+                                //Add trackevent (trolley) to bufferzone's trolleyList
                                 list.add(trackEvent);
                                 bufferZones.get(j).setTrolleyList(list);
                             }
@@ -146,6 +170,8 @@ public class BufferzoneDataProcessor {
                 }
             }
         }
+
+        //Send broadcast if data is received for the first time
         if(this.trackEventArrayList==null){
             sendBroadcast(ACTION_NULL);
         }
