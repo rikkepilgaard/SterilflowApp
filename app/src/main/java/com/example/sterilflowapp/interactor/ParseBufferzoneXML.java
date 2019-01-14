@@ -21,11 +21,11 @@ import static com.example.sterilflowapp.ConstantValues.BUFFER_LONGITUDE;
 import static com.example.sterilflowapp.ConstantValues.BUFFER_NAME;
 import static com.example.sterilflowapp.ConstantValues.BUFFER_XML;
 
-public class ParseBufferzoneXML {
+class ParseBufferzoneXML {
 
-    public ParseBufferzoneXML(){}
+    ParseBufferzoneXML(){}
 
-    public ArrayList<BufferZone> parseBufferzoneXML(Context context) {
+    ArrayList<BufferZone> parseBufferzoneXML(Context context) {
         //https://www.youtube.com/watch?v=-deKKeEdpbw
         XmlPullParserFactory parserFactory;
         try {

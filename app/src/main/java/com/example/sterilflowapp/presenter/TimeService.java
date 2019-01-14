@@ -143,7 +143,7 @@ public class TimeService extends Service {
                         }
 
                         //Check whether time has updated
-                        if(lastDiff.equals(text)) {
+                        if(!lastDiff.equals(text)) {
                             preferenceEditor = sharedPreferences.edit();
                             preferenceEditor.putString(event.getObjectkey(),text);
                             preferenceEditor.commit();
@@ -200,7 +200,7 @@ public class TimeService extends Service {
         if(stringDate==null) {
             return null;
         } else {
-            SimpleDateFormat simpledateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss",Locale.getDefault());
+            SimpleDateFormat simpledateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm",Locale.getDefault());
             Date dateDate = null;
             try {
                 dateDate = simpledateformat.parse(stringDate);

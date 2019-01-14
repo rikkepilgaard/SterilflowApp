@@ -26,7 +26,7 @@ public class InternetConnectionTask extends AsyncTask<String,String,String> {
 
     //Ref:https://stackoverflow.com/questions/6493517/detect-if-android-device-has-internet-connection
 
-    public boolean hasActiveInternetConnection(Context ctx) {
+    private boolean hasActiveInternetConnection(Context ctx) {
         if (isNetworkAvailable(ctx)) {
             try {
                 //Try to connect to google.com to check whether active internet connection is
