@@ -151,14 +151,21 @@ public class TimeService extends Service {
 
                         //If trolley have been in bufferzone 3 hours or more, the trolley is "expired"
                         //Unless bufferzone contains only sterile trolleys.
-                        if(diffHours>2){
 
-                            preferenceEditor = sharedPreferences.edit();
-                            preferenceEditor.putBoolean(event.getObjectkey()+"bool",true);
-                            preferenceEditor.commit();
+                        if(diffHours>2) {
+
+                            if(zone.getGln().equals(BUFFER_NORDLAGER) || zone.getGln().equals(BUFFER_STERILCENTRAL)){
+                                preferenceEditor = sharedPreferences.edit();
+                                preferenceEditor.putBoolean(event.getObjectkey() + "bool", false);
+                                preferenceEditor.commit();
+                            } else {
+                                preferenceEditor = sharedPreferences.edit();
+                                preferenceEditor.putBoolean(event.getObjectkey() + "bool", true);
+                                preferenceEditor.commit();
+                            }
 
                             zone.setContainsExpiredWagon(true);
-                            if(zone.getGln().equals(BUFFER_NORDLAGER) || zone.getGln().equals(BUFFER_STERILCENTRAL)) {
+                            if (zone.getGln().equals(BUFFER_NORDLAGER) || zone.getGln().equals(BUFFER_STERILCENTRAL)) {
                                 zone.setContainsExpiredWagon(false);
                             }
                         }
