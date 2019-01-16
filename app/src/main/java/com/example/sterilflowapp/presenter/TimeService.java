@@ -168,6 +168,10 @@ public class TimeService extends Service {
                             if (zone.getGln().equals(BUFFER_NORDLAGER) || zone.getGln().equals(BUFFER_STERILCENTRAL)) {
                                 zone.setContainsExpiredWagon(false);
                             }
+                        } else {
+                            preferenceEditor = sharedPreferences.edit();
+                            preferenceEditor.putBoolean(event.getObjectkey() + "bool", false);
+                            preferenceEditor.commit();
                         }
 
                         //Send broadcast to update time on UI every minute.
